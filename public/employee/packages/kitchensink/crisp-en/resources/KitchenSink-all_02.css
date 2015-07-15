@@ -1,0 +1,49 @@
+
+
+#basic-toolbar .paste {
+    background-image: url(images/icons/fam/paste_plain.png)
+}
+
+#basic-toolbar .cut {
+    background-image: url(images/icons/fam/cut.png)
+}
+
+#basic-toolbar .copy {
+    background-image: url(images/icons/fam/page_copy.png)
+}
+
+#basic-toolbar .format {
+    background-image: url(images/icons/fam/paintbrush.png)
+}
+
+#basic-toolbar .list {
+    background-image: url(images/icons/fam/text_list_bullets.png)
+}
+
+#docked-toolbars .list {
+    background-image: url(images/icons/fam/text_list_bullets.png)
+}
+
+#docked-toolbars .close {
+    background-image: url(images/icons/fam/delete.png)
+}
+
+#docked-toolbars .paste {
+    background-image: url(images/icons/fam/paste_plain.png)
+}
+
+#docked-toolbars .edit {
+    background-image: url(images/icons/fam/page_white_edit.png)
+}
+
+.area-info-icon {
+    background-image: url(images/icons/fam/information.png)
+}
+
+.task {
+    background-image: url(images/icons/fam/cog.gif)
+}
+
+.task-folder {
+    background-image: url(images/icons/fam/folder_go.gif)
+}

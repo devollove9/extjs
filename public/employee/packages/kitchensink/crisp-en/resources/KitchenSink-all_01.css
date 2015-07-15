@@ -1,0 +1,60 @@
+
+.decrease-col {
+    background-image: url(images/icons/fam/delete.png)
+}
+
+.delete-col {
+    background-image: url(images/icons/fam/cross.gif)
+}
+
+.copy-col {
+    background-image: url(images/icons/fam/page_copy.png)
+}
+
+.send_email {
+    background-image: url(images/icons/fam/send_email.png)
+}
+
+.if_signed {
+    background-image: url(images/icons/fam/if_signed.png)
+}
+
+.edit-col {
+    background-image: url(images/icons/fam/edit.png)
+}
+
+.download-col {
+    background-image: url(images/icons/fam/download.png)
+}
+
+.buy-col {
+    background-image: url(images/icons/fam/accept.png)
+}
+
+.sell-col {
+    background-image: url(images/icons/fam/delete.gif)
+}
+
+.alert-col {
+    background-image: url(images/icons/fam/error.png)
+}
+
+.add {
+    background-image: url(images/icons/fam/add.png)
+}
+
+.option {
+    background-image: url(images/icons/fam/plugin.gif)
+}
+
+.remove {
+    background-image: url(images/icons/fam/delete.gif)
+}
+
+.icon-grid {
+    background-image: url(images/icons/fam/grid.png)
+}
+
+.icon-clear-group {
+    background-image: url(images/icons/fam/control_rewind.png)
+}
