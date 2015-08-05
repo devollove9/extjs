@@ -8,10 +8,13 @@ Ext.define( '517Employee.store.temp.restaurant.dish.DishListTemp', {
     pageSize: 1000,
     proxy: {
         type: 'ajax',
-        url: '/employee/restaurant/dish/get_dish',
+        pageParam: false, //to remove param "page"
+        startParam: false, //to remove param "start"
+        limitParam: false, //to remove param "limit"
+        noCache: false, //to remove param "_dc"
         reader: {
             type:'json',
-            rootProperty: 'dishes'
+            rootProperty: 'data'
         }
     }
 });

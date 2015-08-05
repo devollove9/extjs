@@ -7,7 +7,7 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryToolbar', {
         '517Employee.view.restaurant.orderHistory.OrderHistoryToolbarWest'
     ],   
     xtype: 'employee-restaurant-orderHistory-toolbar',
-    controller: 'employee-restaurant-orderHistory-toolbar',
+    controller: 'employee-restaurant-orderHistory-toolbar-controller',
     bodyStyle:{ "background-color":"white",'border-color' : '#c1c1c1',},
     title: '517 Employee Restaurant Service : Order History',
     header:{ height:30 ,padding:'0 0 0 10',margin:'0 0 0 0'},
@@ -18,12 +18,14 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryToolbar', {
         {
             region: 'west',
             xtype:'employee-restaurant-orderHistory-toolbar-west',
+            id:'Employee-Restaurant-OrderHistory-Toolbar-West',
             width: 124+124          
         },
         {
             region: 'center',
             border:false ,frame:false ,
             xtype:'employee-restaurant-orderHistory-toolbar-center',
+            id:'Employee-Restaurant-OrderHistory-Toolbar-Center'
         }
         
     ],

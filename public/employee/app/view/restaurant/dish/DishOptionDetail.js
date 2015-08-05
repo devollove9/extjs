@@ -29,7 +29,7 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionDetail', {
         {
             xtype: 'radiogroup',
             fieldLabel: 'Disabled',
-            name:'disabled_group',
+            name:'disabledGroup',
             defaults:{
                 labelWidth:0
             },

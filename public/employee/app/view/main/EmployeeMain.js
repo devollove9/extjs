@@ -5,37 +5,33 @@ Ext.define('517Employee.view.main.EmployeeMain', {
     requires: [
         //'Ext.layout.container.Border',
         '517Employee.view.main.Sidebar',
-        '517Employee.view.main.ContentViewEmployee',
+        //'517Employee.view.main.ContentViewEmployee',
         '517Employee.view.main.EmployeeMainController'
     ],
     border:false,
     bodyStyle:{"background-color":"white" , 'border-width' : '0px'}, 
     frame:false,
+    refrenceHolder:true,
     itemId: 'employee-main',
-    layout:'card',
+    layout:'border',
     minWidth: 1350,
-    autoScroll:true,
     items: [   
         {
             xtype: 'panel',
             region: 'center',
             border:false,frame:false,
-            layout: { type: 'border' , padding: 0 },
+            layout:'fit',
+            padding:0,
             minWidth: 1350,
-            autoScroll:true,
-            bodyStyle:{ "background-color":"white",'border-color' : 'black','border-width':'0px'}, 
-            items: [/*
+            reference:'contentHolder',
+            bodyStyle:{ "background-color":"white",'border-color' : 'black','border-width':'0px'}
+           /* items: [
+
                 {
-                    xtype: "sidebar-store",
-                    id:'employee-sidebar',
-                    region: 'west',
-                    // Border Color
-                    style:{ "background-color":"#157fcc"},
-                    margin: '5 5 5 0',
-                    //width:180,
-                },*/
-                {
-                    xtype:'content-view-employee',
+
+                    //
+                    layout:'fit',
+                    xtype:'panel',
                     margin: '10 0 10 0',
                     padding:0,
                     border: false,frame:false,
@@ -44,48 +40,15 @@ Ext.define('517Employee.view.main.EmployeeMain', {
                     style:{ "background-color":"#157fcc"},
                     id:'Employee-Main-ContentView',
                     region: 'center',
+                    items:[
+                        {
+                            xtype:'content-view-employee'
+                        },
+                    ]
                 }
-            ]
+            ]*/
 
-        },
-        {
-            xtype: 'panel',
-            region: 'center',
-            layout: {
-                type: 'border',
-                padding: 0
-            },
-            items: [
-                {
-                    region:'west',
-                    //xtype:'operator-region-list',
-                    width:125,
-                    //xtype:'admin-region-list',
-                    id:'admin-regionlist'
-                },
-                {
-                    //xtype: "sidebar",
-                    id:'admin-sidebar',
-                    region: 'west',
-                    collapsible: true,
-                    frame: true,
-                    split: false,
-                    margin: '0 3 0 1'
-                },
-                {
-                    //xtype:'content-view',
-                    id:'admin-content-view',
-                    region: 'center',
-                }
-            ]
-
-        },
-        
-        /*
-        {
-            xtype: 'op-main'            
-        }*/
-
+        }
     ]
 
 });

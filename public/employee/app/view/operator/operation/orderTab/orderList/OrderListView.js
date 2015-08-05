@@ -120,7 +120,7 @@ Ext.define('517Employee.view.operator.operation.orderTab.orderList.OrderListView
         {
             text: 'Driver',
             flex: 1,
-            dataIndex: 'driver',
+            dataIndex: 'driverName',
             minWidth: 100
         },
         {

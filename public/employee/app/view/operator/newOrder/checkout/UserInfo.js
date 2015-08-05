@@ -34,7 +34,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
     tipStatus:false,
     
     // Store Information
-    storeInfo:null,
+    checkoutStoreId:null,
     
     // Delivery Information
     deliveryInfo:null,
@@ -46,7 +46,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
     items: [
         {
             xtype: 'fieldset',
-            title: 'Choose Tip',
+            title: 'Choose Type',
             id:'Employee-Operator-NewOrder-Checkout-UserInfo-TypeRadio',
             defaultType: 'textfield',
             choosedType:0,
@@ -583,11 +583,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
                 {
                     xtype: 'tbfill'
                 },
-                {
-                    xtype: 'button',
-                    text: 'Reset',
-                    handler:'resetAll'
-                },
+
                 {
                     xtype: 'button',
                     text: 'Submit',
@@ -597,9 +593,24 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
         }
     ],
 
+    resetAll:function(){
+
+        this.checkoutStoreId = null;
+        this.dishInfo = null;
+        this.deliveryInfo = null;
+
+        this.guestStatus = false;
+        this.userIdStatus = false;
+        this.addressStatus = false;
+        this.couponStatus = false;
+        this.tipStatus = false;
+
+    },
+
     calculateDelivery:function(){
         this.calculateTip();
     },
+
     calculateTip:function(){
         var tipRate = this.getForm().findField("tipGroup").getValue().tips;
         var subtotal= this.getForm().findField('subtotal').getValue();
@@ -611,7 +622,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
         } else {
             this.getForm().findField('tip').setValue(tip);
         }
-        co
+
         this.calculateTotal();
     },
     calculateTotal:function(){

@@ -45,8 +45,9 @@ Ext.define('517Employee.view.navigation.NavigationView', {
         scope: this
     },
     doNavigation:function(panel){
-        console.log( panel.navigateAction );
+        //console.log( panel.navigateAction );
         var employeeContent = Ext.getCmp( 'Employee-Main-ContentView' );
+        //var employeeContent = Ext.ComponentQuery.query('#Employee-Main-ContentView')[0];
         if ( panel ) {
             if ( panel.navigateAction ) {
                 var navigation = panel.navigateAction.split(" ");
@@ -57,7 +58,8 @@ Ext.define('517Employee.view.navigation.NavigationView', {
                  * 3: Driver Panel
                  * 4: Bill Panel
                  * 5: Settings Panel
-                 * 6: Support Panel
+                 * 6: Region Panel
+                 * 7: Support Panel
                  *
                  */
                 switch ( navigation[0] ) {
@@ -97,8 +99,14 @@ Ext.define('517Employee.view.navigation.NavigationView', {
                         console.log( employeeContent );
                         break;
 
-                    case 'employee-support' :
+                    case 'employee-region' :
                         employeeContent.setActiveItem(6);
+                        var tab = new Object(); tab.navigateAction = navigation[1];
+                        Ext.getCmp( 'Employee-Region' ).doNavigation( tab );
+                        break;
+
+                    case 'employee-support' :
+                        employeeContent.setActiveItem(7);
                         var tab = new Object(); tab.navigateAction = navigation[1];
                         Ext.getCmp( 'Employee-Support' ).doNavigation( tab );
                         break;

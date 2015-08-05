@@ -17,6 +17,7 @@ Ext.define( '517Employee.view.main.HeaderController' , {
             this.lookupReference('welcome-label').setText( 'Illegal Login!' );
             // Report Illegal log in
         }
+
     },
    
     logout:function(){

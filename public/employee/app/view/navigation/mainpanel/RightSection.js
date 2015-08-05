@@ -26,10 +26,14 @@ Ext.define('517Employee.view.navigation.mainpanel.RightSection', {
         var Rx = 25;
         var Ry = 0;
         var items=[];
+
         // If Admin
-        var regionTitle = this.createIconTitle( RegionCategory , Rx , Ry ); Ry += 50;
-        var regionInformation = this.createIcon( RegionInformationIcon , 'employee-region information' , Rx , Ry ); Ry += 70;
-        items.push( regionTitle ); items.push( regionInformation );
+        if ( Ext.getCmp( 'Employee-Header').checkUserPermissions( 'admin' ) == true ) {
+            var regionTitle = this.createIconTitle( RegionCategory , Rx , Ry ); Ry += 50;
+            var regionInformation = this.createIcon( RegionInformationIcon , 'employee-region information' , Rx , Ry ); Ry += 70;
+            items.push( regionTitle ); items.push( regionInformation );
+        }
+
 
         var suppportTitle = this.createIconTitle( SupportCategory , Rx , Ry ); Ry += 50;
         var supportContactCenter = this.createIcon( ContactCenterIcon , 'employee-support contactCenter' , Rx , Ry );

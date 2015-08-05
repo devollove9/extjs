@@ -213,6 +213,7 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.order
                                     //reference: 'drivers',
                                     listeners:{
                                         render:function(a,b,c,d,e,f,g) {
+                                            this.getStore().loadData( [] , false );
                                             this.getStore().add(Ext.getStore( 'Employee-Operator-Operation-DriverList' ).data.items);
                                         }
                                     }

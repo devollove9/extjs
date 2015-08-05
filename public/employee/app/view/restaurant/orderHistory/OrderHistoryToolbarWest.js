@@ -5,7 +5,7 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryToolbarWest', {
         '517Employee.view.restaurant.orderHistory.OrderHistoryToolbarController'
     ],   
     xtype: 'employee-restaurant-orderHistory-toolbar-west',
-    controller: 'employee-restaurant-orderHistory-toolbar',
+    controller: 'employee-restaurant-orderHistory-toolbar-controller',
     bodyStyle:{ "background-color":"white",'border-color' : 'white','border-right':'0px solid #c1c1c1' , padding:0 },
 
     frame:false ,// border:false,
@@ -16,7 +16,7 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryToolbarWest', {
   
             xtype:'button',
             text:'Today',
-            handler:'getOrderByday',
+            handler:'getOrderByDay',
             dayFactor:0,
             height:84,width:84,
             x:20,y:15,
@@ -36,11 +36,11 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryToolbarWest', {
                         width:104,
                         id: 'orderDaysMenu',
                         items:[
-                            { text: 'Last 7 Days' , dayFactor:6 , handler: 'getOrderByday' },
-                            { text: 'Last 14 Days' , dayFactor:13 , handler: 'getOrderByday' },
-                            { text: 'Last 30 Days' , dayFactor:29 , handler: 'getOrderByday' },
-                            { text: 'Last 90 Days' , dayFactor:89 , handler: 'getOrderByday' },
-                            { text: 'Last 360 Days' , dayFactor:359 , handler: 'getOrderByday' },
+                            { text: 'Last 7 Days' , dayFactor:6 , handler: 'getOrderByDay' },
+                            { text: 'Last 14 Days' , dayFactor:13 , handler: 'getOrderByDay' },
+                            { text: 'Last 30 Days' , dayFactor:29 , handler: 'getOrderByDay' },
+                            { text: 'Last 90 Days' , dayFactor:89 , handler: 'getOrderByDay' },
+                            { text: 'Last 360 Days' , dayFactor:359 , handler: 'getOrderByDay' },
                         ]
             }
         }

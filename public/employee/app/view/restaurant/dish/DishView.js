@@ -40,6 +40,11 @@ Ext.define('517Employee.view.restaurant.dish.DishView', {
         Ext.getCmp( 'Employee-Restaurant-Dish-CenterView' ).resetAll();
     },
 
+    refreshView:function() {
+        // Refresh Restaurant List
+        this.items.items[ 0].refreshView();
+    },
+
     getOptionGroupFlag:function(){
         return this.copiedOptionGroupFlag;
     },
@@ -76,6 +81,8 @@ Ext.define('517Employee.view.restaurant.dish.DishView', {
 
     doNavigation:function(panel){
         console.log( panel );
-    }
+    },
+
+
     
 });

@@ -15,7 +15,7 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryCenterView', {
             margin: '0 0 5 0',
             xtype: 'employee-restaurant-orderHistory-toolbar',
             id: 'Employee-Restaurant-OrderHistory-Toolbar',
-            height:150,maxHeight:200,
+            height:150,maxHeight:350,
         },
         {
             region: 'center',
@@ -28,6 +28,19 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryCenterView', {
 
     doNavigation:function(panel){
         console.log( panel );
+    },
+
+    resetAll:function() {
+
+        // Reset Order List
+        this.items.items[ 1 ].resetAll();
+
+    },
+
+    refreshView:function() {
+        // Reset Order List
+        this.items.items[ 1 ].resetAll();
     }
+
 
 });

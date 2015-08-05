@@ -3,7 +3,7 @@
  */
 Ext.define( '517Employee.store.restaurant.RestaurantList' , {
     extend: 'Ext.data.Store',
-    storeId: 'RestaurantList',
+    storeId: 'Employee-Restaurant-RestaurantList',
     model: '517Employee.model.restaurant.Restaurant',
     remoteSort: true,
     pageSize: 100,
@@ -11,16 +11,14 @@ Ext.define( '517Employee.store.restaurant.RestaurantList' , {
 
     proxy: {
         type: 'ajax',
-        url:'/employee/restaurant/get_restaurant',
-        extraParams:{
-
-        },
+        pageParam: false, //to remove param "page"
+        startParam: false, //to remove param "start"
+        limitParam: false, //to remove param "limit"
+        noCache: false, //to remove param "_dc"
         reader: {
             type:'json',
-            rootProperty: 'restaurants'
+            rootProperty: 'data'
         }
     }
-    //listeners:{
-    //}
 
 });

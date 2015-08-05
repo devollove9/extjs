@@ -7,7 +7,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishListController', {
     requires: [
 
     ],
-    ShowAllDish:function( grid , rowIdx , columnIdx , button_icon , click_event , record_line , tr ) {
+    ShowAllDish:function( grid , rowIdx , columnIdx , buttonIcon , clickEvent , recordLine , tr ) {
         var restaurantList = Ext.getCmp( 'Employee-Restaurant-Dish-RestaurantList' );
         if ( ! restaurantList.getSelectionModel().hasSelection() ) {
             Ext.Msg.alert( 'Error' , 'Please choose a restaurant first' );
@@ -17,31 +17,13 @@ Ext.define( '517Employee.view.restaurant.dish.DishListController', {
             dishDetail.resetAll();
             if ( dishList.showingall == true ) {
                 this.lockCategoryAndType( false );dishList.showingall = false;
-                this.loadDish( 'old' );
+                dishList.loadDish( 'old' );
             } else {
                 this.lockCategoryAndType( true );dishList.showingall = true;
-                this.loadDish( 'all' );
+                dishList.loadDish( 'all' );
             }
         }
 
-    },
-
-    Refreshlist:function( grid , rowIdx , columnIdx , button_icon , click_event , record_line , tr ) {
-        var restaurantList = Ext.getCmp( 'Employee-Restaurant-Dish-RestaurantList' );
-        if ( ! restaurantList.getSelectionModel().hasSelection() ) {
-            //Ext.Msg.alert( 'Error' , 'Please choose a restaurant first' );
-        } else {
-            var dishList = Ext.getCmp( 'Employee-Restaurant-Dish-List' );
-            var dishDetail = Ext.getCmp( 'Employee-Restaurant-Dish-Detail' );
-            dishDetail.resetAll();
-            if ( dishList.showingall == true ) {
-                dishList.setTitle( 'Dish List All' );
-                this.loadDish( 'all' );
-            } else {
-                dishList.setTitle( 'Dish List' );
-                this.loadDish( 'old' );
-            }
-        }
     },
 
     lockCategoryAndType:function( trigger ) {
@@ -56,69 +38,6 @@ Ext.define( '517Employee.view.restaurant.dish.DishListController', {
             Ext.getCmp( 'Employee-Restaurant-Dish-Type' ).lockView();
             Ext.getCmp( 'Employee-Restaurant-Dish-List-ShowAll' ).setText( 'Cancel' );
             Ext.getCmp( 'Employee-Restaurant-Dish-List' ).setTitle( 'Dish List All' );
-        }
-    },
-    loadDish:function( method ) {
-
-        var dishList = Ext.getCmp( 'Employee-Restaurant-Dish-List' );
-        var dishListStore = dishList.getStore();
-        dishListStore.loadData( [] ,false );
-        var loadFlag = false;
-        var filterBy , filterValue;
-        if ( method == 'all' ) {
-            loadFlag = true;
-            filterBy = 'storeId';
-            filterValue = Ext.getCmp( 'Employee-Restaurant-Dish-RestaurantList' ).getSelectionModel().getSelection()[ 0 ].data.storeId;
-        } else if ( method == 'old' ) {
-            if ( ! Ext.getCmp( 'Employee-Restaurant-Dish-Type' ).getSelectionModel().hasSelection() ) {
-
-            } else {
-                loadFlag = true;
-                filterBy = 'typeId';
-                filterValue = Ext.getCmp( 'Employee-Restaurant-Dish-Type' ).getSelectionModel().getSelection()[ 0 ].data.typeId
-            }
-        }
-        if ( loadFlag == true ) {
-            dishList.setLoading( true );
-            if ( Ext.getStore( 'Employee-Temp-Restaurant-Dish-DishListTemp' ) )  {
-                var dishTempStore = Ext.getStore( 'Employee-Temp-Restaurant-Dish-DishListTemp' );
-                dishTempStore.loadData( [] , false );
-            } else{
-                var dishTempStore = Ext.create( '517Employee.store.temp.restaurant.dish.DishListTemp' );
-            }
-            dishTempStore.load( {
-                params:{
-                    method: 'get_by_specific' ,
-                    filterBy: filterBy ,
-                    filterValue:filterValue
-                },
-                callback:function( records , operation , success ) {
-                    if ( records[ 0 ] ) {
-                        var firstRecord = records[ 0 ].data;
-                        if ( firstRecord.errorCode ) {
-                            dishList.getStore().loadData( [] , false );
-                            var errorMessage = 'Unknown error, please contact technique staff.'
-                            if ( firstRecord.errorMessage ) {
-                                errorMessage = firstRecord.errorMessage.toString();
-                            }
-                            Ext.Msg.alert( firstRecord.errorCode.toString() , errorMessage );
-                        } else {
-                            var dishRecords = [];
-                            dishTempStore.each( function( r ) {
-                                dishRecords.push( r.copy() );
-                            } );
-                            if ( records.length > 0 ) {
-                                if ( dishTempStore.first().get( 'name' ) ) {
-                                    dishListStore.add( dishRecords );
-                                }
-                            }
-                        }
-                        dishList.setLoading( false );
-                    }
-                }
-            });
-        } else {
-
         }
     },
 

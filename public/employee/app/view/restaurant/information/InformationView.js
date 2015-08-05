@@ -29,6 +29,13 @@ Ext.define('517Employee.view.restaurant.information.InformationView', {
  
     doNavigation:function(panel){
         console.log( panel );
+    },
+    resetAll:function() {
+
+    },
+
+    refreshView:function() {
+
     }
     
 });

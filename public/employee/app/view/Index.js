@@ -5,7 +5,7 @@ Ext.define('517Employee.view.Index', {
         'Ext.layout.container.Border',
         '517Employee.view.main.Header',
         '517Employee.view.main.Footer',
-        '517Employee.view.IndexController'
+        '517Employee.view.IndexController',
     ],
     layout: {
         type: 'border',
@@ -18,6 +18,7 @@ Ext.define('517Employee.view.Index', {
     userInfo:null,
     restaurant_info:null,
     initComponent:function() {
+
         var me = this;
         this.initialSetting();
         //me.loadUserInfo();

@@ -51,7 +51,7 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupList', {
             }
         },
         {
-            text: 'Name_en',
+            text: 'NameEn',
             flex: 1,
             sortable: true,
             dataIndex: 'nameEn',

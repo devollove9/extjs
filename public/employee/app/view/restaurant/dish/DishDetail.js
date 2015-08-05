@@ -9,7 +9,7 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
     ],
     xtype: 'employee-restaurant-dish-detail',
     controller:'employee-restaurant-dish-detail-controller',
-    //store:'Dish_detail',
+    //store:'DishDetail',
 
     /* View Settings */
     columnLines: true , collapsible:true ,
@@ -29,7 +29,7 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
 
     /*  Variables  */
     // Variable detect if editing
-    grid_editing: false ,
+    gridEditing: false ,
     // Variable of original record
     originRecord:null,
     // Variable detect if its creating new dish
@@ -48,7 +48,7 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
         {
             xtype: 'radiogroup',
             fieldLabel: 'Disabled',
-            name: 'disabled_group',
+            name: 'disabledGroup',
             id: 'Employee-Restaurant-Dish-Detail-Disabled',
             defaults:{
                 labelWidth:0
@@ -76,9 +76,9 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
         {
             xtype: 'fileuploadfield',
             name: 'logo.web',
-            fieldLabel: 'Web Logo',file_transfered :false,file_data:null,
+            fieldLabel: 'Web Logo',fileTransfered :false,fileData:null,
             listeners:{
-                change:function( field , filepath , file_path , me){
+                change:function( field , filepath , filePath , me){
                     Ext.getCmp( 'Employee-Restaurant-Dish-Detail' ).setLoading( true );
                     //console.log(field.up());
                     var file = field.getEl().down( 'input[type=file]' ).dom.files[ 0 ];
@@ -87,9 +87,9 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
                         return function( e ) {
                             Ext.getCmp( 'Employee-Restaurant-Dish-Detail' ).setLoading( false );
                             var result = e.target.result;
-                            field.file_data = result;
-                            field.file_transfered = true;
-                            //console.log(field.file_data);
+                            field.fileData = result;
+                            field.fileTransfered = true;
+                            //console.log(field.fileData);
                         };
                     })( file );reader.readAsDataURL( file );
                 }
@@ -98,9 +98,9 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
         {
             xtype: 'fileuploadfield',
             name: 'logo.phone',
-            fieldLabel: 'Phone Logo',file_transfered :false,file_data:null,
+            fieldLabel: 'Phone Logo',fileTransfered :false,fileData:null,
             listeners:{
-                change:function( field , filepath , file_path , me){
+                change:function( field , filepath , filePath , me){
                     Ext.getCmp( 'Employee-Restaurant-Dish-Detail' ).setLoading( true );
                     //console.log(field.up());
                     var file = field.getEl().down( 'input[type=file]' ).dom.files[ 0 ];
@@ -109,9 +109,9 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
                         return function( e ) {
                             Ext.getCmp( 'Employee-Restaurant-Dish-Detail' ).setLoading( false );
                             var result = e.target.result;
-                            field.file_data = result;
-                            field.file_transfered = true;
-                            //console.log(field.file_data);
+                            field.fileData = result;
+                            field.fileTransfered = true;
+                            //console.log(field.fileData);
                         };
                     })( file );reader.readAsDataURL( file );
                 }
@@ -120,9 +120,9 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
         {
             xtype: 'fileuploadfield',
             name: 'logo.mini',
-            fieldLabel: 'Mini Logo',file_transfered :false,file_data:null,
+            fieldLabel: 'Mini Logo',fileTransfered :false,fileData:null,
             listeners:{
-                change:function( field , filepath , file_path , me){
+                change:function( field , filepath , filePath , me){
                     Ext.getCmp( 'Employee-Restaurant-Dish-Detail' ).setLoading( true );
                     //console.log(field.up());
                     var file = field.getEl().down( 'input[type=file]' ).dom.files[ 0 ];
@@ -131,9 +131,9 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
                         return function( e ) {
                             Ext.getCmp( 'Employee-Restaurant-Dish-Detail' ).setLoading( false );
                             var result = e.target.result;
-                            field.file_data = result;
-                            field.file_transfered = true;
-                            //console.log(field.file_data);
+                            field.fileData = result;
+                            field.fileTransfered = true;
+                            //console.log(field.fileData);
                         };
                     })( file );reader.readAsDataURL( file );
                 }
@@ -279,7 +279,7 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
                 },
                 {
                     xtype: 'textareafield',
-                    name: 'description_en',
+                    name: 'descriptionEn',
                     fieldLabel: 'English',
                     value: 'Textarea value'
                 }
@@ -334,9 +334,9 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
         Ext.getCmp( 'Employee-Restaurant-Dish-Detail-SaveChange' ).setText( 'Save' );
         this.setTitle( 'Dish details' );
         this.getForm().reset();
-        this.getForm().findField( 'logo.web' ).file_transfered = false;this.getForm().findField( 'logo.web' ).file_data = null;
-        this.getForm().findField( 'logo.phone' ).file_transfered = false;this.getForm().findField( 'logo.phone' ).file_data = null;
-        this.getForm().findField( 'logo.mini' ).file_transfered = false;this.getForm().findField( 'logo.mini' ).file_data = null;
+        this.getForm().findField( 'logo.web' ).fileTransfered = false;this.getForm().findField( 'logo.web' ).fileData = null;
+        this.getForm().findField( 'logo.phone' ).fileTransfered = false;this.getForm().findField( 'logo.phone' ).fileData = null;
+        this.getForm().findField( 'logo.mini' ).fileTransfered = false;this.getForm().findField( 'logo.mini' ).fileData = null;
         this.setDisabled( false );
         this.originRecord = null;
         this.newDish = false;
@@ -349,51 +349,25 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
         var me = this;
         me.setLoading( true );
         Ext.Ajax.request({
-            url: 'restaurant/dish/put_dish', // you can fix a parameter like this : url?action=anAction1
-            method: 'POST',
-            params: {
-                method : method ,
-                dishInfo : dishInfo ,
-            },
+            url: Ext.getCmp( 'Employee-Header' ).getServerUrl()+'/store/item', // you can fix a parameter like this : url?action=anAction1
+            method: method,
+            headers: Ext.getCmp( 'Employee-Header').getHeaders( method ),
+            jsonData:dishInfo,
             success: function( result, request ) {
                 me.setLoading( false );
-                var obj = Ext.decode( result.responseText );
-                if ( obj.success == 1) {
-                    if ( obj.dishes.errorCode ) {
-                        Ext.Msg.alert( obj.dishes.errorCode.toString() , 'Error, please contact technique support.' );
+                var response = Ext.decode( result.responseText );
+                var Error = Ext.getCmp( 'Employee-Header').processErrorMessage( response );
+                if ( Error == false ) {
+                    me.setLoading( false );
+                    if ( method == 'newDish' ) {
+                        Ext.Msg.alert( "success" , 'Dish has been added.' );
                     } else {
                         Ext.Msg.alert( "success" , 'Dish has been saved.' );
-                        if ( method == 'new_dish' ) {
-                            var dishList = Ext.getCmp( 'Employee-Restaurant-Dish-List' );
-                            //var dishList_store = dishList.getStore(); dishList.resetAll();
-                            //var dishDetail = Ext.getCmp(  'Employee-Restaurant-Dish-Detail' ); dishDetail.resetall();
-
-                            //dishList.setLoading( true );
-                            //Ext.getStore( 'Employee-Temp-Restaurant-Dish-DishListTemp' ).load({
-                            //    params:{
-                            //        method: 'get_by_specific' ,
-                            //        filterBy: 'typeId' ,
-                            //        filterValue: Ext.getCmp( 'Employee-Restaurant-Dish-Type' ).getSelectionModel().getSelection()[ 0 ].data.typeId
-                            //    },
-                            //    callback:function( records , operation , success ) {
-                            //        var dish_records = [];
-                            //        Ext.getStore( 'Employee-Temp-Restaurant-Dish-DishListTemp' ).each( function( r ) {
-                            //            dish_records.push( r.copy() );
-                            //        });
-                            //        if ( Ext.getStore( 'Employee-Temp-Restaurant-Dish-DishListTemp' ).first().get( 'name' ) ) {
-                            //            dishList_store.add( dish_records );
-                             //       }
-                             //       dishList.setLoading( false );
-                             //   }
-                            //});
-                        }
                     }
-                    //console.log(model);
-                    //result_store.add(records);
-                }else if ( obj.success == 2 ) {} //not found
-                else if ( obj.success == -1 ) {} //Error
-                //result_list.setLoading(false);
-                //Ext.getCmp('operator-checkout-userinfo').getForm().findField('phone').setValue(phone_number);
+            }},
+            failure: function() {
+                Ext.Msg.alert( 'Error' , 'Failure' );
+                me.setLoading( false );
             }
         });
     }

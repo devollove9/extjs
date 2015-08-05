@@ -4,8 +4,8 @@
 Ext.define('517Employee.store.operator.newOrder.DishList', {
     extend: 'Ext.data.Store',
     storeId: 'Employee-Operator-NewOrder-DishList',
-    model: '517Employee.model.dish.Dish',
-    groupField: 'typeId',
+    model: '517Employee.model.dish.DishPublic',
+    groupField: 'dishTypeName',
 
     proxy: {
         type: 'ajax',

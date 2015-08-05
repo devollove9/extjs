@@ -15,6 +15,6 @@ Ext.define( '517Employee.view.restaurant.dish.DishRestaurantListController' , {
     },
 
     Refreshlist:function(){
-        Ext.getCmp( 'Employee-Restaurant-Dish-RestaurantList' ).refreshGrid();
+        Ext.getCmp( 'Employee-Restaurant-Dish-RestaurantList' ).refreshView();
     }
 });

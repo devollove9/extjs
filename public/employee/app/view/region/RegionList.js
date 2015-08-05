@@ -42,9 +42,10 @@ Ext.define('517Employee.view.region.RegionList', {
     listeners: {
 
         selectionchange: function (model, records, eOpts) {
-            Ext.getCmp('admin-regionlist').resetCopiedOptionGroup();
-            Ext.getStore('Restaurants').loadData([], false);
-            Ext.getStore('Driver.Drivers_temp').loadData([], false);
+            /*
+            //Ext.getCmp('admin-regionlist').resetCopiedOptionGroup();
+            //Ext.getStore('Restaurants').loadData([], false);
+            //Ext.getStore('Driver.Drivers_temp').loadData([], false);
             if (this.admin_view == true) {
                 Ext.getStore('Restaurants').loadData([], false);
 
@@ -70,7 +71,7 @@ Ext.define('517Employee.view.region.RegionList', {
                     }
                 });
             }
-
+            */
         }
     },
 });

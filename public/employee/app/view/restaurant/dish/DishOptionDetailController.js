@@ -17,7 +17,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishOptionDetailController' , {
         var nameEn = optionDetail.getForm().findField( 'nameEn' ).getValue();
         var price = optionDetail.getForm().findField( 'price' ).getValue();
         var quantity = optionDetail.getForm().findField( 'quantity' ).getValue();
-        var disabled = optionDetail.getForm().findField( 'disabled_group' ).getValue().disabled;
+        var disabled = optionDetail.getForm().findField( 'disabledGroup' ).getValue().disabled;
         if ( optionDetail.currentMethod == 'saving' ) {
 
             var changedFlag = false;
@@ -93,16 +93,16 @@ Ext.define( '517Employee.view.restaurant.dish.DishOptionDetailController' , {
                                         } else {
                                             var information = new Object();
 
-                                            //information.disabled = disabled;
-                                            //record.data.information = information;
+                                            information.disabled = disabled;
+                                            record.data.information = information;
 
-                                            //if ( disabled == 0 ) {
+                                            if ( disabled == 0 ) {
 
-                                            //    record.data.information.disabled = false;
-                                            //}
-                                            //if ( disabled == 1 ) {
-                                            //    record.data.information.disabled = true;
-                                            //}
+                                                record.data.information.disabled = false;
+                                            }
+                                            if ( disabled == 1 ) {
+                                                record.data.information.disabled = true;
+                                            }
 
                                             record.data.changedString = record.data.changedString + '  ' + size + '. "' + record.data.information.disabled + '".<br>';
 

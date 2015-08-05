@@ -28,7 +28,7 @@ Ext.define('517Employee.view.operator.operation.map.MapViewController', {
 
     },
     initCheckbox:function( field ) {
-        console.log( field );
+        //console.log( field );
         var checkgroup = this.lookupReference('checkgroup');
         checkgroup.setValue({
             hideDriver: Number(localStorage.getItem('hideDriver')),

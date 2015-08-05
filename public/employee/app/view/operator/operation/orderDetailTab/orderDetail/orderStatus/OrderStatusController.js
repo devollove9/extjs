@@ -146,7 +146,7 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.order
             } else if ( active === 6 ) {
                 me.lookupReference('employee-operator-operation-orderDetailTab-orderStatus-startPickUp').setValue(activeDate);
                 status_tab.items.items[6].setTitle('<span class="badge badge-warning">6</span>');
-                if ( record.get('pick').authenticateCode ) me.lookupReference('authcode').setValue(record.get('pick').authenticateCode);
+                if ( record.get('pick').authenticateCode ) me.lookupReference( 'employee-operator-operation-orderDetailTab-orderStatus-authcode' ).setValue(record.get('pick').authenticateCode);
             } else if ( active === 7 ) {
                 me.lookupReference('employee-operator-operation-orderDetailTab-orderStatus-pickedDate').setValue(activeDate);
                 status_tab.items.items[7].setTitle('<span class="badge badge-purple">7</span>');
@@ -203,7 +203,7 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.order
             success: function(result, request) {
                 tab.setLoading(false);
                 tab.lookupReference('status-tab').setActiveItem(status);
-
+                Ext.getCmp( 'Employee-Operator-Operation-OrderTab').refreshView();
             },
             failure: function(result, request) {
                 me.getView().setLoading(false);

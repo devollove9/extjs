@@ -1,6 +1,6 @@
 Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryToolbarController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.employee-restaurant-orderHistory-toolbar',
+    alias: 'controller.employee-restaurant-orderHistory-toolbar-controller',
     requires: [
         //'517.view.main.AdminMain'
         //'517.517Time'
@@ -14,59 +14,55 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryToolbarControll
     },
     
     /*
-     *  Get orderHistory of today
+     *  Get orderHistory of past N days
      */
-    getOrderToday : function () {
-        
-        // Controller
-        var controller = this;
-        
-        // Restaurant Information
-        var restaurantInfo = Ext.getCmp( 'Index' ).getRestaurantInfo();
-        
+    getOrderByDay : function ( field , event ) {
+
+        // Get Start Of Today
+        var startOfDay = Ext.getCmp( 'Employee-Header' ).getStartOfDay();
+
+        var actualDay;
+        if ( field.dayFactor == -1 ) {
+            actualDay = 0;
+        } else {
+            var actualDay = ( startOfDay - 86400*1000 * field.dayFactor ) * 1000;
+        }
+
+        console.log( actualDay );
         // Request Params
         var params = {
-            method : 'filter_by_id_today' ,
-            regionId : restaurantInfo.regionId , 
-            idType : 'storeId' ,
-            id : restaurantInfo.storeId ,
             filterBy : 'placeDate' ,
-            comparator : '>' ,
+            filterOperator : 'gt' ,
+            filterValue: ''+ actualDay
         };
-        
+
         // Call Request Function
-        controller.requestOrder( 0 , params )
+        Ext.getCmp( 'Employee-Restaurant-OrderHistory-OrderList' ).refreshViewByParams( params );
     },
-    
     /*
      *  Get orderHistory of past N days
      */
-    getOrderByday : function ( field , event ) {
-        
-        // Controller
-        var controller = this;
-        
-        // Restaurant Information
-        var restaurantInfo = Ext.getCmp( 'Index' ).getRestaurantInfo();
-        
+    getOrderAll : function () {
+
         // Request Params
         var params = {
-            method : 'filter_by_id_day' ,
-            regionId : restaurantInfo.regionId , 
-            idType : 'storeId' ,
-            id : restaurantInfo.storeId ,
             filterBy : 'placeDate' ,
-            dayFactor : field.dayFactor ,
-            comparator : '>' ,
+            filterOperator : 'gt' ,
+            filterValue: 0
         };
-        
+
         // Call Request Function
-        controller.requestOrder( 0 , params )
+        Ext.getCmp( 'Employee-Restaurant-OrderHistory-OrderList' ).refreshViewByParams( params );
     },
-    
+
+
+    searchOrder : function ( field , event ) {
+        var orderList = Ext.getCmp( 'Employee-Restaurant-OrderHistory-OrderList' );
+        orderList.refreshView();
+    }
     /*
      *  Get orderHistory by Time
-     */
+
     getOrderByTime : function ( field , event ) {
         
         // Controller
@@ -110,7 +106,7 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryToolbarControll
            
             // Request Params
             var params = {
-                method : 'filter_by_id' ,
+                method : 'filterById' ,
                 regionId : restaurantInfo.regionId , 
                 idType : 'storeId' ,
                 id : restaurantInfo.storeId ,
@@ -124,7 +120,7 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryToolbarControll
     },
     /*
      *  Get orderHistory of all time
-     */
+
     getOrderAll : function () {
         
         // Controller
@@ -135,7 +131,7 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryToolbarControll
         
         // Request Params
         var params = {
-            method : 'filter_by_id' ,
+            method : 'filterById' ,
             regionId : restaurantInfo.regionId , 
             idType : 'storeId' ,
             id : restaurantInfo.storeId ,
@@ -217,5 +213,5 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryToolbarControll
                 }
             });
         }   
-    }
+    }*/
 })

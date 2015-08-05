@@ -5,7 +5,7 @@ Ext.define('517Employee.view.operator.operation.map.MapView', {
     extend: 'Ext.panel.Panel',
     requires: [
         'Ext.ux.GMapPanel',
-        '517Employee.view.operator.operation.map.MapViewController'
+        '517Employee.view.operator.operation.map.MapViewController',
     ],
     xtype: 'employee-operator-operation-map',
     controller: 'employee-operator-operation-map-controller',

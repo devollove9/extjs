@@ -67,54 +67,58 @@ Ext.define( '517Employee.view.operator.operation.orderTab.orderList.OrderListCon
             },
             callback:function(records, operation, success){
                 var r = records[ 0 ];
-
-                if ( r.data.pick.method == 1 ) detail.items.items[0].items.items[0].hideButtons([3,4,6]);
-                form.loadRecord(r);
-                var address = r.get('delivery'), field;
-                Ext.Object.each(address, function(key, value){
-                    field = form.findField('address.' + key);
-                    if(field){
-                        field.setValue(value);
+                if ( records[0] ) {
+                    if ( r.data.pick.method == 1 ) detail.items.items[0].items.items[0].hideButtons([3,4,6]);
+                    form.loadRecord(r);
+                    var address = r.get('delivery'), field;
+                    Ext.Object.each(address, function(key, value){
+                        field = form.findField('address.' + key);
+                        if(field){
+                            field.setValue(value);
+                        }
+                    });
+                    //var restaurant = r.get('restaurant')[0];
+                    //field = form.findField('restaurant.name');
+                    // field.setValue(restaurant.name);
+                    //field = form.findField('restaurant.name_en');
+                    //field.setValue(restaurant.nameEn);
+                    //field = form.findField('restaurant.address');
+                    //field.setValue(restaurant.information.address);
+                    field = form.findField('platform');
+                    field.setValue( r.get('platform') );
+                    if( r.get('userId') != '0' ){
+                        form.findField('user.username').setValue(r.get('userId'));
+                    } else {
+                        form.findField('guest').setValue(true);
                     }
-                });
-                //var restaurant = r.get('restaurant')[0];
-                //field = form.findField('restaurant.name');
-               // field.setValue(restaurant.name);
-                //field = form.findField('restaurant.name_en');
-                //field.setValue(restaurant.nameEn);
-                //field = form.findField('restaurant.address');
-                //field.setValue(restaurant.information.address);
-                field = form.findField('platform');
-                field.setValue( r.get('platform') );
-                if( r.get('userId') != '0' ){
-                    form.findField('user.username').setValue(r.get('userId'));
+
+
+                    var tab = detail.lookupReference( 'employee-operator-operation-orderDetailTab-orderDetail-orderStatus' );
+                    tab.getController().activeStatus(r);
+
+                    //console.log(tab.getController().test());
+                    tab.lookupReference('orderno').setValue(record.get('invoiceNo'));
+                    tab.lookupReference('orderId').setValue(record.get('orderId'));
+                    tab.lookupReference('regionId').setValue(record.get('regionId'));
+
+                    var grid = detail.lookupReference( 'employee-operator-operation-orderDetailTab-orderDetail-dishList' );
+                    var store = new Ext.data.Store({
+                        model: Ext.create('517Employee.model.order.OrderDish'),
+                        data:r.get('item')
+                    });
+                    var charge = r.get('payment');
+                    Ext.Object.each(charge, function(key, value){
+                        console.log( key );
+                        field = grid.lookupReference(key);
+                        if(field){
+                            field.setValue(value);
+                        }
+                    });
+                    grid.reconfigure(store);
                 } else {
-                    form.findField('guest').setValue(true);
+                    Ext.Msg( "Error" , "Token is invalid | Other Error.");
                 }
 
-
-                var tab = detail.lookupReference( 'employee-operator-operation-orderDetailTab-orderDetail-orderStatus' );
-                tab.getController().activeStatus(r);
-
-                //console.log(tab.getController().test());
-                tab.lookupReference('orderno').setValue(record.get('invoiceNo'));
-                tab.lookupReference('orderId').setValue(record.get('orderId'));
-                tab.lookupReference('regionId').setValue(record.get('regionId'));
-
-                var grid = detail.lookupReference( 'employee-operator-operation-orderDetailTab-orderDetail-dishList' );
-                var store = new Ext.data.Store({
-                    model: Ext.create('517Employee.model.order.OrderDish'),
-                    data:r.get('item')
-                });
-                var charge = r.get('payment');
-                Ext.Object.each(charge, function(key, value){
-                    console.log( key );
-                    field = grid.lookupReference(key);
-                    if(field){
-                        field.setValue(value);
-                    }
-                });
-                grid.reconfigure(store);
                 win.setLoading(false);
             }
         });
@@ -126,7 +130,8 @@ Ext.define( '517Employee.view.operator.operation.orderTab.orderList.OrderListCon
     },
     orderPin:function(grid, rowIndex, colIndex, item, e, record){
         //console.log(record.get('delivery_lat'))
-        var mapView = Ext.ComponentQuery.query('#map-view')[0];
+        //var mapView = Ext.ComponentQuery.query('#map-view')[0];
+        var mapView = Ext.getCmp( 'Employee-Operator-Operation-Map');
         var map = mapView.lookupReference('map');
         map.reCenter({lat:record.get('delivery').latitude, lng:record.get('delivery').longitude});
     }

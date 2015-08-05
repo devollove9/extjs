@@ -3,7 +3,7 @@
  */
 Ext.define( '517Employee.store.operator.RestaurantListPublic' , {
     extend: 'Ext.data.Store',
-    storeId: 'RestaurantList',
+    storeId: 'Employee-Operator-NewOrder-RestaurantListPublic',
     model: '517Employee.model.restaurant.Restaurant',
     remoteSort: true,
     pageSize: 100,

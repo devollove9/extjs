@@ -228,87 +228,86 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.Order
         '->',
         {
             text: '复制订单',
-            //handler: 'copyOrder',
 
             handler: function(a,b,c,d,e,f,g){
                 var record = this.up().up().getForm()._record.data;
                 //console.log(this.up().up().getForm().Record.data);
                 var checkoutDishlist = Ext.getCmp('Employee-Operator-NewOrder-Checkout-CheckoutList');
                 // Check if region selected match region in detail
-
-                // Copy the order
-                var index= 0;
-                var restaurantIndex = Ext.getStore('Employee-Operator-NewOrder-RestaurantList').findBy(
-                function(storeRecord, id){
-                    if ( storeRecord.data.storeId == record.storeId ){
-                        return index;
-                    } else {
-                        index ++;
-                    }
-                });
-                Ext.getCmp('Employee-Operator-NewOrder-RestaurantList').getSelectionModel().select( index );
-                var checkoutDishlistStore = checkoutDishlist.getStore();
-                checkoutDishlistStore.loadData( [] , false );
-                //console.log(index);
-
-                // Add dishes
-                var dishes = record.item;
-                for( var i = 0 ; i < dishes.length ; i ++ ) {
-                    if ( dishes[i].optionName ) {
-                        var name = dishes[i].name + '(' + dishes[i].optionName + ')';
-                    } else {
-                        var name = dishes[i].name;
-                    }
-                    if ( dishes[i].optionNameEn ) {
-                        var nameEn = dishes[i].nameEn + '(' + dishes[i].optionNameEn + ')';
-                    } else {
-                        var nameEn = dishes[i].nameEn;
-                    }
-
-                    checkoutDishlistStore.add({
-                        restaurantId: record.storeId,
-                        itemId: dishes[i].itemId,
-                        typeId: dishes[i].typeId,
-                        name: name,
-                        nameEn: nameEn,
-                        price: dishes[i].price,
-                        priceTotal: dishes[i].subtotal,
-                        quantity: dishes[i].quantity,
-                        options: dishes[i].option,
-                    });
-                    checkoutDishlist.getView().refresh();checkoutDishlist.getView().getFeature('summaryRow').onStoreUpdate();
-                }
-
-                var userInfo = Ext.getCmp('Employee-Operator-NewOrder-Checkout-userInfo');
-                var userInfoForm = userInfo.getForm();
-
-                // Add address
-                var address = record.delivery;
-                userInfoForm.findField('street').setValue( address.street );
-                userInfoForm.findField('city').setValue( address.city );
-                userInfoForm.findField('zipAddress').setValue( address.zip );
-                userInfoForm.findField('state').setValue( address.state );
-                if ( address.room ) userInfoForm.findField('room').setValue( address.room );
-
-                // Add user info
-                userInfoForm.findField('firstName').setValue( address.firstName );
-                userInfoForm.findField('lastName').setValue( address.lastName );
-                userInfoForm.findField('phone').setValue( address.phone );
-                if ( record.userId != '0') {
-                    userInfoForm.findField('username').setValue( record.userId );
+                if ( checkoutDishlist.checkoutStatus == true ) {
+                    Ext.Msg.alert( 'Error', 'Please Reset Checkout List First!' );
                 } else {
+                    // Copy the order
+                    var index= 0;
+                    var counter = 0;
+                    Ext.getStore('Employee-Operator-NewOrder-RestaurantListPublic').each( function( storeRecord ,id ) {
+                            if ( record.storeId == storeRecord.data.storeId ) {
+                                index = counter;
+                            } else {
+                                counter ++;
+                            }
+                        });
 
+                    Ext.getCmp('Employee-Operator-NewOrder-RestaurantList').getSelectionModel().select( index );
+                    var checkoutDishlistStore = checkoutDishlist.getStore();
+                    checkoutDishlistStore.loadData( [] , false );
+
+
+                    // Add dishes
+                    var dishes = record.item;
+                    for( var i = 0 ; i < dishes.length ; i ++ ) {
+                        if ( dishes[i].optionName ) {
+                            var name = dishes[i].name + '(' + dishes[i].optionName + ')';
+                        } else {
+                            var name = dishes[i].name;
+                        }
+                        if ( dishes[i].optionNameEn ) {
+                            var nameEn = dishes[i].nameEn + '(' + dishes[i].optionNameEn + ')';
+                        } else {
+                            var nameEn = dishes[i].nameEn;
+                        }
+
+                        checkoutDishlistStore.add({
+                            storeId: record.storeId,
+                            itemId: dishes[i].itemId,
+                            typeId: dishes[i].typeId,
+                            name: name,
+                            nameEn: nameEn,
+                            price: dishes[i].price,
+                            priceTotal: dishes[i].subtotal,
+                            quantity: dishes[i].quantity,
+                            options: dishes[i].option,
+                        });
+                        checkoutDishlist.checkoutStoreId = record.storeId;
+                        checkoutDishlist.getView().refresh();checkoutDishlist.getView().getFeature('summaryRow').onStoreUpdate();
+                    }
+
+                    var userInfo = Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo');
+                    var userInfoForm = userInfo.getForm();
+
+                    // Add address
+                    var address = record.delivery;
+                    userInfoForm.findField('street').setValue( address.street );
+                    userInfoForm.findField('city').setValue( address.city );
+                    userInfoForm.findField('zipAddress').setValue( address.zip );
+                    userInfoForm.findField('state').setValue( address.state );
+                    if ( address.room ) userInfoForm.findField('room').setValue( address.room );
+
+                    // Add user info
+                    userInfoForm.findField('firstName').setValue( address.firstName );
+                    userInfoForm.findField('lastName').setValue( address.lastName );
+                    userInfoForm.findField('phone').setValue( address.phone );
+                    if ( record.userId != '0') {
+                        userInfoForm.findField('username').setValue( record.userId );
+                    } else {
+
+                    }
+
+                    // Add comments
+                    userInfoForm.findField('comments').setValue( record.comment );
+                    Ext.Msg.alert('Success','Order copied.');
                 }
-
-                // Add comments
-                userInfoForm.findField('comments').setValue( record.comment );
-                Ext.Msg.alert('Success','Order copied.');
-
-
-
-
             }
-
         },
         {
             text: '取消订单',

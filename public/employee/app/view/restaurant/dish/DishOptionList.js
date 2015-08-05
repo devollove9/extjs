@@ -29,7 +29,7 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionList', {
             dataIndex: 'name'
         },
         {
-            text: 'Name_en',
+            text: 'NameEn',
             //width:150,
             flex: 2,
             sortable: true,
@@ -93,7 +93,7 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionList', {
                 optionDetail.getForm().findField('price').setValue(records[0].data.price);
                 if ( records[0].data.information ){
                     if ( typeof records[0].data.information.disabled != 'undefined'){
-                        //console.log( OptionPanel.getForm().findField('disabled_group').items.items[0].checked = );
+                        //console.log( OptionPanel.getForm().findField('disabledGroup').items.items[0].checked = );
                         if ( records[0].data.information.disabled == true ) {
                             optionDetail.items.items[0].items.items[0].setValue(false);
                             optionDetail.items.items[0].items.items[1].setValue(true);

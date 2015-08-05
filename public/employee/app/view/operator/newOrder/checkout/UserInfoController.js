@@ -64,7 +64,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
         // Check if all information filled
         //console.log(Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').addressStatus);
         var userInfo = Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo');
-        var userInfoForm = userInfo.getForm();
+        var userInfoForm = userInfo.getForm();var regionView = Ext.getCmp( 'Employee-Header-Region' );
         if ( Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').addressStatus == true ) {
             Ext.Msg.show({
                 title:'Warning',
@@ -85,53 +85,53 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
 
         } else {
             if ( Ext.getCmp( 'Employee-Operator-NewOrder-Checkout-UserInfo-TypeRadio' ).choosedType == 1 ) {}
-            else if ( Ext.getCmp('Employee-Operator-NewOrder-DishList').checkoutStatus == false ) Ext.Msg.alert('Error', 'Please checkout first.');
+            else if ( Ext.getCmp('Employee-Operator-NewOrder-Checkout-CheckoutList').checkoutStatus == false ) Ext.Msg.alert('Error', 'Please checkout first.');
             else if ( this.checkAddressEmpty() == false ) Ext.Msg.alert('Error', 'Please Fill out Street, Room, City, State, Zip.');
             else {
 
-                var subTotal = userInfoForm.findField('subtotal').getValue();
-                var restaurantId = userInfo.restaurantInfo.data.storeId;
-                var address = userInfoForm.findField('street').getValue();
+                var subtotal = userInfoForm.findField('subtotal').getValue();
+                var storeId = userInfo.checkoutStoreId;
+                var street = userInfoForm.findField('street').getValue();
                 var city = userInfoForm.findField('city').getValue();
                 var zip = userInfoForm.findField('zipAddress').getValue();
                 var state= userInfoForm.findField('state').getValue();
                 var room = userInfoForm.findField('room').getValue();
-                if ( Ext.getCmp( 'operator-regionlist' ).getSelectionModel().hasSelection() ) {
-                    var regionId = Ext.getCmp( 'operator-regionlist' ).getSelectionModel().getSelection()[0].data.regionId;
-                } else {
-                    var regionId = '';
-                }
 
-
-                //console.log (userInfo.restaurantInfo);
+                
+                //console.log (userInfo.storeInfo);
                 // Send request
 
                 Ext.Ajax.request({
-                    url: 'operator/order/calculateDelivery', // you can fix a parameter like this : url?action=anAction1
+                    url: Ext.getCmp( 'Employee-Header').getServerUrl() + '/public/delivery', // you can fix a parameter like this : url?action=anAction1
                     method: 'GET',
+                    disableCaching:false,
                     params: {
-                        method:'calculateDelivery',subTotal:subTotal,regionId:regionId , storeId:restaurantId,street:address,city:city,state:state,zip:zip,room:room
+                        subtotal:subtotal,
+                        storeId:storeId ,
+                        street:street,
+                        city:city,state:state,zip:zip
                     },
                     success: function(result, request) {
 
-                        var obj = Ext.decode(result.responseText);
+                        var response = Ext.decode(result.responseText);
                         //console.log(obj);
-                        if ( obj.success == 1) {
-                            var records= obj.data;
-                            userInfo.lockField('address');
-                            userInfoForm.findField('delivery').setValue(obj.delivery);
-                            userInfo.calculateDelivery();
-                            userInfo.deliveryInfo = obj;
-                            //console.log(userInfoForm.findField('subtotal').getValue());
-                            button.setText('Re-Confirm');
-                            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').addressStatus = true;
+                        if ( response.error ) {
+                            if ( response.error.errorCode) {
+                                Ext.Msg.alert( response.error.errorCode.toString(), response.error.errorMessage.toString() );
+                            } else if ( response.data ){
+                                userInfo.lockField( 'address' );
+                                userInfoForm.findField( 'delivery' ).setValue( response.data.delivery );
+                                userInfo.calculateDelivery();
+                                userInfo.deliveryInfo = response;
+                                button.setText('Re-Confirm');
+                                Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').addressStatus = true;
 
-                        }else if (obj.success == -2 ) {
-                            Ext.Msg.alert('Error','Target distance greater than 12 miles.');
-                        } // >12 mi
-                        else if (obj.success == -1) {
-                            Ext.Msg.alert('Error','No Region Selected /Request Error.');
-                        } //Error
+                            } else {
+                                Ext.Msg.alert( 'Error' , 'Unknown Error' );
+                            }
+                        } else {
+                            Ext.Msg.alert( 'Server Error' , 'Unknown message received from server.' );
+                        }
 
                     }
                 });
@@ -159,13 +159,15 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
         //console.log(this.getView());
         var checkoutList = Ext.getCmp('Employee-Operator-NewOrder-Checkout-CheckoutList');
         var userInfo = Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo');
+        var userInfoForm = userInfo.getForm();
+        var type = userInfoForm.findField( 'typeGroup' ).getValue().types;
 
         // Check if checked out
         if ( checkoutList.checkoutStatus == false ) this.popOutAlerts('checkout');
         // Check if Name, phone, filled
         else if ( userInfo.checkEmptyField('namephone') == false ) this.popOutAlerts('namephone');
         // Check if address confirmed
-       // else if ( userInfo.addressStatus == false && type != 1 ) this.popOutAlerts('address');
+        else if ( userInfo.addressStatus == false && type != 1 ) this.popOutAlerts('address');
         // Check if is card or cash
         else if ( userInfo.checkEmptyField('card') == false ) this.popOutAlerts('card');
         // Check cardno, month, year, cvv, card_zip if is card
@@ -241,7 +243,6 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
                 success: function(result, request) {
                     me.getView().setLoading(false);
                     var response = Ext.decode( result.responseText );
-                    console.log( response );
                     if ( response.error ) {
                         if ( response.error.errorCode) {
                                 Ext.Msg.alert( response.error.errorCode.toString(), response.error.errorMessage.toString() );

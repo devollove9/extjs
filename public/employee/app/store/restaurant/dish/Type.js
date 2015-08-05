@@ -10,13 +10,14 @@ Ext.define( '517Employee.store.restaurant.dish.Type' , {
     //autoload:true,
     proxy: {
         type: 'ajax',
-        url: '/employee/restaurant/get_type',
+        pageParam: false, //to remove param "page"
+        startParam: false, //to remove param "start"
+        limitParam: false, //to remove param "limit"
+        noCache: false, //to remove param "_dc"
         reader: {
             type:'json',
-            rootProperty: 'types'
+            rootProperty: 'data'
         }
-    },
-    extraParams:{
     },
 
     simpleSortMode: true,

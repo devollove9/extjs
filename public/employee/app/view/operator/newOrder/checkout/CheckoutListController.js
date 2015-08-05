@@ -93,6 +93,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.CheckoutListController'
         var checkoutList = Ext.getCmp('Employee-Operator-NewOrder-Checkout-CheckoutList');
         var summary = checkoutList.getView().getFeature('summaryRow').summaryRecord.data;
         if ( checkoutList.checkoutStatus == false ) {
+
             if ( summary.priceTotal < 20 )  Ext.Msg.alert('Error', 'Minimun is $20.');
             else {
                 // Check out process
@@ -104,25 +105,26 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.CheckoutListController'
                 });
                 checkoutList.checkoutStatus = true;
                 button.setText('Re-Order');
-                var userinfo = Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo');
-                var tipRate = userinfo.getForm().findField("tipGroup").getValue().tips;
+                var userInfo = Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo');
+                var tipRate = userInfo.getForm().findField("tipGroup").getValue().tips;
                 var subTotal = summary.priceTotal;
                 var tax = summary.priceTotal * 0.06;
                 var tip = ( subTotal + tax ) * tipRate;
 
-                userinfo.getForm().findField("subtotal").setValue(subTotal);
+                userInfo.getForm().findField("subtotal").setValue(subTotal);
                 if (  Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo-TypeRadio').choosedType == 1 ) {
-                    userinfo.getForm().findField("tip").setValue(0);
+                    userInfo.getForm().findField("tip").setValue(0);
                     var total = subTotal + tax;
                 } else {
-                    userinfo.getForm().findField("tip").setValue(tip);
+                    userInfo.getForm().findField("tip").setValue(tip);
                     var total = subTotal + tip + tax;
                 }
 
-                userinfo.getForm().findField("tax").setValue(tax);
-                userinfo.getForm().findField("total").setValue(total);
+                userInfo.getForm().findField("tax").setValue(tax);
+                userInfo.getForm().findField("total").setValue(total);
                 //console.log( dish );
-                userinfo.dishInfo=dish;
+                userInfo.checkoutStoreId = checkoutList.checkoutStoreId;
+                userInfo.dishInfo = dish;
             }
         } else {
             Ext.Msg.show({
@@ -134,10 +136,9 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.CheckoutListController'
                         checkoutList.checkoutStatus = false;
 
                         button.setText('Check Out');
-                        var userinfo = Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo');
-
-                        userinfo.resetOrderInfo();
-                        userinfo.resetAddress();
+                        var userInfo = Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo');
+                        userInfo.resetOrderInfo();
+                        userInfo.resetAddress();
                     } else if ( btn == 'no' ) {
 
                     }

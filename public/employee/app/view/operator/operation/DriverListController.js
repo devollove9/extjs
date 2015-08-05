@@ -9,7 +9,7 @@ Ext.define('517Employee.view.operator.operation.DriverListController', {
     ],
 
     driverPin:function(grid, rowIndex, colIndex, item, e, record){
-        var mapView = Ext.getCmp( 'employee-operator-operation-map-mapView');
+        var mapView = Ext.getCmp( 'Employee-Operator-Operation-Map');
         var map = mapView.lookupReference('map');
         map.reCenter({lat:record.get('latitude'), lng:record.get('longitude')});
     }

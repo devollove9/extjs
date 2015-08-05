@@ -4,7 +4,7 @@ Ext.setGlyphFontFamily('FontAwesome');
 Ext.onReady( function() {
     var loadingMask = Ext.get('loading-mask');
     var loading = Ext.get('loading');
-    
+
     //Ext.Msg.alert('123','123123123');
     //  Hide loading message
     loading.fadeOut({duration: 0.2, remove: true});
@@ -40,7 +40,8 @@ Ext.define('517Employee.Time', {
 Ext.require([
              'Ext.data.*',
              'Ext.grid.*',
-             'Ext.ux.data.PagingMemoryProxy'
+             'Ext.ux.data.PagingMemoryProxy',
+
          ]);
 Ext.application({
     name: '517Employee',

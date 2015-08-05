@@ -13,22 +13,22 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
         //console.log(grid);
         //console.log( grid.store.getAt(rowIndex).data.option );
         //console.log(i);
-        //console.log(record_line);
+        //console.log(recordLine);
         var dishList = Ext.getCmp( 'Employee-Restaurant-Dish-List' );
         var dishDetail = Ext.getCmp( 'Employee-Restaurant-Dish-Detail' );
-        var option_group_list = Ext.getCmp( 'Employee-Restaurant-Dish-OptionGroupList' );
+        var optionGroupList = Ext.getCmp( 'Employee-Restaurant-Dish-OptionGroupList' );
         var dishBusinessHour = Ext.getCmp( 'Employee-Restaurant-Dish-Detail-BusinessHour' );
         //.log(dishDetail);
-        //console.log(option_group_list);
+        //console.log(optionGroupList);
         var name = dishDetail.getForm().findField( 'name' ).getValue();
-        var logo_web = dishDetail.getForm().findField( 'logo.web' );
-        var logo_mini = dishDetail.getForm().findField( 'logo.mini' );
-        var logo_phone =  dishDetail.getForm().findField( 'logo.phone' );
+        var logoWeb = dishDetail.getForm().findField( 'logo.web' );
+        var logoMini = dishDetail.getForm().findField( 'logo.mini' );
+        var logoPhone =  dishDetail.getForm().findField( 'logo.phone' );
         var nameEn = dishDetail.getForm().findField( 'nameEn' ).getValue();
         var price = dishDetail.getForm().findField( 'price' ).getValue();
         var quantity = dishDetail.getForm().findField( 'quantity' ).getValue();
-        var disabled = dishDetail.getForm().findField( 'disabled_group' ).getValue().disabled;
-        var total_optionGroup_number = option_group_list.getView().getStore().getCount();
+        var disabled = dishDetail.getForm().findField( 'disabledGroup' ).getValue().disabled;
+        var totalOptionGroupNumber = optionGroupList.getView().getStore().getCount();
 
         if ( dishDetail.newDish == false ) {
             // Editing dish
@@ -60,7 +60,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                     }
                     changedFlag=true;
                 }
-                if ( originRecord.information ){
+                if ( originRecord.information ) {
                     if ( typeof originRecord.information.disabled != 'undefined' ) {
                         if ( originRecord.information.disabled != disabled ) {
                             changedString = changedString + size + '. Disabled: ' + originRecord.information.disabled + ' => ' + disabled + '<br>' ;changedFlag=true;size ++;
@@ -72,7 +72,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                     changedFlag = true;
                     changedString = changedString + size + '. Disabled: undefined => ' + disabled + '<br>' ;changedFlag = true; size ++;
                 }
-                if ( option_group_list.changedFlag == true ) {
+                if ( optionGroupList.changedFlag == true ) {
                     changedFlag = true;
                 }
                 if ( changedFlag == true ) {
@@ -87,64 +87,66 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                                 //console.log(old_record);
                                 old_record.data.name = name;old_record.data.nameEn = nameEn;old_record.data.price = price;old_record.data.quantity = quantity;old_record.data.disabled = disabled;
                                 var dishInfo = new Object();
-                                if ( option_group_list.changedFlag == true && total_optionGroup_number != 0) {
+                                if ( optionGroupList.changedFlag == true && totalOptionGroupNumber != 0) {
 
-                                    var new_optionGroups = [];
-                                    //console.log(option_group_list.getView().getStore().data.items);
-                                    for ( var i = 0 ; i < option_group_list.getView().getStore().data.items.length ; i ++ ) {
-                                        var cur_optionGroup = new Object();
-                                        var edited_optionGroup = option_group_list.getView().getStore().data.items[i].data;
-                                        cur_optionGroup.name = edited_optionGroup.name;
-                                        cur_optionGroup.nameEn = edited_optionGroup.nameEn;
-                                        cur_optionGroup.max = edited_optionGroup.max;
-                                        cur_optionGroup.min = edited_optionGroup.min;
-                                        cur_optionGroup.quantity = edited_optionGroup.quantity;
-                                        cur_optionGroup.option = edited_optionGroup.option;
-                                        //cur_optionGroup.information = edited_optionGroup.information;
-                                        // for ( var j = 0 ; j < edited_optionGroup.option.length ++ ; j++ ) {
-                                        //    var cur_option = new Object();
-                                        //    cur_option. = edited_optionGroup.option[j].
+                                    var newOptionGroups = [];
+                                    //console.log(optionGroupList.getView().getStore().data.items);
+                                    for ( var i = 0 ; i < optionGroupList.getView().getStore().data.items.length ; i ++ ) {
+                                        var curOptionGroup = new Object();
+                                        var editedOptionGroup = optionGroupList.getView().getStore().data.items[i].data;
+                                        curOptionGroup.name = editedOptionGroup.name;
+                                        curOptionGroup.nameEn = editedOptionGroup.nameEn;
+                                        curOptionGroup.max = editedOptionGroup.max;
+                                        curOptionGroup.min = editedOptionGroup.min;
+                                        curOptionGroup.quantity = editedOptionGroup.quantity;
+                                        curOptionGroup.disabled = editedOptionGroup.disabled;
+                                        curOptionGroup.option = editedOptionGroup.option;
+
+                                        //curOptionGroup.information = editedOptionGroup.information;
+                                        // for ( var j = 0 ; j < editedOptionGroup.option.length ++ ; j++ ) {
+                                        //    var curOption = new Object();
+                                        //    curOption. = editedOptionGroup.option[j].
                                         //}
-                                        new_optionGroups.push(cur_optionGroup);
+                                        newOptionGroups.push(curOptionGroup);
                                     }
-                                    dishInfo.optionGroup=new_optionGroups;
-                                    old_record.data.optionGroup = new_optionGroups;
+                                    dishInfo.optionGroup=newOptionGroups;
+                                    old_record.data.optionGroup = newOptionGroups;
 
                                 }
 
                                 dishInfo.information = new Object();
                                 dishInfo.logo = new Object();
-                                if ( logo_web.file_transfered == true) {
-                                    dishInfo.logo.web = logo_web.file_data;
+                                if ( logoWeb.fileTransfered == true) {
+                                    dishInfo.logo.web = logoWeb.fileData;
                                 } else {}
-                                if ( logo_phone.file_transfered == true) {
-                                    dishInfo.logo.phone = logo_web.file_data;
+                                if ( logoPhone.fileTransfered == true) {
+                                    dishInfo.logo.phone = logoWeb.fileData;
                                 }
-                                if ( logo_mini.file_transfered == true) {
-                                    dishInfo.logo.mini = logo_web.file_data;
+                                if ( logoMini.fileTransfered == true) {
+                                    dishInfo.logo.mini = logoWeb.fileData;
                                 }
                                 dishInfo.information.businessHour = [];
                                 if ( dishBusinessHour.changed == true ) {
 
                                     dishBusinessHour.getStore().each( function( record , idx ) {
-                                        var new_businessHour = new Object();
+                                        var newBusinessHour = new Object();
                                         //console.log(record);
-                                        new_businessHour.day = record.data.day;
-                                        new_businessHour.start = record.data.start;
-                                        new_businessHour.end = record.data.end;
-                                        dishInfo.information.businessHour.push( new_businessHour );
+                                        newBusinessHour.day = record.data.day;
+                                        newBusinessHour.start = record.data.start;
+                                        newBusinessHour.end = record.data.end;
+                                        dishInfo.information.businessHour.push( newBusinessHour );
                                     });
                                 } else {
                                     if ( originRecord.information ) {
                                         if ( originRecord.information.businessHour ) {
 
                                             for ( var i = 0 ; i < originRecord.information.businessHour.length ; i ++ ){
-                                                var new_businessHour = new Object();
+                                                var newBusinessHour = new Object();
                                                 //console.log(record);
-                                                new_businessHour.day = originRecord.information.businessHour[i].day;
-                                                new_businessHour.start = originRecord.information.businessHour[i].start;
-                                                new_businessHour.end = originRecord.information.businessHour[i].end;
-                                                dishInfo.information.businessHour.push( new_businessHour );
+                                                newBusinessHour.day = originRecord.information.businessHour[i].day;
+                                                newBusinessHour.start = originRecord.information.businessHour[i].start;
+                                                newBusinessHour.end = originRecord.information.businessHour[i].end;
+                                                dishInfo.information.businessHour.push( newBusinessHour );
                                             }
                                         }
                                     }
@@ -159,7 +161,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
 
                                 dishInfo.information.disabled = disabled;
                                 dishInfo = JSON.stringify( dishInfo );
-                                dishDetail.postChange( dishInfo , 'update_dish' );
+                                dishDetail.postChange( dishInfo , 'put' );
                                 //dishList.getView().refresh();
                                 //dishList.getSelectionModel().select
                             }
@@ -180,58 +182,64 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                     fn: function(btn,text){
                         if ( btn == 'yes' ) {
                             var dishInfo = new Object();
-                            if ( option_group_list.changedFlag == true && total_optionGroup_number != 0) {
-                                var new_optionGroups = [];
-                                //console.log(option_group_list.getView().getStore().data.items);
-                                for ( var i = 0 ; i < option_group_list.getView().getStore().data.items.length ; i ++ ) {
-                                    var cur_optionGroup = new Object();
-                                    var edited_optionGroup = option_group_list.getView().getStore().data.items[i].data;
-                                    cur_optionGroup.name = edited_optionGroup.name;
-                                    cur_optionGroup.nameEn = edited_optionGroup.nameEn;
-                                    cur_optionGroup.max = edited_optionGroup.max;
-                                    cur_optionGroup.min = edited_optionGroup.min;
-                                    cur_optionGroup.quantity = edited_optionGroup.quantity;
-                                    cur_optionGroup.option = edited_optionGroup.option;
-                                    //cur_optionGroup.information = edited_optionGroup.information;
-                                    // for ( var j = 0 ; j < edited_optionGroup.option.length ++ ; j++ ) {
-                                    //    var cur_option = new Object();
-                                    //    cur_option. = edited_optionGroup.option[j].
+                            if ( totalOptionGroupNumber != 0 ) {
+                                var newOptionGroups = [];
+                                //console.log(optionGroupList.getView().getStore().data.items);
+                                for ( var i = 0 ; i < optionGroupList.getView().getStore().data.items.length ; i ++ ) {
+                                    var curOptionGroup = new Object();
+                                    var editedOptionGroup = optionGroupList.getView().getStore().data.items[i].data;
+                                    curOptionGroup.name = editedOptionGroup.name;
+                                    curOptionGroup.nameEn = editedOptionGroup.nameEn;
+                                    curOptionGroup.max = editedOptionGroup.max;
+                                    curOptionGroup.min = editedOptionGroup.min;
+                                    curOptionGroup.quantity = editedOptionGroup.quantity;
+                                    curOptionGroup.option = editedOptionGroup.option;
+                                    curOptionGroup.information = editedOptionGroup.information;
+                                    // for ( var j = 0 ; j < editedOptionGroup.option.length ++ ; j++ ) {
+                                    //    var curOption = new Object();
+                                    //    curOption. = editedOptionGroup.option[j].
                                     //}
-                                    new_optionGroups.push(cur_optionGroup);
+                                    newOptionGroups.push(curOptionGroup);
                                 }
-                                dishInfo.information = new Object();
-                                dishInfo.information.businessHour = [];
-                                dishInfo.logo = new Object();
-                                if ( logo_web.file_transfered == true) {
-                                    dishInfo.logo.web = logo_web.file_data;
-                                } else {}
-                                if ( logo_phone.file_transfered == true) {
-                                    dishInfo.logo.phone = logo_web.file_data;
-                                }
-                                if ( logo_mini.file_transfered == true) {
-                                    dishInfo.logo.mini = logo_web.file_data;
-                                }
-                                dishBusinessHour.getStore().each( function( record , idx ) {
-                                    var new_businessHour = new Object();
-                                    //console.log(record);
-                                    new_businessHour.day = record.data.day;
-                                    new_businessHour.start = record.data.start;
-                                    new_businessHour.end = record.data.end;
-                                    dishInfo.information.businessHour.push( new_businessHour );
-                                });
-
-                                dishInfo.optionGroup=new_optionGroups;
+                                dishInfo.optionGroup = newOptionGroups;
                             }
+                            dishInfo.logo = new Object();
+                            dishInfo.logo.web = '';
+                            dishInfo.logo.phone = '';
+                            dishInfo.logo.mini = '';
+                            if ( logoWeb.fileTransfered == true) {
+                                dishInfo.logo.web = logoWeb.fileData;
+                            } else {}
+                            if ( logoPhone.fileTransfered == true) {
+                                dishInfo.logo.phone = logoWeb.fileData;
+                            }
+                            if ( logoMini.fileTransfered == true) {
+                                dishInfo.logo.mini = logoWeb.fileData;
+                            }
+                            dishInfo.information = new Object();
+                            dishInfo.information.businessHour = [];
+                            dishInfo.information.disabled = disabled;
+                            dishBusinessHour.getStore().each( function( record , idx ) {
+                                var newBusinessHour = new Object();
+                                //console.log(record);
+                                newBusinessHour.day = record.data.day;
+                                newBusinessHour.start = record.data.start;
+                                newBusinessHour.end = record.data.end;
+                                dishInfo.information.businessHour.push( newBusinessHour );
+                            });
+
+                            
                             dishInfo.storeId = dishDetail.storeId;dishInfo.regionId = dishDetail.regionId;dishInfo.categoryId = dishDetail.categoryId;
                             dishInfo.typeId = dishDetail.typeId;//dishInfo.information = new Object();
                             dishInfo.name = name;
                             dishInfo.nameEn = nameEn;
                             dishInfo.price = price;
                             dishInfo.quantity = quantity;
-                            //dishInfo.disabled = disabled;
+                            
+             
                             dishInfo = JSON.stringify( dishInfo );
                             //console.log(this.up());
-                            dishDetail.postChange( dishInfo , 'new_dish' );
+                            dishDetail.postChange( dishInfo , 'post' );
 
                         }
                     },
@@ -241,7 +249,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
             }
         }
     },
-    NewBusinessHour:function( button , click_event ) {
+    NewBusinessHour:function( button , clickEvent ) {
         var gridpanel = button.up().up();
         if ( Ext.getCmp( 'Employee-Restaurant-Dish-Detail' ).newDish == false && Ext.getCmp( 'Employee-Restaurant-Dish-List' ).getSelectionModel().hasSelection() == false ) {
             Ext.Msg.alert( 'Error' , 'Please choose a dish first.');
@@ -313,11 +321,11 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                                             buttons: Ext.Msg.YESNO,
                                             fn: function(btn,text){
                                                 if ( btn == 'yes' ) {
-                                                    var new_business_hour = new Object();
-                                                    new_business_hour.day =day;
-                                                    new_business_hour.start =start;
-                                                    new_business_hour.end =end;
-                                                    businessHourStore.add( new_business_hour );
+                                                    var newBusiness_hour = new Object();
+                                                    newBusiness_hour.day =day;
+                                                    newBusiness_hour.start =start;
+                                                    newBusiness_hour.end =end;
+                                                    businessHourStore.add( newBusiness_hour );
                                                     gridpanel.changed = true;
                                                     gridpanel.changedString.push('Added: Day:' + day + ' Start:' + start +' End:' + end);
                                                     curwin.close();
@@ -346,7 +354,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
             win.show();
         }
     },
-    EditBusinessHour:function( grid , rowIdx , colIdx , edit_col , click_event , record_line , tr ) {
+    EditBusinessHour:function( grid , rowIdx , colIdx , edit_col , clickEvent , recordLine , tr ) {
         var gridpanel = grid.up()
 
         if ( gridpanel.gridEditing == true ){
@@ -383,7 +391,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                                         xtype: 'textfield',
                                         fieldLabel: 'Day',
                                         flex: 2,
-                                        value: record_line.data.day,
+                                        value: recordLine.data.day,
                                         enforceMaxLength: true,
                                         maxLength: '1',
                                         maskRe: /[0-9]/,
@@ -394,7 +402,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                                         xtype: 'textfield',
                                         fieldLabel: 'Start',
                                         flex: 3,
-                                        value: record_line.data.start,
+                                        value: recordLine.data.start,
                                         enforceMaxLength: true,
                                         maxLength: '5',
                                         maskRe: /[0-9]/,
@@ -405,7 +413,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                                         xtype: 'textfield',
                                         fieldLabel: 'End',
                                         flex: 3,
-                                        value: record_line.data.end,
+                                        value: recordLine.data.end,
                                         enforceMaxLength: true,
                                         maxLength: '5',
                                         maskRe: /[0-9]/,
@@ -440,7 +448,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                                     if (day > 7 || day < 1) Ext.Msg.alert('Error', 'Day must be in 1 - 7 ');
                                     else if (start > 86400 || end > 86400 || start < 0 || end < 0) Ext.Msg.alert('Error', 'Start/End must be in range 0 - 86400 ');
                                     else if (start > end) Ext.Msg.alert('Error', 'Start must be smaller or equal to End');
-                                    else if (record_line.data.day != day || record_line.data.start != start || record_line.data.end != end) {
+                                    else if (recordLine.data.day != day || recordLine.data.start != start || recordLine.data.end != end) {
                                         Ext.Msg.show({
                                             title: 'Save Business Hour?',
                                             msg: 'You will change business hour to : <br/>  Day: ' + day + ' Start: ' + start + ' End: ' + end + ' <br/>Would you like to save the change?',
@@ -448,9 +456,9 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                                             fn: function (btn, text) {
                                                 if (btn == 'yes') {
 
-                                                    record_line.data.day = day;
-                                                    record_line.data.start = start;
-                                                    record_line.data.end = end;
+                                                    recordLine.data.day = day;
+                                                    recordLine.data.start = start;
+                                                    recordLine.data.end = end;
                                                     grid.up().changed = true;
                                                     grid.up().changedString.push('Edited: Day:' + day + ' Start:' + start + ' End:' + end);
                                                     curwin.close();
@@ -484,15 +492,15 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
             win.show();
         }
     },
-    DeleteBusinessHour:function( grid , rowIdx , colIdx , edit_col , click_event , record_line , tr ) {
+    DeleteBusinessHour:function( grid , rowIdx , colIdx , edit_col , clickEvent , recordLine , tr ) {
         Ext.Msg.show({
             title:'Delete Business Hour?',
-            msg: 'You will delete business hour : <br/>  Day: '+ record_line.data.day + ' Start: ' + record_line.data.start + ' End: ' + record_line.data.end + ' <br/>Would you like to save the change?',
+            msg: 'You will delete business hour : <br/>  Day: '+ recordLine.data.day + ' Start: ' + recordLine.data.start + ' End: ' + recordLine.data.end + ' <br/>Would you like to save the change?',
             buttons: Ext.Msg.YESNO,
             fn: function(btn,text){
                 if ( btn == 'yes' ) {
                     grid.up().changed = true;
-                    grid.up().changedString.push('Removed: Day:' + record_line.data.day + ' Start:' + record_line.data.start +' End:' + record_line.data.end);
+                    grid.up().changedString.push('Removed: Day:' + recordLine.data.day + ' Start:' + recordLine.data.start +' End:' + recordLine.data.end);
                     grid.up().getStore().removeAt(rowIdx);
                     grid.refresh();
                 }

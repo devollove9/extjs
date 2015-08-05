@@ -15,6 +15,7 @@ Ext.define('517Employee.view.operator.OperatorView', {
     elapsedServerTime:0,
 
     initComponent:function() {
+        var me = this;
         this.setServerTimeDifference();
         this.callParent();
     },
@@ -48,6 +49,60 @@ Ext.define('517Employee.view.operator.OperatorView', {
         this.items.items[1].items.items[0].refreshView();
         // Refresh New Order Panel
         this.items.items[1].items.items[1].refreshView();
+
+        // PreLoad Data
+        var region = Ext.getCmp( 'Employee-Header-Region');
+
+        if ( Ext.getStore( 'Employee-Temp-PreLoad-TypeMapPublic') ) {
+            var typeMapPublicStore = Ext.getStore( 'Employee-Temp-PreLoad-TypeMapPublic')
+        } else {
+            var typeMapPublicStore = Ext.create('517Employee.store.temp.preLoad.TypeMapPublic');
+        }
+
+        Ext.getCmp( 'Employee-Header').deletePreLoadData( 'typeMapPublic' );
+        typeMapPublicStore.proxy.headers = Ext.getCmp( 'Employee-Header').getHeaders( 'get' );
+        typeMapPublicStore.load({
+            method:'get',
+            url:Ext.getCmp( 'Employee-Header' ).getServerUrl()+'/public/store/type',
+            params:{
+                regionId:region.regionId
+            },
+            callback:function( records ){
+                if ( records [ 0 ] ){
+                    var typeMapPublic = {};
+                    for ( var i = 0 ; i < records.length ; i ++ ) {
+                        var typeInfo = records[ i].data;
+                        typeMapPublic[ typeInfo.typeId ] = typeInfo;
+                    }
+                    Ext.getCmp( 'Employee-Header').addPreLoadData( 'typeMapPublic' , typeMapPublic );
+                }
+            }
+        });
+        if ( Ext.getStore( 'Employee-Temp-PreLoad-CategoryMapPublic') ) {
+            var categoryMapPublicStore = Ext.getStore( 'Employee-Temp-PreLoad-CategoryMapPublic')
+        } else {
+            var categoryMapPublicStore = Ext.create( '517Employee.store.temp.preLoad.CategoryMapPublic' );
+        }
+        Ext.getCmp( 'Employee-Header').deletePreLoadData( 'categoryMapPublic' );
+        categoryMapPublicStore.proxy.headers = Ext.getCmp( 'Employee-Header').getHeaders( 'get' );
+        categoryMapPublicStore.load({
+            method:'get',
+            url:Ext.getCmp( 'Employee-Header' ).getServerUrl()+'/public/store/category',
+            params:{
+                regionId:region.regionId
+            },
+            callback:function( records ){
+                if ( records [ 0 ] ){
+                    var categoryMapPublic = {};
+                    for ( var i = 0 ; i < records.length ; i ++ ) {
+                        var categoryInfo = records[ i].data;
+                        categoryMapPublic[ categoryInfo.categoryId ] = categoryInfo;
+                    }
+                    Ext.getCmp( 'Employee-Header').addPreLoadData( 'categoryMapPublic' , categoryMapPublic );
+                }
+            }
+        });
+
     },
     resetAll:function() {
         // Reset Operation Panel
@@ -95,7 +150,28 @@ Ext.define('517Employee.view.operator.OperatorView', {
     },
 
     setServerTimeDifference:function() {
-        this.elapsedServerTime = 0;
-    }
+        var me = this;
+
+        Ext.Ajax.request({
+            url:Ext.getCmp( 'Employee-Header' ).getServerUrl() + '/public/time',
+            method:'get',
+            success:function( result , request ) {
+                var response = Ext.decode( result.responseText );
+                var Error = Ext.getCmp( 'Employee-Header' ).processErrorMessage( response );
+                if ( Error == false ) {
+                    var elapsed = Ext.Date.getElapsed( new Date() , new Date( response.data/1000 ) );
+                    me.elapsedServerTime = elapsed;
+                }
+            }
+        });
+
+    },
+
+    // Function get start of current day
+    getServerTime:function() {
+        var now = new Date( ( new Date() ).getTime() +  this.getServerTimeDifference() );
+        var timestamp = now.getTime();
+        return timestamp;
+    },
     
 });

@@ -38,7 +38,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategory' , {
                 xtype: 'button',
                 iconCls: 'fa fa-refresh',
                 tooltip: 'Refresh Category list',
-                handler: 'Refreshlist'
+                handler: 'RefreshList'
             },
             {
                 xtype: 'button',
@@ -74,7 +74,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategory' , {
             }
         },
         {
-            text: 'Name_en',
+            text: 'NameEn',
             flex: 2,
             sortable: true,
             dataIndex: 'nameEn',
@@ -114,36 +114,10 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategory' , {
             me.closeWindowPopUp();
             me.setTitle('Dish Category');
             var dishType = Ext.getCmp( 'Employee-Restaurant-Dish-Type' );dishType.resetAll();
-
             /* Load Type of Category */
             if ( records[ 0 ] ) {
-
+                dishType.refreshView();
                 me.setTitle( records[ 0] .data.name + '/' + records[ 0].data.nameEn );
-                var typeStore = dishType.getStore();
-
-                typeStore.load( {
-                    params:{
-                        method:'get_by_specificid',
-                        filterBy:'categoryId',
-                        filterValue:records[ 0 ].data.categoryId
-                    },
-                    callback:function( records , operation , success ) {
-                        if ( records[ 0 ] ) {
-                            var firstRecord = records[ 0 ].data;
-                            if ( firstRecord.errorCode ) {
-                                dishType.getStore().loadData( [] , false );
-                                var errorMessage = 'Unknown error, please contact technique staff.'
-                                if ( firstRecord.errorMessage ) {
-                                    errorMessage = firstRecord.errorMessage.toString();
-                                }
-                                Ext.Msg.alert( firstRecord.errorCode.toString() , errorMessage );
-                            }
-                            me.setLoading( false );
-                        }
-
-                    }
-                })
-            } else {
             }
         }
     },
@@ -152,27 +126,26 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategory' , {
         this.getStore().loadData( [] , false );
         this.setTitle( 'Dish Category' );
         this.setDisabled( false );
+        this.setLoading( false );
         this.closeWindowPopUp();
         this.gridEditing = false;
         Ext.getCmp( 'Employee-Restaurant-Dish-Type').resetAll();
     },
 
-    refreshGrid:function() {
+    refreshView:function() {
         if ( Ext.getCmp( 'Employee-Restaurant-Dish-RestaurantList' ).getSelectionModel().hasSelection() ) {
             var me = this;
+            var store =  this.getStore();
+            var region = Ext.getCmp( 'Employee-Header-Region');
             me.resetAll();
-            this.getStore().load({
+            store.proxy.headers = Ext.getCmp( 'Employee-Header').getHeaders( 'get' );
+            store.load({
+                method:'get',
+                url:Ext.getCmp( 'Employee-Header' ).getServerUrl()+'/store/category',
                 params:{
-                    method: 'get_by_storeid',
-                    store_id: Ext.getCmp( 'Employee-Restaurant-Dish-RestaurantList' ).getSelectionModel().getSelection()[0].data.storeId
-                },
-                callback:function( records , operation , success ) {
-                    me.setLoading( false );
-                },
-                failure:function(){
-                    me.setLoading( false );
+                    regionId:region.regionId ,
+                    storeId: Ext.getCmp( 'Employee-Restaurant-Dish-RestaurantList' ).getSelectionModel().getSelection()[0].data.storeId
                 }
-
             });
         }
     },

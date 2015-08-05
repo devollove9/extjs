@@ -17,6 +17,18 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
     //controller:'employee-operator-operation-controller',
     //autoScroll:true,
     //title: 'operation',
+
+    initComponent:function(){
+        var me = this;
+        var runner = new Ext.util.TaskRunner();
+        var task = runner.start({
+            run: me.refreshView , //function(){console.log('task');},
+            scope: me,
+            interval: 30000
+        });
+        this.callParent();
+    },
+
     items: [
         {
             region: 'center',
@@ -50,7 +62,7 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
                     region: 'east',
                     width: '34%',
                     xtype: 'employee-operator-operation-map',
-                    //id:'Employee-Operator-Operation-Map-MapView'
+                    id:'Employee-Operator-Operation-Map'
                 }
             ]
         },

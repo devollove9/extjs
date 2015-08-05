@@ -6,7 +6,8 @@ Ext.define('517Employee.view.operator.operation.orderTab.OrderTabView', {
     requires:[
         '517Employee.view.operator.operation.orderTab.orderList.OrderListView',
         '517Employee.view.operator.operation.orderTab.OrderTabModel',
-        '517Employee.view.operator.operation.orderTab.OrderTabController'
+        '517Employee.view.operator.operation.orderTab.OrderTabController',
+        '517Employee.view.operator.operation.orderTab.Clock',
     ],
     xtype:'employee-operator-operation-orderTab',
     controller:'employee-operator-operation-orderTab-controller',
@@ -26,6 +27,16 @@ Ext.define('517Employee.view.operator.operation.orderTab.OrderTabView', {
             height: 24, // set the height
             margin:'5.5 10 0 10'
         }
+    },
+
+    initComponent:function(){
+        var me = this;
+        var OrderTabClock = Ext.TaskManager.start({
+            run: me.updateClock,
+            scope:me,
+            interval: 1000
+        });
+        this.callParent();
     },
 
     /*  Variables  */
@@ -74,9 +85,15 @@ Ext.define('517Employee.view.operator.operation.orderTab.OrderTabView', {
             xtype:'tbfill'
         },
         {
+            xtype:'employee-operator-operation-orderTab-clock',
+            align:'right'
+        },
+        {
             id: 'refresh',
             align:'right',
-            handler:this.refreshView
+            handler:function(){
+                this.up().up().refreshView();
+            }
 
         }
     ],
@@ -124,10 +141,22 @@ Ext.define('517Employee.view.operator.operation.orderTab.OrderTabView', {
     },
     // Function get start of current day
     getStartOfDay:function() {
-        var now = new Date();
+        var now = new Date( ( new Date() ).getTime() +  Ext.getCmp( 'Employee-Operator' ).getServerTimeDifference() );
+        //console.log( now );
         var startOfDay = new Date( now.getFullYear() , now.getMonth() , now.getDate() );
         var timestamp = startOfDay.getTime();
         return timestamp;
+    },
+
+
+
+    // Update Clock
+    updateClock:function() {
+
+        Ext.fly('Employee-Operator-Operation-OrderTab-LocalClock').setText(Ext.Date.format( new Date() , 'h:i:s A'));
+        Ext.fly('Employee-Operator-Operation-OrderTab-ServerClock').setText(Ext.Date.format( new Date( (new Date()).getTime() +
+                            Ext.getCmp( 'Employee-Operator' ).getServerTimeDifference() ), ' h:i:s A'));
+
     }
 
 });
