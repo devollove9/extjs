@@ -116,7 +116,7 @@ Ext.define('517Employee.view.bill.restaurant.billCenter.Toolbar', {
                     items: [
                         {
                             xtype : 'displayfield',
-                            value : 'Billing Circle : ',
+                            value : 'Billing Cycle : ',
 
                         },
                         {

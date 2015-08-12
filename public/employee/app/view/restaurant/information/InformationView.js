@@ -2,7 +2,7 @@ Ext.define('517Employee.view.restaurant.information.InformationView', {
     extend: 'Ext.panel.Panel',
 
     requires: [
-        //'517Employee.view.restaurant.information.InformationCenterView',
+        '517Employee.view.restaurant.information.restaurant.RestaurantView',
         '517Employee.view.restaurant.information.InformationRestaurantList',
     ],   
     xtype: 'employee-restaurant-information',
@@ -20,8 +20,8 @@ Ext.define('517Employee.view.restaurant.information.InformationView', {
         },
         {
             region: 'center',
-            //xtype: 'employee-restaurant-information-centerView',
-            //id: 'Employee-Restaurant-Information-CenterView',
+            xtype: 'employee-restaurant-information-restaurant',
+            id: 'Employee-Restaurant-Information-Restaurant',
             flex:1,
         },
         
@@ -31,11 +31,13 @@ Ext.define('517Employee.view.restaurant.information.InformationView', {
         console.log( panel );
     },
     resetAll:function() {
-
+        // Refresh Restaurant List
+        this.items.items[ 0 ].resetAll();
     },
 
     refreshView:function() {
-
+        // Refresh Restaurant List
+        this.items.items[ 0 ].refreshView();
     }
     
 });

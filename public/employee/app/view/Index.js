@@ -90,12 +90,14 @@ Ext.define('517Employee.view.Index', {
      */
     loadRegionInfo:function() {
         var store = Ext.create('517Employee.store.region.Regions');
-
+        var userCookie = Ext.decode( Ext.util.Cookies.get( '517Employee' ) );
+        this.userInfo = userCookie ;
         store.load({
             method: 'get',
             url: 'https://apiv2-test.517.today/public/region',
+            //disableCaching:false,
             headers: {
-                'Authorization-Token': '1e29f85a4e442b42d09e551104124fb674f920f805038220977a7f03d25091b35c949acbb5c201d2ac9d621637c28bcf158c78a7b3ae5b091902a8e6d9e66f25bd271de03d3302e51fcf128ed6eb5a792d9297e7058f880c550a0ffd55e2463619cb9931a966481ab0518efe21d3966d2b529e7a7faa6b9369f480e582df5bda519e9c6694bad'
+                //'Authorization-Token': userCookie.token
             },
             callback: function (records, operation, success) {
             }

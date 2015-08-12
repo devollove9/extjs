@@ -17,9 +17,17 @@ Ext.define( '517Employee.view.main.HeaderController' , {
             this.lookupReference('welcome-label').setText( 'Illegal Login!' );
             // Report Illegal log in
         }
+        var runner = new Ext.util.TaskRunner(),
+            task = runner.start({
+                run: this.refreshToken, //function(){console.log('task');},
+                scope: this,
+                interval: 1200000
+            });
 
     },
-   
+    refreshToken:function() {
+        Ext.getCmp( 'Employee-Header' ).refreshToken();
+    },
     logout:function(){
         //console.log(this.getView());
         Ext.Msg.show({

@@ -77,12 +77,14 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryToolbarCenter',
                     this.add( fieldContainer );
                 }
             },
+
             removeSearch:function( fieldContainer ) {
                 this.remove( fieldContainer );
                 if ( this.items.items.length > 1 ) {
                     this.items.items[ 1 ].items.items[ 0 ].setValue( 'Search By:' );
                 }
             },
+
             addSearchContainer:function() {
                 var form = this;
                 var label = 'And';
@@ -153,6 +155,7 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryToolbarCenter',
         this.filterOperator = '';
         this.filterValue = '';
     },
+
     updateFilters:function( filterByVal , fieldFilterByVal , filterOperatorVal , fieldFilterOperatorVal , filterValueVal , filterValueAVal , filterValueBVal ) {
         if ( filterByVal != 'falseNull' ) {
             if ( this.filterByString == '' ) {

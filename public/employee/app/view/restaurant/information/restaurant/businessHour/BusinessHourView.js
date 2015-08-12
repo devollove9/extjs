@@ -115,13 +115,13 @@ Ext.define('517Employee.view.restaurant.information.restaurant.businessHour.Busi
     loadBusinessHour:function( data ) {
         var me = this;
         var defaultBusinessHour = [
-            {start:0,end:86400,day:1},
-            {start:0,end:86400,day:2},
-            {start:0,end:86400,day:3},
-            {start:0,end:86400,day:4},
-            {start:0,end:86400,day:5},
-            {start:0,end:86400,day:6},
-            {start:0,end:86400,day:7}
+            {start:41400,end:77400,day:1},
+            {start:41400,end:77400,day:2},
+            {start:41400,end:77400,day:3},
+            {start:41400,end:77400,day:4},
+            {start:41400,end:77400,day:5},
+            {start:41400,end:77400,day:6},
+            {start:41400,end:77400,day:7}
         ];
         var businessHour = [];
         if ( data ) {

@@ -441,7 +441,51 @@ Ext.define('517Employee.view.main.Header', {
         });
 
     },
+    refreshToken:function() {
+        var me = this;
+        var userCookie = Ext.decode( Ext.util.Cookies.get( '517Employee' ) );
+        if ( userCookie ) {
+            if ( userCookie.token ) {
+                Ext.Ajax.request({
+                    url:me.getServerUrl() + '/auth/refresh',
+                    method:'get',
+                    headers:me.getHeaders( 'get' ),
+                    disableCaching:false,
+                    params:{
+                        maxAge:3600
+                    },
+                    success:function( result , request ) {
+                        var response = Ext.decode( result.responseText );
+                        var Error = me.processErrorMessage( response );
+                        //console.log( 'done' );
+                    }
+                });
+            }
+        }
+    },
+    refreshStore:function( view , url , params ) {
+        var me = this;
+        if ( view ) {
+            var store = view.getStore();
+            if ( store ) {
+                var region = Ext.getCmp( 'Employee-Header-Region');
+                params.regionId = region.regionId;
+                if ( region.regionId != -1 ) {
+                    view.resetAll();
+                    store.proxy.useDefaultXhrHeader = false;
+                    store.proxy.headers = me.getHeaders( 'get' );
 
+                    store.load( {
+                        method:'get',
+                        url:me.getServerUrl()+ url ,
+                        params: params
+                    });
+                }  else {
+                    store.loadData( [] , false );
+                }
+            }
+        }
+    },
     setActivePanel:function ( panelId ) {
         this.activePanel = panelId;
     },

@@ -92,22 +92,8 @@ Ext.define('517Employee.view.restaurant.dish.DishRestaurantList', {
         }
     },
     refreshView:function() {
-        var region = Ext.getCmp( 'Employee-Header-Region');
-        var store =  this.getStore();
-        if ( region.regionId != -1 ) {
-            var me = this;
-            me.resetAll();
-            store.proxy.headers = Ext.getCmp( 'Employee-Header').getHeaders( 'get' );
-            store.load( {
-                method:'get',
-                url:Ext.getCmp( 'Employee-Header' ).getServerUrl()+'/store',
-                params:{
-                    regionId:region.regionId
-                }
-            });
-        }  else {
-            store.loadData( [] , false );
-        }
+        var me = this;
+        Ext.getCmp( 'Employee-Header').refreshStore( me , '/store' , {} );
     },
     resetAll:function() {
         this.getStore().loadData( [] , false );

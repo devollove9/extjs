@@ -15,6 +15,7 @@ app.controller('LoginController', [ '$scope' ,  '$http' , '$cookies','$cookieSto
                 if ( userInfo.rememberMe == true && userInfo.status == false ) {
                     var username = userInfo.email;
                     var password = userInfo.password;
+
                     $http
                         // Login Url
                         .get('https://apiv2-test.517.today/auth/email?email='+username+'&password='+password+'&maxAge=3600')
@@ -32,7 +33,7 @@ app.controller('LoginController', [ '$scope' ,  '$http' , '$cookies','$cookieSto
                                 userInfo.status = true;
                                 $cookieStore.put( '517Employee' , userInfo );
                                 // Ext App Url
-                                window.location = "http://employee.yaxingli.com/employee/Main";
+                                window.location = "http://employee.yaxingli.com/employee";
                             }
 
                         })
@@ -51,12 +52,13 @@ app.controller('LoginController', [ '$scope' ,  '$http' , '$cookies','$cookieSto
         $scope.loginSubmitText = "Submitting..";
         username=$('#username').val();
         password = CryptoJS.MD5( $('#password').val() );
+
         var rememberMe = $scope.rememberMe;
         $http
             // Login Url
             .get('https://apiv2-test.517.today/auth/email?email='+username+'&password='+password+'&maxAge=3600')
             .success(function(data) {
-                console.log(data);
+
                 if ( data.error.errorCode ) {
                     if ( data.error.errorCode == 1007 ) {
                         alert( 'Please check your username/password.' );
@@ -65,14 +67,13 @@ app.controller('LoginController', [ '$scope' ,  '$http' , '$cookies','$cookieSto
                     }
                     $scope.loginSubmitText = "Sign In";
                 } else {
-
-                    data.data.password = password;
+                    data.data.password = password.toString();
                     data.data.status = true;
                     data.data.rememberMe = rememberMe;
                     $cookieStore.put( '517Employee' , data.data );
 
                     // Ext App Url
-                    window.location = "http://employee.yaxingli.com/employee/Main";
+                    //window.location = "http://employee.yaxingli.com/employee";
                 }
 
             })

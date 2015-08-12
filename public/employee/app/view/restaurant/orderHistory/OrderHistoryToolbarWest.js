@@ -35,6 +35,7 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryToolbarWest', {
                         plain: true,
                         width:104,
                         id: 'orderDaysMenu',
+                        dayFactor:-1,
                         items:[
                             { text: 'Last 7 Days' , dayFactor:6 , handler: 'getOrderByDay' },
                             { text: 'Last 14 Days' , dayFactor:13 , handler: 'getOrderByDay' },
