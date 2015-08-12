@@ -73,7 +73,7 @@ app.controller('LoginController', [ '$scope' ,  '$http' , '$cookies','$cookieSto
                     $cookieStore.put( '517Employee' , data.data );
 
                     // Ext App Url
-                    //window.location = "http://employee.yaxingli.com/employee";
+                    window.location = "http://employee.yaxingli.com/employee";
                 }
 
             })
