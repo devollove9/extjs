@@ -28,7 +28,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
         msgTarget: 'side'
     },
     // Origin Restaurant Info
-    originData:null,
+    originData:{},
 
     // Variable determing if adding new restaurant
     newRestaurant:false,
@@ -145,51 +145,49 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                 }
             ]
         },
-
-        // Salse 2
+        // Address 2
         {
             xtype: 'fieldset',
-            title: 'Sales',
+            title: 'Address',
             defaultType: 'textfield',
-            width : '50%',
             layout: {
+                type:'hbox',
                 align: 'stretch'
             },
+            padding:'0 0 10 0',
             defaults: {
                 anchor: '100%'
             },
             items: [
                 {
-                    xtype: 'fieldcontainer',
-                    layout: 'hbox',
-                    combineErrors: true,
-                    defaultType: 'textfield',
-                    items: [
-                        {
-                            name: 'sales.day',
-                            fieldLabel: 'Day',
-                            flex: 2,
-                            readOnly:true
-                        },
-                        {
-                            name: 'sales.week',
-                            fieldLabel: 'Week',
-                            flex: 2,
-                            readOnly:true
-                        },
-                        {
-                            name: 'sales.month',
-                            fieldLabel: 'Month',
-                            flex: 2,
-                            readOnly:true
-                        },
-                        {
-                            name: 'sales.total',
-                            fieldLabel: 'Total',
-                            flex: 2,
-                            readOnly:true
-                        }
-                    ]
+                    labelWidth: 110,
+                    fieldLabel: 'Street Address',
+                    name: 'information.address',
+                    billingFieldName: 'billingStreet',
+                    allowBlank: false,
+                    flex:3
+                },
+                {
+                    xtype: 'button',
+                    text: 'GEOCODE',
+                    width : 100,
+                    margin:'0 0 0 10',
+                    handler:function(){
+                        this.up().up().setGeoLocation();
+                    }
+                },
+                {
+                    name: 'location.latitude',
+                    fieldLabel: 'Latitude',
+                    flex: 2,
+                    allowBlank: false
+                },
+                {
+                    name: 'location.longitude',
+                    fieldLabel: 'Longitude',
+                    flex: 2,
+                    //margin: '0 0 0 6',
+                    allowBlank: false
                 }
             ]
         },
@@ -457,43 +455,19 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
 
         },
 
-        // Address
+        // Salse 2
         {
             xtype: 'fieldset',
-            title: 'Address',
+            title: 'Sales',
             defaultType: 'textfield',
-            layout: 'anchor',
+            width : '50%',
+            layout: {
+                align: 'stretch'
+            },
             defaults: {
                 anchor: '100%'
             },
             items: [
-                {
-                    labelWidth: 110,
-                    fieldLabel: 'Street Address',
-                    name: 'information.address',
-                    billingFieldName: 'billingStreet',
-                    allowBlank: false
-                },
-                {
-                    xtype: 'button',
-                    text: 'GEOCODE',
-                    handler:function(){
-                        this.up().up().setGeoLocation();
-                    }
-                },
-            ]
-        },
-
-        // Location
-        {
-            xtype: 'fieldset',
-            title: 'Location',
-
-            defaultType: 'textfield',
-            defaults: {
-                anchor: '100%'
-            },
-            items:[
                 {
                     xtype: 'fieldcontainer',
                     layout: 'hbox',
@@ -501,23 +475,33 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                     defaultType: 'textfield',
                     items: [
                         {
-                            name: 'location.latitude',
-                            fieldLabel: 'Latitude',
+                            name: 'sales.day',
+                            fieldLabel: 'Day',
                             flex: 2,
-                            allowBlank: false
+                            readOnly:true
                         },
                         {
-                            name: 'location.longitude',
-                            fieldLabel: 'Longitude',
+                            name: 'sales.week',
+                            fieldLabel: 'Week',
                             flex: 2,
-                            //margin: '0 0 0 6',
-                            allowBlank: false
+                            readOnly:true
+                        },
+                        {
+                            name: 'sales.month',
+                            fieldLabel: 'Month',
+                            flex: 2,
+                            readOnly:true
+                        },
+                        {
+                            name: 'sales.total',
+                            fieldLabel: 'Total',
+                            flex: 2,
+                            readOnly:true
                         }
                     ]
                 }
             ]
-        }
-
+        },
 
     ],
     dockedItems: [{
@@ -625,13 +609,16 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
             me.loadFieldData( 'nameEn' , data.nameEn );
 
             // Delivery
-            me.loadFieldData( 'delivery.distance' , data.delivery.distance );
-            me.loadFieldData( 'delivery.feeFactor' , data.delivery.feeFactor );
-            me.loadFieldData( 'delivery.flatFactor' , data.delivery.flatFactor );
-            me.loadFieldData( 'delivery.minimum' , data.delivery.minimum );
-            me.loadFieldData( 'delivery.time' , data.delivery.time );
-            // Method
-            me.loadSpecialField( 'delivery.method' , data.delivery.method );
+            if ( data.delivery ) {
+                me.loadFieldData( 'delivery.distance' , data.delivery.distance );
+                me.loadFieldData( 'delivery.feeFactor' , data.delivery.feeFactor );
+                me.loadFieldData( 'delivery.flatFactor' , data.delivery.flatFactor );
+                me.loadFieldData( 'delivery.minimum' , data.delivery.minimum );
+                me.loadFieldData( 'delivery.time' , data.delivery.time );
+                // Method
+                me.loadSpecialField( 'delivery.method' , data.delivery.method );
+            }
+
 
             if ( data.information ) {
                 // Information
@@ -654,23 +641,31 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
 
 
             // Logo
-            me.loadFieldData( 'logo.web' , data.logo.web );
-            me.loadFieldData( 'logo.phone' , data.logo.phone );
-            me.loadFieldData( 'logo.mini' , data.logo.mini );
+            if ( data.logo ) {
+                me.loadFieldData( 'logo.web' , data.logo.web );
+                me.loadFieldData( 'logo.phone' , data.logo.phone );
+                me.loadFieldData( 'logo.mini' , data.logo.mini );
+
+            }
 
             // Sales
-            me.loadFieldData( 'sales.day' , data.sales.day );
-            me.loadFieldData( 'sales.week' , data.sales.week );
-            me.loadFieldData( 'sales.month' , data.sales.month );
-            me.loadFieldData( 'sales.total' , data.sales.total );
+            if ( data.sales ) {
+                me.loadFieldData( 'sales.day' , data.sales.day );
+                me.loadFieldData( 'sales.week' , data.sales.week );
+                me.loadFieldData( 'sales.month' , data.sales.month );
+                me.loadFieldData( 'sales.total' , data.sales.total );
+            }
+
 
 
             // PaymentType
             me.loadSpecialField( 'paymentType' , data.paymentType );
 
             // Location
-            me.loadFieldData( 'location.latitude' , data.location.latitude );
-            me.loadFieldData( 'location.longitude' , data.location.longitude );
+            if ( data.location ) {
+                me.loadFieldData( 'location.latitude' , data.location.latitude );
+                me.loadFieldData( 'location.longitude' , data.location.longitude );
+            }
 
         }
         me.setLoading( false );
@@ -735,7 +730,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
     },
     resetAll:function(){
         //Ext.getStore('Restaurantdetail').loadData( [] , false );
-        this.originData = null;
+        this.originData = {};
         this.changedInfo = {};
         this.newInfo = {};
         this.newRestaurant = false;
@@ -768,7 +763,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
         } else if ( me.newRestaurant == true && region.regionId != -1 ) {
             var valid = me.getNewInfo();
             if ( valid == true ) {
-                me.postData( 'put' , me.newInfo );
+                me.postData( 'post' , me.newInfo );
             }
         }
         me.changedInfo = {};
@@ -778,12 +773,19 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
     getNewInfo:function(){
         var me = this;
         var form = me.getForm();
-        var valid = false;
+        var valid = true;
         var newInfo = me.newInfo;
         var ErrorNumber = 1;
         var ErrorMessage = '';
-        var name = me.forceCompareViewDataNew( 'name' );
+
         var Error = false ;
+        var region = Ext.getCmp( 'Employee-Header-Region' );
+        if ( region.regionId == -1 ) {
+            ErrorMessage += ErrorNumber + '. Region is not selected. <br>'; ErrorNumber ++; Error = true;
+        }
+        newInfo.regionId = region.regionId;
+        var name = me.forceCompareViewDataNew( 'name' );
+
         if ( ! name ) {
             ErrorMessage += ErrorNumber + '. Name is Required. <br>'; ErrorNumber ++; Error = true;
         }
@@ -794,63 +796,62 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
         }
 
         // Delivery
-            var deliveryMinimum = me.forceCompareViewDataNew( 'delivery.minimum' );
-            if ( ! deliveryMinimum ) {
-                ErrorMessage += ErrorNumber + '. Delivery Minimum is Required. <br>'; ErrorNumber ++; Error = true;
-            }
+        var deliveryMinimum = me.forceCompareViewDataNew( 'delivery.minimum' );
+        if ( ! deliveryMinimum ) {
+            ErrorMessage += ErrorNumber + '. Delivery Minimum is Required. <br>'; ErrorNumber ++; Error = true;
+        }
 
-            var deliveryTime = me.forceCompareViewDataNew( 'delivery.time' );
-            if ( ! deliveryTime ) {
-                ErrorMessage += ErrorNumber + '. Delivery Time is Required. <br>'; ErrorNumber ++; Error = true;
-            }
+        var deliveryTime = me.forceCompareViewDataNew( 'delivery.time' );
+        if ( ! deliveryTime ) {
+            ErrorMessage += ErrorNumber + '. Delivery Time is Required. <br>'; ErrorNumber ++; Error = true;
+        }
 
-            var deliveryDistance = me.forceCompareViewDataNew( 'delivery.distance' );
-            if ( ! deliveryDistance ) {
-                ErrorMessage += ErrorNumber + '. Delivery Distance( Miles ) is Required. <br>'; ErrorNumber ++; Error = true;
-            }
+        var deliveryDistance = me.forceCompareViewDataNew( 'delivery.distance' );
+        if ( ! deliveryDistance ) {
+            ErrorMessage += ErrorNumber + '. Delivery Distance( Miles ) is Required. <br>'; ErrorNumber ++; Error = true;
+        }
 
-            var deliveryMethod = me.compareViewArrayData( 'delivery.method' );
-            if ( deliveryMethod.length == 0 ) {
-                ErrorMessage += ErrorNumber + '. Delivery Method is Required. <br>'; ErrorNumber ++; Error = true;
-            } else {
-                newInfo.delivery.method = deliveryMethod;
-            }
+        var deliveryMethod = me.compareViewArrayData( 'delivery.method' , 'get' );
+        if ( deliveryMethod.length == 0 ) {
+            ErrorMessage += ErrorNumber + '. Delivery Method is Required. <br>'; ErrorNumber ++; Error = true;
+        } else {
+            newInfo.delivery.method = deliveryMethod;
+        }
 
-            var deliveryFeeFactor = me.forceCompareViewDataNew( 'delivery.feeFactor' );
-            var deliveryFlatFactor = me.forceCompareViewDataNew( 'delivery.flatFactor' );
-
+        var deliveryFeeFactor = me.forceCompareViewDataNew( 'delivery.feeFactor' );
+        if ( ! deliveryFeeFactor ) {
+            newInfo.delivery.feeFactor = 0
+        }
+        var deliveryFlatFactor = me.forceCompareViewDataNew( 'delivery.flatFactor' );
+        if ( ! deliveryFlatFactor ) {
+            newInfo.delivery.flatFactor = 0
+        }
         // paymentType
-            var paymentType = me.compareViewArrayData( 'paymentType' );
-            if ( paymentType.length == 0 ) {
-                ErrorMessage += ErrorNumber + '. Delivery Method is Required. <br>'; ErrorNumber ++; Error = true;
-            } else {
-                newInfo.delivery.method = paymentType;
-            }
+        var paymentType = me.compareViewArrayData( 'paymentType' , 'get' );
+        if ( paymentType.length == 0 ) {
+            ErrorMessage += ErrorNumber + '. Delivery Method is Required. <br>'; ErrorNumber ++; Error = true;
+        } else {
+            newInfo.paymentType = paymentType;
+        }
 
         // logo
-            var miniLogo = form.findField( 'logo.mini');
-            var phoneLogo = form.findField( 'logo.phone');
-            var webLogo = form.findField( 'logo.web');
-            if ( miniLogo.fileTransfered == true || phoneLogo.fileTransfered == true || webLogo.fileTransfered == true ) {
-                if ( typeof newInfo.logo == 'undefined' ) {
-                    newInfo.logo = {};
-                }
-                if ( miniLogo.fileTransfered == true ) {
-                    newInfo.logo.mini = miniLogo.fileData;
-                } else {
-                    newInfo.logo.mini = '';
-                }
-                if ( phoneLogo.fileTransfered == true ) {
-                    newInfo.logo.phone = phoneLogo.fileData;
-                } else {
-                    newInfo.logo.phone = '';
-                }
-                if ( webLogo.fileTransfered == true ) {
-                    newInfo.logo.web = webLogo.fileData;
-                } else {
-                    newInfo.logo.web = '';
-                }
+        var miniLogo = form.findField( 'logo.mini');
+        var phoneLogo = form.findField( 'logo.phone');
+        var webLogo = form.findField( 'logo.web');
+        if ( miniLogo.fileTransfered == true || phoneLogo.fileTransfered == true || webLogo.fileTransfered == true ) {
+            if ( typeof newInfo.logo == 'undefined' ) {
+                newInfo.logo = {};
             }
+            if ( miniLogo.fileTransfered == true ) {
+                newInfo.logo.mini = miniLogo.fileData;
+            }
+            if ( phoneLogo.fileTransfered == true ) {
+                newInfo.logo.phone = phoneLogo.fileData;
+            }
+            if ( webLogo.fileTransfered == true ) {
+                newInfo.logo.web = webLogo.fileData;
+            }
+        }
 
         // information
         var informationAddress = me.forceCompareViewDataNew( 'information.address' );
@@ -863,11 +864,30 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
             ErrorMessage += ErrorNumber + '. Description is Required. <br>'; ErrorNumber ++; Error = true;
         }
 
-        var informationDescriptionEn = me.forceCompareViewDataNew( 'information.description' );
-        if ( ! informationDescription ) {
-            ErrorMessage += ErrorNumber + '. Description is Required. <br>'; ErrorNumber ++; Error = true;
+        var informationDescriptionEn = me.forceCompareViewDataNew( 'information.descriptionEn' );
+        if ( ! informationDescriptionEn ) {
+            ErrorMessage += ErrorNumber + '. English Description is Required. <br>'; ErrorNumber ++; Error = true;
         }
 
+        var informationRangeIndex1 = me.forceCompareViewDataNew( 'information.rangeIndex1' );
+        if ( ! informationRangeIndex1 ) {
+            ErrorMessage += ErrorNumber + '. Index is Required. <br>'; ErrorNumber ++; Error = true;
+        }
+
+        var businessHour = me.getSpecificField( 'businessHour' ).getViewData();
+        if ( businessHour.length > 0 ) {
+            newInfo.information.businessHour = businessHour;
+        }
+        var announcement = me.getSpecificField( 'announcement' ).getViewData();
+        if ( announcement.length > 0 ) {
+            newInfo.information.announcement = announcement;
+        }
+        var announcementEn = me.getSpecificField( 'announcementEn').getViewData();
+        if ( announcementEn.length > 0 ) {
+            newInfo.information.announcementEn = announcementEn;
+        }
+
+        // Location
         var latitude = me.forceCompareViewDataNew( 'location.latitude' );
         if ( ! latitude ) {
             ErrorMessage += ErrorNumber + '. Location Latitude is Empty. <br>';
@@ -879,10 +899,10 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
             ErrorMessage += ErrorNumber + '. Location Longitude is Empty. <br>';
             ErrorNumber ++; Error = true;
         }
-
-        if ( nameChange == true || nameEnChange == true || latitudeChange == true || longitudeChange == true ) {
-            changed = true;
-
+        console.log( Error );
+        if ( Error == true ) {
+            Ext.Msg.alert( 'Fail' , ErrorMessage );
+            valid = false;
         }
 
         return valid;
@@ -940,7 +960,6 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                     changedInfo[ fieldArray[ 0 ] ] = newData;
                 }
 
-
             }
         }
 
@@ -962,8 +981,9 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
             } else {
                 newInfo[ fieldArray[ 0 ] ] = newData;
             }
-        }
 
+            return data;
+        }
 
     },
     getChangedInfo:function() {
@@ -1062,18 +1082,12 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
             }
             if ( miniLogo.fileTransfered == true ) {
                 changedInfo.logo.mini = miniLogo.fileData;
-            } else {
-                changedInfo.logo.mini = '';
             }
             if ( phoneLogo.fileTransfered == true ) {
                 changedInfo.logo.phone = phoneLogo.fileData;
-            } else {
-                changedInfo.logo.phone = '';
             }
             if ( webLogo.fileTransfered == true ) {
                 changedInfo.logo.web = webLogo.fileData;
-            } else {
-                changedInfo.logo.web = '';
             }
         }
         console.log( changedInfo );
@@ -1181,12 +1195,15 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
     setGeoLocation:function() {
         var me = this;
         var address = me.getForm().findField( 'information.address').getValue();
+
         if ( address ) {
             var geocoder = new google.maps.Geocoder();
+
             geocoder.geocode( { 'address': address }, function(results, status) {
                 var location = results[ 0 ].geometry.location;
                 var latitude = location.lat();
                 var longitude = location.lng();
+                console.log( location );
                 me.getForm().findField( 'location.latitude').setValue( latitude );
                 me.getForm().findField( 'location.longitude').setValue( longitude );
             });
