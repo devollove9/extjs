@@ -33,7 +33,13 @@ Ext.define('517Employee.view.restaurant.information.InformationRestaurantList', 
                 text: 'New',
                 handler : function() {
                     this.up().up().getSelectionModel().deselectAll();
-                    Ext.getCmp( 'Employee-Restaurant-Information-Restaurant').addRestaurant();
+                    var region = Ext.getCmp( 'Employee-Header-Region' );
+                    if ( region.regionId == -1 ) {
+                        Ext.Msg.alert( 'Error' , 'Please choose a region first.' );
+                    } else {
+                        Ext.getCmp( 'Employee-Restaurant-Information-Restaurant').addRestaurant();
+                    }
+
                 }
             },
             {
@@ -49,7 +55,9 @@ Ext.define('517Employee.view.restaurant.information.InformationRestaurantList', 
                 iconCls: 'fa fa-times',
                 tooltip: 'De-select Restaurant list',
                 handler:function() {
+
                     this.up().up().getSelectionModel().deselectAll();
+                    Ext.getCmp( 'Employee-Restaurant-Information-Restaurant').resetAll();
                 }
 
             },
@@ -97,6 +105,7 @@ Ext.define('517Employee.view.restaurant.information.InformationRestaurantList', 
     refreshView:function() {
         var me = this;
         Ext.getCmp( 'Employee-Header').refreshStore( me , '/store' , {} );
+
     },
     resetAll:function() {
         this.getStore().loadData( [] , false );
