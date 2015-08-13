@@ -33,7 +33,7 @@ app.controller('LoginController', [ '$scope' ,  '$http' , '$cookies','$cookieSto
                                 userInfo.status = true;
                                 $cookieStore.put( '517Employee' , userInfo );
                                 // Ext App Url
-                                window.location = "http://employee.yaxingli.com/employee";
+                                window.location = "employee";
                             }
 
                         })
@@ -73,7 +73,7 @@ app.controller('LoginController', [ '$scope' ,  '$http' , '$cookies','$cookieSto
                     $cookieStore.put( '517Employee' , data.data );
 
                     // Ext App Url
-                    window.location = "http://employee.yaxingli.com/employee";
+                    window.location = "employee";
                 }
 
             })
