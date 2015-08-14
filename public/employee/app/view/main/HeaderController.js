@@ -39,7 +39,7 @@ Ext.define( '517Employee.view.main.HeaderController' , {
                             var userInfo = Ext.util.Cookies.get('517Employee');
                             userInfo = null;
                             Ext.util.Cookies.clear('517Employee');
-                            window.location = "login";
+                            window.location = "../login";
 
 
                         }

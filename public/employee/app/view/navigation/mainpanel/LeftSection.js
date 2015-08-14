@@ -31,33 +31,42 @@ Ext.define('517Employee.view.navigation.mainpanel.LeftSection', {
         var Lx = 25;
         var Ly = 0;
         var items=[];
+        //console.log( Ext.getCmp( 'Employee-Header').getUserInfo() );
+        //if ( Ext.getCmp( 'Employee-Header').getUserInfo().email == 'test@test.test' ) {
+        //    var driverTitle = this.createIconTitle( DriverCategory , Lx , Ly ); Ly += 50;
+        //    var driverBlockOrderHistory = this.createIcon( DriverOrderHistoryIcon , 'employee-driverUnique orderHistory' , Lx , Ly );
+        //    items.push( driverTitle );   items.push( driverBlockOrderHistory );
+        //} else {
+            // If Operator
+            if ( Ext.getCmp( 'Employee-Header').checkUserPermissions( 'operator' ) == true ) {
+                var operatorTitle = this.createIconTitle( OperatorCategory , Lx , Ly ); Ly += 50;
+                var operatorBlockOperation = this.createIcon( OperationIcon , 'employee-operator operation' , Lx , Ly ); Ly += 50;
+                var operatorBlockNewOrder = this.createIcon( NewOrderIcon , 'employee-operator newOrder' , Lx , Ly ); Ly += 70;
+                items.push( operatorTitle ); items.push( operatorBlockOperation ); items.push( operatorBlockNewOrder );
+                var restaurantTitle = this.createIconTitle( RestaurantCategory , Lx , Ly ); Ly += 50;
+                var restaurantBlockOrderHistory = this.createIcon( OrderHistoryIcon , 'employee-restaurant orderHistory' , Lx , Ly ); Ly += 50;
+                items.push( restaurantTitle ); items.push( restaurantBlockOrderHistory );
+            }
 
-        // If Operator
-        if ( Ext.getCmp( 'Employee-Header').checkUserPermissions( 'operator' ) == true ) {
-            var operatorTitle = this.createIconTitle( OperatorCategory , Lx , Ly ); Ly += 50;
-            var operatorBlockOperation = this.createIcon( OperationIcon , 'employee-operator operation' , Lx , Ly ); Ly += 50;
-            var operatorBlockNewOrder = this.createIcon( NewOrderIcon , 'employee-operator newOrder' , Lx , Ly ); Ly += 70;
-            items.push( operatorTitle ); items.push( operatorBlockOperation ); items.push( operatorBlockNewOrder );
-            var restaurantTitle = this.createIconTitle( RestaurantCategory , Lx , Ly ); Ly += 50;
-            var restaurantBlockOrderHistory = this.createIcon( OrderHistoryIcon , 'employee-restaurant orderHistory' , Lx , Ly ); Ly += 50;
-            items.push( restaurantTitle ); items.push( restaurantBlockOrderHistory );
-        }
+            // If Admin
+            if ( Ext.getCmp( 'Employee-Header').checkUserPermissions( 'admin' ) == true ) {
+                var restaurantBlockInformation = this.createIcon( InformationIcon , 'employee-restaurant information' , Lx , Ly ); Ly += 50;
+                var restaurantBlockDish = this.createIcon( DishIcon , 'employee-restaurant dish' , Lx , Ly ); Ly += 70;
+                items.push( restaurantBlockInformation ); items.push( restaurantBlockDish );
+            }
 
-        // If Admin
-        if ( Ext.getCmp( 'Employee-Header').checkUserPermissions( 'admin' ) == true ) {
-            var restaurantBlockInformation = this.createIcon( InformationIcon , 'employee-restaurant information' , Lx , Ly ); Ly += 50;
-            var restaurantBlockDish = this.createIcon( DishIcon , 'employee-restaurant dish' , Lx , Ly ); Ly += 70;
-            items.push( restaurantBlockInformation ); items.push( restaurantBlockDish );
-        }
-
-        if ( Ext.getCmp( 'Employee-Header').checkUserPermissions( 'operator' ) == true ) {
+            // If Driver
             var driverTitle = this.createIconTitle( DriverCategory , Lx , Ly ); Ly += 50;
-            // If Only Driver Permission
-            // var driverBlockOrderHistory = this.createIcon( DriverOrderHistoryIcon , 'employee-driver orderHistorySingle' , Lx , Ly );
-            // Else
-            var driverBlockOrderHistory = this.createIcon( DriverOrderHistoryIcon , 'employee-driver orderHistory' , Lx , Ly );
+            if ( Ext.getCmp( 'Employee-Header').checkUserPermissions( 'operator' ) == true || Ext.getCmp( 'Employee-Header').checkUserPermissions( 'admin' ) == true ) {
+                var driverBlockOrderHistory = this.createIcon( DriverOrderHistoryIcon , 'employee-driver orderHistory' , Lx , Ly );
+            } else if ( Ext.getCmp( 'Employee-Header').checkUserPermissions( 'driver' ) == true ) {
+                // If Only Driver Permission
+                var driverBlockOrderHistory = this.createIcon( DriverOrderHistoryIcon , 'employee-driverUnique orderHistory' , Lx , Ly );
+            }
             items.push( driverTitle );   items.push( driverBlockOrderHistory );
-        }
+
+       // }
+
 
         this.items = items;
         this.callParent(arguments);

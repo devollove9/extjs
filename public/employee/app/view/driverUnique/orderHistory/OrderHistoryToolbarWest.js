@@ -1,11 +1,11 @@
-Ext.define('517Employee.view.driver.orderHistory.OrderHistoryToolbarWest', {
+Ext.define('517Employee.view.driverUnique.orderHistory.OrderHistoryToolbarWest', {
     extend: 'Ext.panel.Panel',
 
     requires: [
-        '517Employee.view.driver.orderHistory.OrderHistoryToolbarController'
+        '517Employee.view.driverUnique.orderHistory.OrderHistoryToolbarController'
     ],   
-    xtype: 'employee-driver-orderHistory-toolbar-west',
-    controller: 'employee-driver-orderHistory-toolbar-controller',
+    xtype: 'employee-driverUnique-orderHistory-toolbar-west',
+    controller: 'employee-driverUnique-orderHistory-toolbar-controller',
     bodyStyle:{ "background-color":"white",'border-color' : 'white','border-right':'0px solid #c1c1c1' , padding:0 },
 
     frame:false ,// border:false,

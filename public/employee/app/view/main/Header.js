@@ -23,9 +23,9 @@ Ext.define('517Employee.view.main.Header', {
     // Server Url
     serverUrl:'https://apiv2-test.517.today',
     //serverUrl:'https://apiv2-dev.517.today',
-
+    userInfo:null,
     initComponent: function() {
-
+        var headerView = this;
         this.height = 50;
         this.frame = false; this.border = false;
         this.style = {
@@ -99,6 +99,7 @@ Ext.define('517Employee.view.main.Header', {
                         },
                         afterrender:function(){
                             var me = this;
+
                             var items = [];
                             var store = Ext.getStore( 'Regions' );
                             store.on('load', function(storeRef, records, successful){
@@ -247,68 +248,99 @@ Ext.define('517Employee.view.main.Header', {
         }
         return false;
     },
+    loadUserInfo:function() {
 
+
+    },
+    getUserInfo:function() {
+        if ( Ext.util.Cookies.get( '517Employee' ) ) {
+            var userCookie = Ext.decode( Ext.util.Cookies.get( '517Employee' ) );
+            this.userInfo = userCookie ;
+            return userCookie;
+        } else {
+            Ext.Msg.alert('Warning', 'Unable to retrieve user information!');
+        }
+    },
     createServiceMenu:function(){
         var me = this;
         var menu = [];
         var MainMenu = me.createMenuItem( 'Main Menu' , 'employee-navigation');
         menu.push( MainMenu );menu.push( '-' );
-        // If Driver Only
-            //var DriverOrderHistory = this.createMenuItem( 'Order History' , 'employee-driver orderHistorySingle' );
-        // Else
-            var DriverMenu =[];
-            var DriverOrderHistory = me.createMenuItem( 'Order History' , 'employee-driver orderHistory' );
-            DriverMenu.push( DriverOrderHistory );
-            var Driver = me.createMenuItemWithMenu( 'Driver' , 'employee-driver' , DriverMenu );
-            menu.push( Driver );
-
-        // If Operator
-        if ( this.checkUserPermissions( 'operator' ) == true ) {
-            //Ext.create( '517Employee.store.restaurant.RestaurantList' );
-            menu.push( '-');
-            var OperatorMenu =[];
-            var OperatorOperation = me.createMenuItem( 'Operation' , 'employee-operator operation' );
-            var OperatorNewOrder = me.createMenuItem( 'New Order' , 'employee-operator newOrder' );
-            OperatorMenu.push( OperatorOperation );OperatorMenu.push( '-' );OperatorMenu.push( OperatorNewOrder );
-            var Operator = me.createMenuItemWithMenu( 'Operator' , 'employee-operator' , OperatorMenu );
-            Ext.create( '517Employee.store.operator.operation.OrderList' );
-            this.refreshList.push( 'Employee-Operator' );
-
-            menu.push( Operator );
-            // If Only Operator
-            if ( me.checkUserPermissions( 'admin' ) == false ) {
-                menu.push( '-');
-                var RestaurantMenu =[];
-                var RestaurantOrderHistory = this.createMenuItem( 'Order History' , 'employee-restaurant orderHistory' );
-                RestaurantMenu.push( RestaurantOrderHistory );
-                var Restaurant = this.createMenuItemWithMenu( 'Restaurant' , 'employee-restaurant' , RestaurantMenu );
-                menu.push( Restaurant );
+        var DriverMenu = [];
+        //if ( me.getUserInfo().email == 'test@test.test' ) {
+        //    var DriverOrderHistory = me.createMenuItem('Order History', 'employee-driverUnique orderHistory');
+        //    DriverMenu.push(DriverOrderHistory);
+        //    var Driver = me.createMenuItemWithMenu('Driver', 'employee-driverUnique', DriverMenu);
+        //    menu.push(Driver);
+        //    this.refreshList.push( 'Employee-DriverUnique' );
+        //} else {
+            if ( this.checkUserPermissions( 'operator' ) == true  || this.checkUserPermissions( 'admin' ) == true ) {
+                var DriverOrderHistory = me.createMenuItem('Order History', 'employee-driver orderHistory');
+                DriverMenu.push(DriverOrderHistory);
+                var Driver = me.createMenuItemWithMenu('Driver', 'employee-driver', DriverMenu);
+                menu.push(Driver);
+                this.refreshList.push( 'Employee-Driver' );
+            } else if ( this.checkUserPermissions( 'driver' ) == true ) {
+                // If Driver Only
+                //var DriverOrderHistory = this.createMenuItem( 'Order History' , 'employee-driver orderHistorySingle' );
+                // Else
+                var DriverOrderHistory = me.createMenuItem('Order History', 'employee-driverUnique orderHistory');
+                DriverMenu.push(DriverOrderHistory);
+                var Driver = me.createMenuItemWithMenu('Driver', 'employee-driverUnique', DriverMenu);
+                menu.push(Driver);
+                this.refreshList.push( 'Employee-DriverUnique' );
             }
 
-        }
-        // If Admin
-        if ( me.checkUserPermissions( 'admin' ) == true ) {
+            // If Operator
+            if ( this.checkUserPermissions( 'operator' ) == true ) {
+                //Ext.create( '517Employee.store.restaurant.RestaurantList' );
+                menu.push( '-');
+                var OperatorMenu =[];
+                var OperatorOperation = me.createMenuItem( 'Operation' , 'employee-operator operation' );
+                var OperatorNewOrder = me.createMenuItem( 'New Order' , 'employee-operator newOrder' );
+                OperatorMenu.push( OperatorOperation );OperatorMenu.push( '-' );OperatorMenu.push( OperatorNewOrder );
+                var Operator = me.createMenuItemWithMenu( 'Operator' , 'employee-operator' , OperatorMenu );
+                Ext.create( '517Employee.store.operator.operation.OrderList' );
+                this.refreshList.push( 'Employee-Operator' );
 
-            menu.push( '-');
-            //Ext.create( '517Employee.store.restaurant.RestaurantList');
-            var RestaurantMenu =[];
-            var RestaurantOrderHistory = me.createMenuItem( 'Order History' , 'employee-restaurant orderHistory' );
-            var RestaurantInformation = me.createMenuItem( 'Information' , 'employee-restaurant information' );
-            var RestaurantDish = me.createMenuItem( 'Dish' , 'employee-restaurant dish' );
-            RestaurantMenu.push( RestaurantOrderHistory );RestaurantMenu.push( '-' );RestaurantMenu.push( RestaurantInformation );RestaurantMenu.push( '-' );RestaurantMenu.push( RestaurantDish );
-            var Restaurant = me.createMenuItemWithMenu( 'Restaurant' , 'employee-restaurant' , RestaurantMenu );
-            me.refreshList.push( 'Employee-Restaurant' );
-            menu.push( Restaurant );
+                menu.push( Operator );
+                // If Only Operator
+                if ( me.checkUserPermissions( 'admin' ) == false ) {
+                    menu.push( '-');
+                    var RestaurantMenu =[];
+                    var RestaurantOrderHistory = this.createMenuItem( 'Order History' , 'employee-restaurant orderHistory' );
+                    RestaurantMenu.push( RestaurantOrderHistory );
+                    var Restaurant = this.createMenuItemWithMenu( 'Restaurant' , 'employee-restaurant' , RestaurantMenu );
+                    me.refreshList.push( 'Employee-Restaurant' );
+                    menu.push( Restaurant );
+                }
 
-            menu.push( '-');
-            var BillMenu =[];
-            var BillRestaurant = me.createMenuItem( 'Restaurant' , 'employee-bill restaurant' );
-            var BillDriver = me.createMenuItem( 'Driver' , 'employee-bill driver' );
-            BillMenu.push( BillRestaurant );BillMenu.push( '-' );BillMenu.push( BillDriver );
-            var Bill = me.createMenuItemWithMenu( 'Bill' , 'employee-bill' , BillMenu );
-            me.refreshList.push( 'Employee-Bill' );
-            menu.push( Bill );
-        }
+            }
+            // If Admin
+            if ( me.checkUserPermissions( 'admin' ) == true ) {
+
+                menu.push( '-');
+                //Ext.create( '517Employee.store.restaurant.RestaurantList');
+                var RestaurantMenu =[];
+                var RestaurantOrderHistory = me.createMenuItem( 'Order History' , 'employee-restaurant orderHistory' );
+                var RestaurantInformation = me.createMenuItem( 'Information' , 'employee-restaurant information' );
+                var RestaurantDish = me.createMenuItem( 'Dish' , 'employee-restaurant dish' );
+                RestaurantMenu.push( RestaurantOrderHistory );RestaurantMenu.push( '-' );RestaurantMenu.push( RestaurantInformation );RestaurantMenu.push( '-' );RestaurantMenu.push( RestaurantDish );
+                var Restaurant = me.createMenuItemWithMenu( 'Restaurant' , 'employee-restaurant' , RestaurantMenu );
+                me.refreshList.push( 'Employee-Restaurant' );
+                menu.push( Restaurant );
+
+                menu.push( '-');
+                var BillMenu =[];
+                var BillRestaurant = me.createMenuItem( 'Restaurant' , 'employee-bill restaurant' );
+                var BillDriver = me.createMenuItem( 'Driver' , 'employee-bill driver' );
+                BillMenu.push( BillRestaurant );BillMenu.push( '-' );BillMenu.push( BillDriver );
+                var Bill = me.createMenuItemWithMenu( 'Bill' , 'employee-bill' , BillMenu );
+                me.refreshList.push( 'Employee-Bill' );
+                menu.push( Bill );
+            }
+       // }
+
 
 
         return menu;
@@ -352,7 +384,7 @@ Ext.define('517Employee.view.main.Header', {
                 Ext.Msg.alert( 'Server Error' , 'Unknown message received from server.' );
             }
         } else {
-            Ext.Msg.alert( 'Error' , 'Unknown response' )
+            Ext.Msg.alert( 'Error' , 'Unknown response.' )
         }
         return Error;
     },

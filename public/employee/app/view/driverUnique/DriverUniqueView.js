@@ -1,11 +1,11 @@
-Ext.define('517Employee.view.driver.DriverView', {
+Ext.define('517Employee.view.driverUnique.DriverUniqueView', {
     extend: 'Ext.panel.Panel',
 
     requires: [
-        '517Employee.view.driver.Sidebar',
-        '517Employee.view.driver.ContentView'
+        '517Employee.view.driverUnique.Sidebar',
+        '517Employee.view.driverUnique.ContentView'
     ],   
-    xtype: 'employee-driver',
+    xtype: 'employee-driverUnique',
     frame:false , border:false,
     bodyStyle:{ "background-color":"white",'border-color' : 'black','border-width':'0px'},
     layout: 'border',
@@ -13,16 +13,16 @@ Ext.define('517Employee.view.driver.DriverView', {
     items:[
         {
             region: 'west',
-            xtype: 'employee-driver-sidebar',
+            xtype: 'employee-driverUnique-sidebar',
             // Border Color
             style:{ "background-color":"none"},
-            id: 'Employee-Driver-Sidebar',
+            id: 'Employee-DriverUnique-Sidebar',
         },
         {
             region: 'center',
             margin: '0 0 0 10' , frame:false , border:false , 
-            xtype: 'employee-driver-content',
-            id: 'Employee-Driver-Content',
+            xtype: 'employee-driverUnique-content',
+            id: 'Employee-DriverUnique-Content',
         }
         
     ],
@@ -49,7 +49,7 @@ Ext.define('517Employee.view.driver.DriverView', {
 
     },
     doNavigation:function( tab ){
-        var driverContent = Ext.getCmp( 'Employee-Driver-Content' );
+        var driverUniqueContent = Ext.getCmp( 'Employee-DriverUnique-Content' );
         var employeeContent = Ext.getCmp( 'Employee-Main-ContentView' );
         if ( tab ) {           
             if ( tab.navigateAction ) {
@@ -59,11 +59,11 @@ Ext.define('517Employee.view.driver.DriverView', {
                 */
                 switch ( tab.navigateAction ) { 
                     case 'orderHistory' :
-                        driverContent.setActiveItem(0);
+                        driverUniqueContent.setActiveItem(0);
                         break;
                         
                     case 'xxxxX' :
-                        driverContent.setActiveItem(1);
+                        driverUniqueContent.setActiveItem(1);
                         break;
                         
                     case 'employee-navigation' :

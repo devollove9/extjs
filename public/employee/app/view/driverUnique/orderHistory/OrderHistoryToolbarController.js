@@ -1,6 +1,6 @@
-Ext.define('517Employee.view.driver.orderHistory.OrderHistoryToolbarController', {
+Ext.define('517Employee.view.driverUnique.orderHistory.OrderHistoryToolbarController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.employee-driver-orderHistory-toolbar-controller',
+    alias: 'controller.employee-driverUnique-orderHistory-toolbar-controller',
     requires: [
         //'517.view.main.AdminMain'
         //'517.517Time'
@@ -37,7 +37,7 @@ Ext.define('517Employee.view.driver.orderHistory.OrderHistoryToolbarController',
         };
 
         // Call Request Function
-        Ext.getCmp( 'Employee-Driver-OrderHistory-OrderList' ).refreshViewByParams( params );
+        Ext.getCmp( 'Employee-DriverUnique-OrderHistory-OrderList' ).refreshViewByParams( params );
     },
     /*
      *  Get orderHistory of past N days
@@ -52,12 +52,12 @@ Ext.define('517Employee.view.driver.orderHistory.OrderHistoryToolbarController',
         };
 
         // Call Request Function
-        Ext.getCmp( 'Employee-Driver-OrderHistory-OrderList' ).refreshViewByParams( params );
+        Ext.getCmp( 'Employee-DriverUnique-OrderHistory-OrderList' ).refreshViewByParams( params );
     },
 
 
     searchOrder : function ( field , event ) {
-        var orderList = Ext.getCmp( 'Employee-Driver-OrderHistory-OrderList' );
+        var orderList = Ext.getCmp( 'Employee-DriverUnique-OrderHistory-OrderList' );
         orderList.refreshView();
     }
     /*
@@ -68,8 +68,8 @@ Ext.define('517Employee.view.driver.orderHistory.OrderHistoryToolbarController',
         // Controller
         var controller = this;
         
-        // Driver Information
-        var driverInfo = Ext.getCmp( 'Index' ).getDriverInfo();
+        // DriverUnique Information
+        var driverUniqueInfo = Ext.getCmp( 'Index' ).getDriverUniqueInfo();
         
         // Fields 
         var form = field.up().up().getForm();
@@ -107,9 +107,9 @@ Ext.define('517Employee.view.driver.orderHistory.OrderHistoryToolbarController',
             // Request Params
             var params = {
                 method : 'filterById' ,
-                regionId : driverInfo.regionId ,
+                regionId : driverUniqueInfo.regionId ,
                 idType : 'storeId' ,
-                id : driverInfo.storeId ,
+                id : driverUniqueInfo.storeId ,
                 filterBy : filterType ,
                 filterValue : start ,
                 comparator : comparator ,
@@ -126,15 +126,15 @@ Ext.define('517Employee.view.driver.orderHistory.OrderHistoryToolbarController',
         // Controller
         var controller = this;
         
-        // Driver Information
-        var driverInfo = Ext.getCmp( 'Index' ).getDriverInfo();
+        // DriverUnique Information
+        var driverUniqueInfo = Ext.getCmp( 'Index' ).getDriverUniqueInfo();
         
         // Request Params
         var params = {
             method : 'filterById' ,
-            regionId : driverInfo.regionId ,
+            regionId : driverUniqueInfo.regionId ,
             idType : 'storeId' ,
-            id : driverInfo.storeId ,
+            id : driverUniqueInfo.storeId ,
             filterBy : 'placeDate' ,
             filterValue : '4/1/2013, 11:59:59 PM GMT-4:00 DST' ,
             comparator : '>' ,

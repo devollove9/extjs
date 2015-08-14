@@ -12,6 +12,7 @@ Ext.define('517Employee.view.Index', {
         padding: 0
     },
     //store:'StoreInfo',
+    id:'Employee-Index',
     controller:'index',
     referenceHoder:'true',
     border:false, frame:false,
@@ -21,8 +22,9 @@ Ext.define('517Employee.view.Index', {
 
         var me = this;
         this.initialSetting();
-        //me.loadUserInfo();
+        me.loadUserInfo();
         me.loadRegionInfo();
+        me.checkPermissions();
         me.callParent( arguments );
     },
     bodyStyle:{"background-color":"white" , 'border-width' : '0px'}, 
@@ -68,15 +70,47 @@ Ext.define('517Employee.view.Index', {
     initialSetting:function() {
         Ext.Msg.setAutoScroll( false );
     },
+    /*
+     Check Permission
+     */
+    checkPermissions:function() {
+        var valid = false;
+        if ( Ext.util.Cookies.get( '517Employee' ) ) {
+            var userCookie = Ext.decode( Ext.util.Cookies.get( '517Employee' ) );
+            if ( userCookie.role ) {
+                if ( userCookie.role.length > 0 ) {
 
+                    for( var i = 0 ; i < userCookie.role.length ; i ++ ) {
+                        var role = userCookie.role[ i ];
+                        if ( role == 'admin' || role == 'operator' || role == 'driver' ) {
+                            valid = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        if ( valid == false ) {
+            this.forceLogout( 'Sorry , No Permission.' );
+        }
+    },
     /*
         Load User Info
     */
     loadUserInfo:function() {
-        var userCookie = Ext.decode( Ext.util.Cookies.get( '517Employee' ) );
-        this.userInfo = userCookie ;
+        if ( Ext.util.Cookies.get( '517Employee' ) ) {
+            var userCookie = Ext.decode( Ext.util.Cookies.get( '517Employee' ) );
+            this.userInfo = userCookie ;
+        } else {
+            //Ext.Msg.alert( 'Warning' , 'Unable to retrieve user information!' );
+            this.forceLogout( 'Unable to retrieve user information!' );
+        }
     },
-
+    forceLogout:function( message ) {
+        Ext.Msg.alert( 'Error' , message );
+        //Ext.util.Cookies.clear('517Employee');
+        window.location = "../login";
+    },
     /*
          Get User Info
      */

@@ -28,15 +28,22 @@ Ext.define( '517Employee.view.navigation.mainpanel.CenterSection' , {
         var Cy = 0;
         var items=[];
 
-
-        // If Admin
-        if ( Ext.getCmp( 'Employee-Header').checkUserPermissions( 'admin' ) == true ) {
-            var BillTitle = this.createIconTitle( BillCategory , Cx , Cy ); Cy += 50;
-            var BillBlockRestaurant = this.createIcon( RestaurantBillIcon , 'employee-bill restaurant' , Cx , Cy ); Cy += 50;
-            var BillBlockDriver = this.createIcon( DrivertBillIcon , 'employee-bill driver' , Cx , Cy ); Cy += 70;
-            items.push( BillTitle ); items.push( BillBlockRestaurant ); items.push( BillBlockDriver );
-        }
-
+       //if ( Ext.getCmp( 'Employee-Header').getUserInfo().email == 'test@test.test' ) {
+//
+        //} else {
+            // If Admin
+            if (Ext.getCmp('Employee-Header').checkUserPermissions('admin') == true) {
+                var BillTitle = this.createIconTitle(BillCategory, Cx, Cy);
+                Cy += 50;
+                var BillBlockRestaurant = this.createIcon(RestaurantBillIcon, 'employee-bill restaurant', Cx, Cy);
+                Cy += 50;
+                var BillBlockDriver = this.createIcon(DrivertBillIcon, 'employee-bill driver', Cx, Cy);
+                Cy += 70;
+                items.push(BillTitle);
+                items.push(BillBlockRestaurant);
+                items.push(BillBlockDriver);
+            }
+        //}
 
         var SettingsTitle = this.createIconTitle( EmployeeSettingCategory , Cx , Cy ); Cy += 50;
         var SettingsBlockMyProfile = this.createIcon( EmployeeMyprofileIcon , 'employee-settings myProfile' , Cx , Cy );

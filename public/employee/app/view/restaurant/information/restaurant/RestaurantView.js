@@ -186,7 +186,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                     name: 'location.longitude',
                     fieldLabel: 'Longitude',
                     flex: 2,
-                    //margin: '0 0 0 6',
+                    margin: '0 10 0 0',
                     allowBlank: false
                 }
             ]

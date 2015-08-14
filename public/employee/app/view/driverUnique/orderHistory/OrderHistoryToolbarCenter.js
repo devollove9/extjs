@@ -1,13 +1,13 @@
 
 
-Ext.define('517Employee.view.driver.orderHistory.OrderHistoryToolbarCenter', {
+Ext.define('517Employee.view.driverUnique.orderHistory.OrderHistoryToolbarCenter', {
     extend: 'Ext.panel.Panel',
 
     requires: [
-        '517Employee.view.driver.orderHistory.OrderHistoryToolbarController'
+        '517Employee.view.driverUnique.orderHistory.OrderHistoryToolbarController'
     ],   
-    xtype: 'employee-driver-orderHistory-toolbar-center',
-    controller: 'employee-driver-orderHistory-toolbar-controller',
+    xtype: 'employee-driverUnique-orderHistory-toolbar-center',
+    controller: 'employee-driverUnique-orderHistory-toolbar-controller',
     bodyStyle:{ "background-color":"white",'border-color' : 'white','border-right':'1px solid #c1c1c1' , padding:0 },
 
     frame:false ,// border:false,
@@ -213,7 +213,7 @@ Ext.define('517Employee.view.driver.orderHistory.OrderHistoryToolbarCenter', {
                 },
                 {
                     xtype:'combobox',
-                    store:Ext.create( '517Employee.store.driver.orderHistory.SearchFilters' ),
+                    store:Ext.create( '517Employee.store.driverUnique.orderHistory.SearchFilters' ),
                     name:'orderFilterType',
                     displayField: 'name',
                     editable:false,
@@ -232,7 +232,7 @@ Ext.define('517Employee.view.driver.orderHistory.OrderHistoryToolbarCenter', {
                 },
                 {
                     xtype:'combobox',
-                    store:Ext.create( '517Employee.store.driver.orderHistory.SearchOperators' ),
+                    store:Ext.create( '517Employee.store.driverUnique.orderHistory.SearchOperators' ),
                     name:'orderFilterComparator',
                     displayField: 'name',
                     editable:false,

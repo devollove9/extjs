@@ -1,11 +1,11 @@
-Ext.define('517Employee.view.driver.orderHistory.OrderHistoryCenterView', {
+Ext.define('517Employee.view.driverUnique.orderHistory.OrderHistoryCenterView', {
     extend: 'Ext.panel.Panel',
     requires: [
-        '517Employee.view.driver.orderHistory.OrderHistoryOrderList',
-        '517Employee.view.driver.orderHistory.OrderHistoryToolbar',
+        '517Employee.view.driverUnique.orderHistory.OrderHistoryOrderList',
+        '517Employee.view.driverUnique.orderHistory.OrderHistoryToolbar',
 
     ],
-    xtype: 'employee-driver-orderHistory-centerView',
+    xtype: 'employee-driverUnique-orderHistory-centerView',
     frame:false , border:false , split:true ,
     bodyStyle:{ "background-color":"white" , 'border-color' : 'black' , 'border-width':'0px' } ,
     layout: 'border',
@@ -13,14 +13,14 @@ Ext.define('517Employee.view.driver.orderHistory.OrderHistoryCenterView', {
         {
             region: 'north',
             margin: '0 0 5 0',
-            xtype: 'employee-driver-orderHistory-toolbar',
-            id: 'Employee-Driver-OrderHistory-Toolbar',
+            xtype: 'employee-driverUnique-orderHistory-toolbar',
+            id: 'Employee-DriverUnique-OrderHistory-Toolbar',
             height:150,maxHeight:350,
         },
         {
             region: 'center',
-            xtype: 'employee-driver-orderHistory-orderList',
-            id: 'Employee-Driver-OrderHistory-OrderList',
+            xtype: 'employee-driverUnique-orderHistory-orderList',
+            id: 'Employee-DriverUnique-OrderHistory-OrderList',
             flex:1
         }
 
