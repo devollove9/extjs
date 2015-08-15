@@ -40,7 +40,7 @@ Ext.define('517Employee.view.restaurant.RestaurantView', {
     resetAll:function(){
 
         // Reset Restaurant Order History
-        console.log(this.items.items[ 1 ] );
+        //console.log(this.items.items[ 1 ] );
         if ( this.items.items[ 1 ].items.items[ 0 ].items.items[ 0 ] ) {
             this.items.items[ 1 ].items.items[ 0].items.items[0].resetAll();
         }

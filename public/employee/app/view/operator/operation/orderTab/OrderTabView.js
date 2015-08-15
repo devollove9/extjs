@@ -119,6 +119,8 @@ Ext.define('517Employee.view.operator.operation.orderTab.OrderTabView', {
                     extra: 'store,driver'
                 },
                 callback:function( records, operation, success ) {
+
+                    me.addMarkers( records );
                     me.setLoading( false );
                 }
             });
@@ -146,6 +148,31 @@ Ext.define('517Employee.view.operator.operation.orderTab.OrderTabView', {
         var startOfDay = new Date( now.getFullYear() , now.getMonth() , now.getDate() );
         var timestamp = startOfDay.getTime();
         return timestamp;
+    },
+
+    addMarkers:function( records ){
+        //console.log( records );
+        var map = Ext.getCmp( 'Employee-Operator-Operation-Map').lookupReference( 'map' );
+        map.clearMarkers('user');
+        if ( records.length > 0 ) {
+
+            for ( var i = 0 ; i < records.length ; i ++ ) {
+                var r = records[ i ].data;
+                if ( r.activeStatus > -1 && r.activeStatus < 8 ) {
+                    map.addMarker(
+                        {
+                            lat: r.delivery.latitude,
+                            lng: r.delivery.longitude
+                        },
+                        r.activeStatus,
+                        Ext.util.Format.substr(r.invoiceNo , 12 ) ,
+                        'user'
+                    );
+                }
+            }
+
+
+        }
     },
 
 

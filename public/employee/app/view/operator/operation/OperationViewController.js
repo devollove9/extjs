@@ -9,12 +9,12 @@ Ext.define('Ext517Employee.view.operator.operation.OperationViewController', {
 
 
 
-        var runner = new Ext.util.TaskRunner(),
-            task = runner.start({
-                run: this.reLoadOrders, //function(){console.log('task');},
-                scope: this,
-                interval: 30000
-            });
+        //var runner = new Ext.util.TaskRunner(),
+            //task = runner.start({
+            //    run: this.reLoadOrders, //function(){console.log('task');},
+            //    scope: this,
+            //    interval: 30000
+            //});
         var clock = Ext.TaskManager.start({
             run: this.updateClock,
             scope:this,

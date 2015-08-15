@@ -64,11 +64,20 @@ Ext.define( '517Employee.view.main.HeaderController' , {
         var mainPanel = menuBar.up().up();
         // Reset Restaurant List
         //
-
+        var regionStore = Ext.getStore( 'Regions');
+        regionStore.each( function ( record , idx ) {
+            if( record.data.regionId == panel.regionId ) {
+                menuBar.regionInfo = record.data ;
+            }
+        });
         if ( panel.cancelInfo == true ) {
             menuBar.setText( '地区 / Region ' );
             this.doReset( mainPanel );
             menuBar.regionId = -1;
+            menuBar.regionInfo = {
+                latitude: 42.7289,
+                longitude: -84.484773
+            };
         } else {
             menuBar.setText( panel.text );
             menuBar.regionId = panel.regionId;
@@ -77,6 +86,7 @@ Ext.define( '517Employee.view.main.HeaderController' , {
             Ext.getCmp( 'Employee-Main-ContentView' ).setLoading( false );
 
         }
+
 
 
 

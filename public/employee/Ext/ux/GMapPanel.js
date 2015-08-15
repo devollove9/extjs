@@ -142,7 +142,7 @@ Ext.define('Ext.ux.GMapPanel', {
     reCenter: function(center) {
         var map = this.gmap;
         map.panTo(center);
-        map.setZoom(15);
+        map.setZoom(13);
     },
     lookupCode: function(addr, marker) {
         this.geocoder = new google.maps.Geocoder();

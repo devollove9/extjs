@@ -80,9 +80,19 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
         this.items.items[0].items.items[0].items.items[0].refreshView();
 
         // Refresh Driver List
-        this.items.items[1].refreshView();
+        this .items.items[1].refreshView();
 
-    },
+        var regionInfo = Ext.getCmp( 'Employee-Header-Region').regionInfo;
+        //console.log( regionInfo );
+        var map = Ext.getCmp( 'Employee-Operator-Operation-Map');
+        map.lookupReference( 'map' ).reCenter({
+            lat: regionInfo.latitude,
+            lng: regionInfo.longitude
+        });
+    }
+
+
+    ,
     resetAll:function(){
         // Reset Order Tab
         this.items.items[0].items.items[0].items.items[0].resetAll();

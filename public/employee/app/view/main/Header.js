@@ -75,6 +75,10 @@ Ext.define('517Employee.view.main.Header', {
                     id:'Employee-Header-Region',
                     text: '地区 / Region',
                     regionId:-1,
+                    regionInfo:{
+                        latitude: 42.7289,
+                        longitude: -84.484773
+                    },
                     height: 35,
                     width: 140,
                     cls:'header-menus',

@@ -54,7 +54,7 @@ Ext.define('517Employee.view.operator.operation.map.MapView', {
             reference: 'map',
             mapOptions: {
                 zoom: 13,
-                center: new google.maps.LatLng(42.733439, -84.483313),
+                center: new google.maps.LatLng( 42.7289 , -84.484773 ),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }
         }
