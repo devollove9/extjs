@@ -11,7 +11,10 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
         //'517Employee.view.operator.operation.OperationViewController'
     ],
     xtype: 'employee-operator-operation',
-    frame:false , border:false, split:true,
+    frame:false , border:false,
+    defaults: {
+        split: true,
+    },
     bodyStyle:{ "background-color":"white",'border-color' : 'black','border-width':'0px'},
     layout: 'border',
     //controller:'employee-operator-operation-controller',
@@ -34,13 +37,16 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
             region: 'center',
             layout: 'border',
             xtype: 'panel',
-            border:false,frame:false,split:true,
+            border:false,frame:false,
+            defaults: {
+                split: true,
+            },
             items: [
                 {
                     region: 'center',
                     layout: 'border',
                     xtype: 'panel',
-                    border:false,frame:false,split:true,
+                    border:false,frame:false,
                     width: '66%',
                     items: [
                         {
@@ -60,6 +66,7 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
                 {
                     margin: '0 0 0 5' ,
                     region: 'east',
+                    layout:'fit',
                     width: '34%',
                     xtype: 'employee-operator-operation-map',
                     id:'Employee-Operator-Operation-Map'

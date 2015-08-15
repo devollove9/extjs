@@ -112,12 +112,35 @@ Ext.define( '517Employee.view.operator.operation.DriverList' , {
                     lastUpdate: lastUpdate
                 },
                 callback:function( records, operation, success ) {
+                    me.addMarkers( records );
                     me.setLoading( false );
                 }
             });
         } else {
             driverListStore.loadData( [] , false );
             me.setLoading( false );
+        }
+    },
+    addMarkers:function( records ){
+        //console.log( records );
+        var map = Ext.getCmp( 'Employee-Operator-Operation-Map').lookupReference( 'map' );
+        map.clearMarkers('driver');
+        if ( records.length > 0 ) {
+
+            for ( var i = 0 ; i < records.length ; i ++ ) {
+                var r = records[ i ].data;
+                map.addMarker(
+                    {
+                        lat: r.latitude,
+                        lng: r.longitude,
+                    },
+                    r.name.substr( 0 , 4 ),
+                    i + 1,
+                    'driver'
+                );
+            }
+
+
         }
     },
     resetAll:function(){
