@@ -70,6 +70,8 @@ Ext.define( '517Employee.view.main.HeaderController' , {
                 menuBar.regionInfo = record.data ;
             }
         });
+        var map = Ext.getCmp( 'Employee-Operator-Operation-Map').lookupReference( 'map' );
+        map.clearMarkers('user');
         if ( panel.cancelInfo == true ) {
             menuBar.setText( '地区 / Region ' );
             this.doReset( mainPanel );
