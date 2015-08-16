@@ -87,7 +87,7 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
         this.items.items[0].items.items[0].items.items[0].refreshView();
 
         // Refresh Driver List
-        Ext.getCmp( 'Employee-Operator-Operation-DriverList').refreshView(); 
+        Ext.getCmp( 'Employee-Operator-Operation-DriverList').refreshView();
 
         var regionInfo = Ext.getCmp( 'Employee-Header-Region').regionInfo;
         //console.log( regionInfo );
