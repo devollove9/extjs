@@ -87,7 +87,7 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
         this.items.items[0].items.items[0].items.items[0].refreshView();
 
         // Refresh Driver List
-        this .items.items[1].refreshView();
+        Ext.getCmp( 'Employee-Operator-Operation-DriverList').refreshView();
 
         var regionInfo = Ext.getCmp( 'Employee-Header-Region').regionInfo;
         //console.log( regionInfo );
@@ -105,7 +105,7 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
         this.items.items[0].items.items[0].items.items[0].resetAll();
 
         // Reset Driver List
-        this.items.items[1].resetAll();
+        Ext.getCmp( 'Employee-Operator-Operation-DriverList').resetAll();
     }
 
 
