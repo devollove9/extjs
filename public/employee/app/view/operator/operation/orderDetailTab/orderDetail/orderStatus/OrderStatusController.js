@@ -7,7 +7,7 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.order
     requires: [
     ],
     sendToRes: function() {
-        //console.log( this.lookupReference('orderno').getValue());
+        ////console.log( this.lookupReference('orderno').getValue());
         var me=this;
         Ext.Msg.confirm('Confirm', '确认发送餐厅？', function(btn, text) {
             if (btn == 'yes') {
@@ -79,7 +79,7 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.order
         });
     },
     tabChange:function(tabs, newTab, oldTab){
-        //console.log(newTab.title);
+        ////console.log(newTab.title);
         //var permission =
         //return localStorage.getItem('permission')!='operator';
     },
@@ -94,11 +94,11 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.order
         if ( active > 0 && active < 9 ) {
             this.getView().setActiveItem(0);
             status_tab.setActiveItem(active);
-            //console.log(this.lookupReference('status8'));
+            ////console.log(this.lookupReference('status8'));
             //status_tab.getActiveTab().tabConfig.style ='background-color:red';
-            //console.log(status_tab.getActiveTab().tabConfig)
+            ////console.log(status_tab.getActiveTab().tabConfig)
             //status_tab.doLayout();
-            //console.log(status);
+            ////console.log(status);
             var s, d, me = this;
             s = record.data.status;
             //d = Ext.Date.format(new Date(r.get('date')), 'h:i:s A')
@@ -124,11 +124,11 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.order
                 }
 
             }
-            console.log( record );
+            //console.log( record );
             if ( record.data.pick.authenticateCode ) me.lookupReference('employee-operator-operation-orderDetailTab-orderStatus-authcode').setValue(record.data.pick.authenticateCode);
             if ( active === 1 ) {
                 me.lookupReference('employee-operator-operation-orderDetailTab-orderStatus-placedDate').setValue(activeDate);
-                //console.log(status_tab.items);
+                ////console.log(status_tab.items);
                 status_tab.items.items[1].setTitle('<span class="badge badge-danger">1</span>');
             } else if ( active === 2 ) {
                 me.lookupReference('employee-operator-operation-orderDetailTab-orderStatus-sentDate').setValue(activeDate);
@@ -172,7 +172,7 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.order
     updateStatus: function(status, val) {
         var orderId = this.lookupReference('orderId').getValue();
         var regionId = this.lookupReference('regionId').getValue();
-        //console.log(orderId);
+        ////console.log(orderId);
         var me = this,
             tab = this.getView();
         tab.setLoading(true);
@@ -194,7 +194,7 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.order
             body.cancelReason = val;
         }
         var header = Ext.getCmp( 'Employee-Header').getHeaders( 'put' );
-        console.log( header );
+        //console.log( header );
         Ext.Ajax.request({
             url: Ext.getCmp( 'Employee-Header').getServerUrl() + '/order', // you can fix a parameter like this : url?action=anAction1
             headers:Ext.getCmp( 'Employee-Header').getHeaders( 'put' ),

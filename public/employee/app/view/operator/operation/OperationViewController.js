@@ -11,7 +11,7 @@ Ext.define('Ext517Employee.view.operator.operation.OperationViewController', {
 
         //var runner = new Ext.util.TaskRunner(),
             //task = runner.start({
-            //    run: this.reLoadOrders, //function(){console.log('task');},
+            //    run: this.reLoadOrders, //function(){//console.log('task');},
             //    scope: this,
             //    interval: 30000
             //});
@@ -25,8 +25,8 @@ Ext.define('Ext517Employee.view.operator.operation.OperationViewController', {
 
     },
     ordersLoaded: function(store) {
-        //console.log('store loaded ' + store.getCount())
-        //console.log(Ext.getStore('Orders').getFilters());
+        ////console.log('store loaded ' + store.getCount())
+        ////console.log(Ext.getStore('Orders').getFilters());
         //Ext.getStore('Orders').filter('orderno', 140906212740015);
         //Ext.getStore('Orders').clearFilter();
         //Ext.getStore('Orders').filterBy(function(record){
@@ -40,10 +40,10 @@ Ext.define('Ext517Employee.view.operator.operation.OperationViewController', {
             hideBtns = mapView.lookupReference('hideBtns');
 
         map.clearMarkers('user');
-        //console.log('hide user ' + !Number(localStorage.getItem('hideUser')));
+        ////console.log('hide user ' + !Number(localStorage.getItem('hideUser')));
         if (!Number(localStorage.getItem('hideUser'))) { //
             records.each(function(r, index) {
-                //console.log(r.get('driver'));
+                ////console.log(r.get('driver'));
                 if (r.get('activeStatus') > -1 && r.get('activeStatus') < 8) {
                     map.addMarker({
                         lat: r.get('delivery').latitude,
@@ -64,7 +64,7 @@ Ext.define('Ext517Employee.view.operator.operation.OperationViewController', {
 
             });
         }
-        //console.log(map.markers);
+        ////console.log(map.markers);
     },
     addDriverMakers: function(records) {
         var mapView = Ext.ComponentQuery.query('#map-view')[0],
@@ -117,19 +117,19 @@ Ext.define('Ext517Employee.view.operator.operation.OperationViewController', {
             //var record = Region.getSelectionModel().getSelection()[0].data.;
 
         } else {
-            console.log( 'No Region Selected' );
+            //console.log( 'No Region Selected' );
         }*/
-        console.log('asdasdasdasdasd');
+        //console.log('asdasdasdasdasd');
     },
 
     addClock: function() {
 
     },
     updateClock: function() {
-        //console.log('clock');
-        //console.log(Ext.fly('clock1'));
+        ////console.log('clock');
+        ////console.log(Ext.fly('clock1'));
         Ext.fly('clock1').setText(Ext.Date.format(Ext517.Time.currentTime(), 'l, h:i:s A'));
-        //console.log(Ext517.Time.currentTime());
+        ////console.log(Ext517.Time.currentTime());
         Ext.fly('clock2').setText(Ext.Date.format( new Date( Ext517.Time.currentTime().getTime() + Ext.getCmp('op-content-view').getServerTimeDifference() ), 'l, h:i:s A'));
     }
 

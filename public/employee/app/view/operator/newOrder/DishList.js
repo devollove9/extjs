@@ -188,17 +188,17 @@ Ext.define('517Employee.view.operator.newOrder.DishList', {
             if (me.searchValue !== null) {
                 me.searchRegExp = new RegExp(me.searchValue, 'g' + (me.caseSensitive ? '' : 'i'));
                 me.store.each(function(record, idx) {
-                    //console.log(record);
-                    //console.log(idx);
+                    ////console.log(record);
+                    ////console.log(idx);
                     if (record.data.name.indexOf(search_value) > -1) {
-                        //console.log(record.data.name.indexOf(search_value));
+                        ////console.log(record.data.name.indexOf(search_value));
                         me.indexes.push(idx);
                         if (me.currentIndex === null) {
                             me.currentIndex = idx;
                         }
                     }
                     if (record.data.nameEn.toLowerCase().indexOf(search_value.toLowerCase()) > -1) {
-                        //console.log(record.data.name.indexOf(search_value));
+                        ////console.log(record.data.name.indexOf(search_value));
                         me.indexes.push(idx);
                         if (me.currentIndex === null) {
                             me.currentIndex = idx;

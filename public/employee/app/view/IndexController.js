@@ -11,8 +11,8 @@ Ext.define('517Employee.view.IndexController', {
 
 
         this.lookupReference('indexHolder').insert(main);
-        //console.log( this.lookupReference('indexHolder') );
-        //console.log(Ext.getCmp( 'Index' ).restaurant_info);
+        ////console.log( this.lookupReference('indexHolder') );
+        ////console.log(Ext.getCmp( 'Index' ).restaurant_info);
         
     }
 })

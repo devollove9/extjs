@@ -445,43 +445,43 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.order
     ],
     activeStatus: function(status) {
         this.setActiveItem(status);
-        console.log(this.getController().test());
+        //console.log(this.getController().test());
     },
     hideButtons:function( hideArray ) {
         var statusTab = this.items.items[0].items.items;
         for ( var i = 0 ; i < hideArray.length ; i ++ ) {
             switch ( hideArray[i] ) {
                 case 1:
-                    //console.log(statusTab[2].items.items[0].items);
+                    ////console.log(statusTab[2].items.items[0].items);
                     statusTab[1].items.items[0].items.items[1].hide();
                     //this.getForm().findField('orderstatus-sendtores')
                     break;
                 case 2:
-                    //console.log(statusTab[2].items.items[0].items);
+                    ////console.log(statusTab[2].items.items[0].items);
                     statusTab[2].items.items[0].items.items[1].hide();
                     //this.getForm().findField('orderstatus-confirmres').setVisable(false);
                     break;
                 case 3:
-                    //console.log(statusTab[3].items.items[0].items);
+                    ////console.log(statusTab[3].items.items[0].items);
                     statusTab[3].items.items[0].items.items[2].hide();
                     statusTab[3].items.items[0].items.items[3].hide();
                     //this.getForm().findField('orderstatus-driverslection').setVisable(false);
                     //this.getForm().findField('orderstatus-assigndriver').setVisable(false);
                     break;
                 case 4:
-                    //console.log(statusTab[4].items.items[0].items);
+                    ////console.log(statusTab[4].items.items[0].items);
                     statusTab[4].items.items[0].items.items[1].hide();
                     //this.getForm().findField('orderstatus-driverconfirm').setVisable(false);
                     break;
                 case 5:
                     break;
                 case 6:
-                    //console.log(statusTab[6].items.items[0].items);
+                    ////console.log(statusTab[6].items.items[0].items);
                     statusTab[6].items.items[0].items.items[2].hide();
                     //this.getForm().findField('orderstatus-driverpickedup').setVisable(false);
                     break;
                 case 7:
-                    //console.log(statusTab[7].items.items[0].items);
+                    ////console.log(statusTab[7].items.items[0].items);
                     statusTab[7].items.items[0].items.items[1].hide();
                     //this.getForm().findField('orderstatus-deliversubmit').setVisable(false);
                     break;

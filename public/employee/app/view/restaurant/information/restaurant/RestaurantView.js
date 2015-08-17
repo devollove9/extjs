@@ -215,7 +215,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                             listeners:{
                                 change:function( field , filepath , filePath , me){
                                     Ext.getCmp( 'Employee-Restaurant-Information-Restaurant' ).setLoading( true );
-                                    //console.log(field.up());
+                                    ////console.log(field.up());
                                     var file = field.getEl().down( 'input[type=file]' ).dom.files[ 0 ];
                                     var reader = new FileReader();
                                     reader.onload = ( function( theFile ) {
@@ -224,7 +224,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                                             var result = e.target.result;
                                             field.fileData = result;
                                             field.fileTransfered = true;
-                                            //console.log(field.fileData);
+                                            ////console.log(field.fileData);
                                         };
                                     })( file );reader.readAsDataURL( file );
                                 }
@@ -246,7 +246,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                             listeners:{
                                 change:function( field , filepath , filePath , me){
                                     Ext.getCmp( 'Employee-Restaurant-Information-Restaurant' ).setLoading( true );
-                                    //console.log(field.up());
+                                    ////console.log(field.up());
                                     var file = field.getEl().down( 'input[type=file]' ).dom.files[ 0 ];
                                     var reader = new FileReader();
                                     reader.onload = ( function( theFile ) {
@@ -255,7 +255,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                                             var result = e.target.result;
                                             field.fileData = result;
                                             field.fileTransfered = true;
-                                            //console.log(field.fileData);
+                                            ////console.log(field.fileData);
                                         };
                                     })( file );reader.readAsDataURL( file );
                                 }
@@ -277,7 +277,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                             listeners:{
                                 change:function( field , filepath , filePath , me){
                                     Ext.getCmp( 'Employee-Restaurant-Information-Restaurant' ).setLoading( true );
-                                    //console.log(field.up());
+                                    ////console.log(field.up());
                                     var file = field.getEl().down( 'input[type=file]' ).dom.files[ 0 ];
                                     var reader = new FileReader();
                                     reader.onload = ( function( theFile ) {
@@ -286,7 +286,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                                             var result = e.target.result;
                                             field.fileData = result;
                                             field.fileTransfered = true;
-                                            //console.log(field.fileData);
+                                            ////console.log(field.fileData);
                                         };
                                     })( file );reader.readAsDataURL( file );
                                 }
@@ -899,7 +899,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
             ErrorMessage += ErrorNumber + '. Location Longitude is Empty. <br>';
             ErrorNumber ++; Error = true;
         }
-        console.log( Error );
+        //console.log( Error );
         if ( Error == true ) {
             Ext.Msg.alert( 'Fail' , ErrorMessage );
             valid = false;
@@ -934,7 +934,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                 if ( dataObject != data || typeof dataObject == 'undefined' ) {
 
                     changed = true;
-                    //if ( field == 'delivery.time' ) console.log( changed ); 
+                    //if ( field == 'delivery.time' ) //console.log( changed );
                 }
             }
         }
@@ -949,7 +949,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
             var fieldArray = field.split( '.' );
             var data = this.getForm().findField( field ).getValue();
             if ( typeof data != 'undefined' ) {
-                //console.log( field , fieldArray );
+                ////console.log( field , fieldArray );
                 var newData = data;
                 if ( fieldArray.length == 2 ) {
                     if ( typeof changedInfo[ fieldArray[ 0 ] ] == 'undefined' ) {
@@ -971,7 +971,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
         var fieldArray = field.split( '.' );
         var data = this.getForm().findField( field ).getValue();
         if ( typeof data != 'undefined' ) {
-            //console.log( field , fieldArray );
+            ////console.log( field , fieldArray );
             var newData = data;
             if ( fieldArray.length == 2 ) {
                 if ( typeof newInfo[ fieldArray[ 0 ] ] == 'undefined' ) {
@@ -1070,7 +1070,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
 
         // PaymentType
         var paymentTypeChange = me.compareViewArrayData( 'paymentType' , 'check' );
-        //console.log( paymentTypeChange);
+        ////console.log( paymentTypeChange);
         if ( paymentTypeChange == true ) changedInfo.paymentType = me.compareViewArrayData( 'paymentType' , 'get' );
         // Logos
         var miniLogo = form.findField( 'logo.mini');
@@ -1090,7 +1090,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                 changedInfo.logo.web = webLogo.fileData;
             }
         }
-        console.log( changedInfo );
+        //console.log( changedInfo );
         return changed;
 
 
@@ -1134,8 +1134,8 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
         }
 
         var changed = false;
-        //console.log( valueArray );
-        //console.log( dataArray );
+        ////console.log( valueArray );
+        ////console.log( dataArray );
         if ( method == 'check' ) {
             if ( ( valueArray.length > 0 && dataArray.length == 0 ) || ( valueArray.length == 0 && dataArray.length > 0 ) ) {
                 changed == true;
@@ -1157,7 +1157,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                         break;
                     }
                 }
-                //console.log( changed );
+                ////console.log( changed );
             }
 
         } else if ( method == 'get' ) {
@@ -1203,7 +1203,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                 var location = results[ 0 ].geometry.location;
                 var latitude = location.lat();
                 var longitude = location.lng();
-                console.log( location );
+                //console.log( location );
                 me.getForm().findField( 'location.latitude').setValue( latitude );
                 me.getForm().findField( 'location.longitude').setValue( longitude );
             });

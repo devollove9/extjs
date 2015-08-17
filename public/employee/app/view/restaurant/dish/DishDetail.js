@@ -80,7 +80,7 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
             listeners:{
                 change:function( field , filepath , filePath , me){
                     Ext.getCmp( 'Employee-Restaurant-Dish-Detail' ).setLoading( true );
-                    //console.log(field.up());
+                    ////console.log(field.up());
                     var file = field.getEl().down( 'input[type=file]' ).dom.files[ 0 ];
                     var reader = new FileReader();
                     reader.onload = ( function( theFile ) {
@@ -89,7 +89,7 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
                             var result = e.target.result;
                             field.fileData = result;
                             field.fileTransfered = true;
-                            //console.log(field.fileData);
+                            ////console.log(field.fileData);
                         };
                     })( file );reader.readAsDataURL( file );
                 }
@@ -102,7 +102,7 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
             listeners:{
                 change:function( field , filepath , filePath , me){
                     Ext.getCmp( 'Employee-Restaurant-Dish-Detail' ).setLoading( true );
-                    //console.log(field.up());
+                    ////console.log(field.up());
                     var file = field.getEl().down( 'input[type=file]' ).dom.files[ 0 ];
                     var reader = new FileReader();
                     reader.onload = ( function( theFile ) {
@@ -111,7 +111,7 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
                             var result = e.target.result;
                             field.fileData = result;
                             field.fileTransfered = true;
-                            //console.log(field.fileData);
+                            ////console.log(field.fileData);
                         };
                     })( file );reader.readAsDataURL( file );
                 }
@@ -124,7 +124,7 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
             listeners:{
                 change:function( field , filepath , filePath , me){
                     Ext.getCmp( 'Employee-Restaurant-Dish-Detail' ).setLoading( true );
-                    //console.log(field.up());
+                    ////console.log(field.up());
                     var file = field.getEl().down( 'input[type=file]' ).dom.files[ 0 ];
                     var reader = new FileReader();
                     reader.onload = ( function( theFile ) {
@@ -133,7 +133,7 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
                             var result = e.target.result;
                             field.fileData = result;
                             field.fileTransfered = true;
-                            //console.log(field.fileData);
+                            ////console.log(field.fileData);
                         };
                     })( file );reader.readAsDataURL( file );
                 }

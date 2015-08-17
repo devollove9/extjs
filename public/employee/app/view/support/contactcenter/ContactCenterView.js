@@ -23,7 +23,7 @@ Ext.define('517Employee.view.support.contactcenter.ContactCenterView', {
     ],
  
     doNavigation:function(panel){
-        console.log( panel );
+        //console.log( panel );
     }
     
 });

@@ -99,7 +99,7 @@ Ext.define('517Employee.view.main.Header', {
                     },
                     listeners:{
                         beforerender:function(){
-                            //console.log( this );
+                            ////console.log( this );
                         },
                         afterrender:function(){
                             var me = this;
@@ -108,7 +108,7 @@ Ext.define('517Employee.view.main.Header', {
                             var store = Ext.getStore( 'Regions' );
                             store.on('load', function(storeRef, records, successful){
                                 var regionMenu = Ext.getCmp( 'Employee-Header-Region' );
-                                //console.log( Ext.getCmp('Employee-Header-Region'));
+                                ////console.log( Ext.getCmp('Employee-Header-Region'));
                                 var count = store.getTotalCount();
                                 if ( count != 0 ) {
                                     store.each(function (record, idx) {
@@ -145,7 +145,7 @@ Ext.define('517Employee.view.main.Header', {
                             }, this);
                         },
                         render:function() {
-                            //console.log( this );
+                            ////console.log( this );
                         }
                     }
                 },
@@ -433,7 +433,7 @@ Ext.define('517Employee.view.main.Header', {
             }
 
         }
-        //console.log( header );
+        ////console.log( header );
         return header;
     },
 
@@ -451,7 +451,7 @@ Ext.define('517Employee.view.main.Header', {
     getStartOfDay:function() {
         var me = this;
         var now = new Date( ( new Date() ).getTime() + me.getServerTimeDifference() );
-        //console.log( now );
+        ////console.log( now );
         var startOfDay = new Date( now.getFullYear() , now.getMonth() , now.getDate() );
         var timestamp = startOfDay.getTime();
         return timestamp;
@@ -493,7 +493,7 @@ Ext.define('517Employee.view.main.Header', {
                     success:function( result , request ) {
                         var response = Ext.decode( result.responseText );
                         var Error = me.processErrorMessage( response );
-                        //console.log( 'done' );
+                        ////console.log( 'done' );
                     }
                 });
             }

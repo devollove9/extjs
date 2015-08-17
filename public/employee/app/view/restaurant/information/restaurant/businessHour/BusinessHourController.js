@@ -7,7 +7,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.businessHour.Bus
 
     NewBusinessHour:function( button , clickEvent ) {
         var gridpanel = button.up().up();
-        console.log( 'asd' );
+        //console.log( 'asd' );
         if ( Ext.getCmp( 'Employee-Restaurant-Information-Restaurant' ).newRestaurant == false && Ext.getCmp( 'Employee-Restaurant-Information-RestaurantList' ).getSelectionModel().hasSelection() == false ) {
             Ext.Msg.alert( 'Error' , 'Please choose a restaurant first.');
         } else if ( gridpanel.gridEditing == true ){
@@ -196,7 +196,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.businessHour.Bus
                                 text: 'Save',
                                 width: 100,
                                 handler: function (field, rowIndex) {
-                                    //console.log(this.up().up().items.items[0].items.items);
+                                    ////console.log(this.up().up().items.items[0].items.items);
                                     var curwin = this.up().up();
                                     var fields = this.up().up().items.items[0].items.items[0].items.items;
                                     var day = fields[0].getValue();
@@ -227,8 +227,8 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.businessHour.Bus
                                     } else {
                                         curwin.close();
                                     }
-                                    //console.log(this.up().items.items.indexOf(1));
-                                    //console.log(this.up().items.items.indexOf(2).value);
+                                    ////console.log(this.up().items.items.indexOf(1));
+                                    ////console.log(this.up().items.items.indexOf(2).value);
                                 }
                             },
                             {

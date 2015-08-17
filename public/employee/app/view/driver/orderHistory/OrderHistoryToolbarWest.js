@@ -49,7 +49,7 @@ Ext.define('517Employee.view.driver.orderHistory.OrderHistoryToolbarWest', {
     ],
  
     doNavigation:function(panel){
-        console.log( panel );
+        //console.log( panel );
     }
     
 });

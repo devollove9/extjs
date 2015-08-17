@@ -231,7 +231,7 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.Order
 
             handler: function(a,b,c,d,e,f,g){
                 var record = this.up().up().getForm()._record.data;
-                //console.log(this.up().up().getForm().Record.data);
+                ////console.log(this.up().up().getForm().Record.data);
                 var checkoutDishlist = Ext.getCmp('Employee-Operator-NewOrder-Checkout-CheckoutList');
                 // Check if region selected match region in detail
                 if ( checkoutDishlist.checkoutStatus == true ) {

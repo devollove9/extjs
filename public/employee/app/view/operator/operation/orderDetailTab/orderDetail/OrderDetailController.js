@@ -7,13 +7,13 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.Order
     requires: [
     ],
     copyOrder: function( button , click_event ) {
-        console.log(button.up());
+        //console.log(button.up());
 
 
         var newOrder = Ext.ComponentQuery.query('#new-order')[0];
-        console.log(newOrder);
+        //console.log(newOrder);
         var userInfo = newOrder.lookupReference('user-info');
-        //console.log(userInfo.getForm())
+        ////console.log(userInfo.getForm())
         userInfo.getForm().setValues(this.getView().getForm().getValues());
 
         var grid = newOrder.lookupReference('order-dish-list');
@@ -23,7 +23,7 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.Order
 
     },
     cancelOrder: function() {
-        //console.log(this.getView().getForm());
+        ////console.log(this.getView().getForm());
         var me = this.getView(),
             tab = this.lookupReference('employee-operator-operation-orderDetailTab-orderDetail-orderStatus'),
             orderno = tab.lookupReference('orderno').getValue();

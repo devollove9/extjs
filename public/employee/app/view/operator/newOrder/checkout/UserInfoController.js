@@ -10,7 +10,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
     
     validateUsername:function(button,click_event){
         var username = Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('username');
-        //console.log( Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').guestStatus);
+        ////console.log( Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').guestStatus);
         if ( Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').guestStatus == false ) {
             Ext.Msg.show({
                 title:'Warning',
@@ -41,7 +41,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
          },
          success: function(result, request) {
          var obj = Ext.decode(result.responseText);
-         console.log(obj);
+         //console.log(obj);
          if ( obj.success == 1) {
          Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').guestStatus = false;
          username.setReadOnly(true);
@@ -62,7 +62,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
     
     validateAddress:function(button,click_event){
         // Check if all information filled
-        //console.log(Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').addressStatus);
+        ////console.log(Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').addressStatus);
         var userInfo = Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo');
         var userInfoForm = userInfo.getForm();var regionView = Ext.getCmp( 'Employee-Header-Region' );
         if ( Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').addressStatus == true ) {
@@ -98,7 +98,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
                 var room = userInfoForm.findField('room').getValue();
 
                 
-                //console.log (userInfo.storeInfo);
+                ////console.log (userInfo.storeInfo);
                 // Send request
 
                 Ext.Ajax.request({
@@ -114,7 +114,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
                     success: function(result, request) {
 
                         var response = Ext.decode(result.responseText);
-                        //console.log(obj);
+                        ////console.log(obj);
                         if ( response.error ) {
                             if ( response.error.errorCode) {
                                 Ext.Msg.alert( response.error.errorCode.toString(), response.error.errorMessage.toString() );
@@ -138,7 +138,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
 
             }
         }
-        //console.log();
+        ////console.log();
 
 
     },
@@ -156,7 +156,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
     },
 
     submitOrder:function(){
-        //console.log(this.getView());
+        ////console.log(this.getView());
         var checkoutList = Ext.getCmp('Employee-Operator-NewOrder-Checkout-CheckoutList');
         var userInfo = Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo');
         var userInfoForm = userInfo.getForm();
@@ -180,7 +180,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
             this.getView().setLoading(true);
             var me=this;
             var checkoutInfo = userInfo.getCheckoutInfo();
-            //console.log(checkoutInfo);
+            ////console.log(checkoutInfo);
             var dishes = [];
             for ( var i = 0 ; i < checkoutInfo.dish.length ; i ++) {
                 var dish = new Object();
@@ -188,7 +188,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
                 dish.typeId = checkoutInfo.dish[i].data.typeId;
                 dish.quantity = checkoutInfo.dish[i].data.quantity;
 
-                //console.log(checkoutInfo.dish[i].data.options);
+                ////console.log(checkoutInfo.dish[i].data.options);
                 if ( checkoutInfo.dish[i].data.options ) {
                     var optionGroup = [];
                     for ( var j = 0 ; j < checkoutInfo.dish[i].data.options.length ; j ++ ) {
@@ -204,7 +204,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
                 dishes.push(dish);
             }
 
-            //console.log(dishes);
+            ////console.log(dishes);
             var delivery = checkoutInfo.delivery;
             var payment = checkoutInfo.payment;
 
@@ -230,11 +230,11 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
             }
             //body.type = type;
             body.comment = checkoutInfo.comment;
-            //console.log(Ext.getCmp('operator-regionlist'));
-            //console.log(Ext.getCmp('operator-regionlist').getSelectionModel());
-            //console.log(Ext.getCmp('operator-regionlist').getSelectionModel().getSelecton());
+            ////console.log(Ext.getCmp('operator-regionlist'));
+            ////console.log(Ext.getCmp('operator-regionlist').getSelectionModel());
+            ////console.log(Ext.getCmp('operator-regionlist').getSelectionModel().getSelecton());
             body = JSON.stringify( body );
-            console.log(body);
+            //console.log(body);
             Ext.Ajax.request({
                 url: Ext.getCmp( 'Employee-Header').getServerUrl() + '/order', // you can fix a parameter like this : url?action=anAction1
                 method: 'POST',

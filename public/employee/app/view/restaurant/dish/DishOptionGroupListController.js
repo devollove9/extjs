@@ -8,12 +8,12 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupListController', {
 
     ],
     CheckEdit: function( grid, rowIndex, colIndex , delete_col , clickEvent , recordLine, tr ) {
-        //console.log(a);
-        //console.log(b);
-        //console.log(grid);
-        //console.log( grid.store.getAt(rowIndex).data.option );
-        //console.log(i);
-        //console.log(recordLine);
+        ////console.log(a);
+        ////console.log(b);
+        ////console.log(grid);
+        ////console.log( grid.store.getAt(rowIndex).data.option );
+        ////console.log(i);
+        ////console.log(recordLine);
 
         var gridPanel = grid.up();
         if ( gridPanel.gridEditing == true ) {
@@ -45,7 +45,7 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupListController', {
 
             if ( recordLine.data.information ) {
                 if ( typeof recordLine.data.information.disabled != 'undefined' ) {
-                    //console.log( OptionPanel.getForm().findField('disabledGroup').items.items[0].checked = );
+                    ////console.log( OptionPanel.getForm().findField('disabledGroup').items.items[0].checked = );
                     if ( recordLine.data.information.disabled == true ) {
                         OptionPanel.items.items[ 0 ].items.items[ 0 ].setValue( false );
                         OptionPanel.items.items[ 0 ].items.items[ 1 ].setValue( true );
@@ -73,7 +73,7 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupListController', {
         }
     },
     Copy: function( grid, rowIndex, colIndex , delete_col , clickEvent , recordLine, tr ) {
-        console.log(recordLine);
+        //console.log(recordLine);
         var oldOptionGroup= recordLine.data;
         var newOptionGroup = new Object();
         var information = new Object();
@@ -99,13 +99,13 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupListController', {
         Ext.getCmp( 'Employee-Restaurant-Dish' ).setOptionGroup( newOptionGroup );
     },
     CreateNewOptionGroup:function( button ) {
-        //console.log(a);
-        //console.log(b);
-        //console.log(grid);
-        //console.log( grid.store.getAt(rowIndex).data.option );
-        //console.log(i);
-        //console.log(recordLine);
-        //console.log(Ext.getCmp( 'restaurant-dishlist' ).getSelectionModel().hasSelection());
+        ////console.log(a);
+        ////console.log(b);
+        ////console.log(grid);
+        ////console.log( grid.store.getAt(rowIndex).data.option );
+        ////console.log(i);
+        ////console.log(recordLine);
+        ////console.log(Ext.getCmp( 'restaurant-dishlist' ).getSelectionModel().hasSelection());
         var gridPanel = button.up().up();
         if ( gridPanel.gridEditing == true ) {
             Ext.Msg.alert( 'Error' , 'A window already opened, please close it first.' );
@@ -155,7 +155,7 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupListController', {
         }
         else {
             var copiedGroup = Ext.getCmp( 'Employee-Restaurant-Dish').getOptionGroup();
-            //console.log( copiedGroup );
+            ////console.log( copiedGroup );
             var newOptionGroup = new Object();
             var information = new Object();
             information.disabled = false;

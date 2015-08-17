@@ -157,7 +157,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategory' , {
 
     closeWindowPopUp:function() {
         var windows = this.windowPopUp;
-        //console.log( windows );
+        ////console.log( windows );
 
         for ( var i = 0 ; i < windows.length ; i ++ ) {
             var window = windows[ i ];

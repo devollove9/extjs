@@ -9,12 +9,12 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.CheckoutListController'
     ],
 
     addQuantity:function(model,rowindex,columns,button_object,event,dishRecord) {
-        //console.log(model);
-        //console.log(rowindex);
-        //console.log(columns);
-        //console.log(button_object);
-        //console.log(event);
-        //console.log(dishRecord);
+        ////console.log(model);
+        ////console.log(rowindex);
+        ////console.log(columns);
+        ////console.log(button_object);
+        ////console.log(event);
+        ////console.log(dishRecord);
         if ( Ext.getCmp('Employee-Operator-NewOrder-Checkout-CheckoutList').checkoutStatus == true ) {
             Ext.Msg.alert('Error', 'You have already checked out,<br>please click Re-Order to change dishes.');
         } else {
@@ -28,12 +28,12 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.CheckoutListController'
         }
     },
     decreaseQuantity:function(model,rowindex,columns,button_object,event,dishRecord) {
-        //console.log(model);
-        //console.log(rowindex);
-        //console.log(columns);
-        //console.log(button_object);
-        //console.log(event);
-        //console.log(dishRecord);
+        ////console.log(model);
+        ////console.log(rowindex);
+        ////console.log(columns);
+        ////console.log(button_object);
+        ////console.log(event);
+        ////console.log(dishRecord);
         if ( Ext.getCmp('Employee-Operator-NewOrder-Checkout-CheckoutList').checkoutStatus == true ) {
             Ext.Msg.alert('Error', 'You have already checked out,<br>please click Re-Order to change dishes.');
         } else {
@@ -87,8 +87,8 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.CheckoutListController'
         }
     },
     checkoutDish:function(button,click_event) {
-        //console.log(model);
-        //console.log(rowindex);
+        ////console.log(model);
+        ////console.log(rowindex);
 
         var checkoutList = Ext.getCmp('Employee-Operator-NewOrder-Checkout-CheckoutList');
         var summary = checkoutList.getView().getFeature('summaryRow').summaryRecord.data;
@@ -99,8 +99,8 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.CheckoutListController'
                 // Check out process
                 var dish = [];
                 checkoutList.getStore().each(function(record, idx) {
-                    //console.log(record);
-                    //console.log(idx);
+                    ////console.log(record);
+                    ////console.log(idx);
                     dish.push(record);
                 });
                 checkoutList.checkoutStatus = true;
@@ -122,7 +122,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.CheckoutListController'
 
                 userInfo.getForm().findField("tax").setValue(tax);
                 userInfo.getForm().findField("total").setValue(total);
-                //console.log( dish );
+                ////console.log( dish );
                 userInfo.checkoutStoreId = checkoutList.checkoutStoreId;
                 userInfo.dishInfo = dish;
             }

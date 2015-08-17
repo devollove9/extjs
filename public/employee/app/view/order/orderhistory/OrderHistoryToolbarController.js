@@ -89,8 +89,8 @@ Ext.define('517Employee.view.order.orderhistory.OrderHistoryToolbarController', 
         var comparator = comparatorField.getValue();
         //comparatorField.getStore().each(function(record, idx) {
         //    if ( record.data.name.indexOf( comparatorField.getValue() ) > -1 ) {
-        //        console.log( record.data.name );
-        //        console.log( comparatorField.getValue() );
+        //        //console.log( record.data.name );
+        //        //console.log( comparatorField.getValue() );
         //        comparator = record.data.comparator;
         //    }
         //});
@@ -106,7 +106,7 @@ Ext.define('517Employee.view.order.orderhistory.OrderHistoryToolbarController', 
             Ext.Msg.alert( 'Error' , 'Api Not Supported!' );
         } else {
             
-            console.log(new Date(start).getTime());
+            //console.log(new Date(start).getTime());
            
             // Request Params
             var params = {

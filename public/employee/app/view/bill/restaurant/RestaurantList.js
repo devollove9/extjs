@@ -35,7 +35,7 @@ Ext.define('517Employee.view.bill.restaurant.RestaurantList', {
                 iconCls: 'fa fa-plus',
                 text: 'All ',
                 handler: function(){
-                    //console.log(this.up().up().getSelectionModel());
+                    ////console.log(this.up().up().getSelectionModel());
                     this.up().up().getSelectionModel().selectAll();
                 }
             },
@@ -44,7 +44,7 @@ Ext.define('517Employee.view.bill.restaurant.RestaurantList', {
                 iconCls: 'fa fa-refresh',
                 tooltip: 'Refresh Restaurant list',
                 handler: function(){
-                    //console.log(this.up().up().getSelectionModel());
+                    ////console.log(this.up().up().getSelectionModel());
                     this.up().up().refreshView();
                 }
             },
@@ -53,7 +53,7 @@ Ext.define('517Employee.view.bill.restaurant.RestaurantList', {
                 iconCls: 'fa fa-times',
                 tooltip: 'De-select Restaurant list',
                 handler: function(){
-                    //console.log(this.up().up());
+                    ////console.log(this.up().up());
                     this.up().up().getSelectionModel().deselectAll();
                 }
             },

@@ -41,7 +41,7 @@ Ext.define('517Employee.view.driverUnique.orderHistory.OrderHistoryView', {
         this.items.items[ 1 ].resetAll();
     },
     doNavigation:function(panel){
-        console.log( panel );
+        //console.log( panel );
     }
     
 });

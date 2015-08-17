@@ -195,7 +195,7 @@ Ext.define('517Employee.view.operator.operation.orderTab.orderList.OrderListView
             minWidth: 70,
             dataIndex: 'payment',
             renderer: function(val) {
-                //console.log(val.payment);
+                ////console.log(val.payment);
                 if (val.method == 0) {
                     return 'Cash';
                 } else

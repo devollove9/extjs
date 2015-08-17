@@ -64,8 +64,8 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.DishL
                 return value.toFixed(2);
             },
             summaryRenderer:function(value, summaryData, dataIndex){
-                //console.log(value);
-                //console.log(summaryData);
+                ////console.log(value);
+                ////console.log(summaryData);
                 return Ext.String.format('{0}', value.toFixed(2));
             }
         }
@@ -237,7 +237,7 @@ Ext.define('517Employee.view.operator.operation.orderDetailTab.orderDetail.DishL
     },
 
     recaculate:function(){
-        console.log('re jjjj')
+        //console.log('re jjjj')
     }
 
 });

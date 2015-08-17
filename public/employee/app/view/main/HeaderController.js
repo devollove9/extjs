@@ -19,7 +19,7 @@ Ext.define( '517Employee.view.main.HeaderController' , {
         }
         var runner = new Ext.util.TaskRunner(),
             task = runner.start({
-                run: this.refreshToken, //function(){console.log('task');},
+                run: this.refreshToken, //function(){//console.log('task');},
                 scope: this,
                 interval: 1200000
             });
@@ -29,7 +29,7 @@ Ext.define( '517Employee.view.main.HeaderController' , {
         Ext.getCmp( 'Employee-Header' ).refreshToken();
     },
     logout:function(){
-        //console.log(this.getView());
+        ////console.log(this.getView());
         Ext.Msg.show({
                     title:'Warning',
                     msg: 'You will be logged out <br> Are you sure you want to Log Out?',
@@ -99,7 +99,7 @@ Ext.define( '517Employee.view.main.HeaderController' , {
             if ( mainPanel.refreshList.length > 0 ) {
                 for ( var i = 0 ; i < mainPanel.refreshList.length ; i ++ ) {
                     var component = mainPanel.refreshList[ i ];
-                    //console.log( component );
+                    ////console.log( component );
                     Ext.getCmp( component).refreshView();
                 }
             }
@@ -111,7 +111,7 @@ Ext.define( '517Employee.view.main.HeaderController' , {
             if ( mainPanel.refreshList.length > 0 ) {
                 for ( var i = 0 ; i < mainPanel.refreshList.length ; i ++ ) {
                     var component = mainPanel.refreshList[ i ];
-                    //console.log( component );
+                    ////console.log( component );
                     Ext.getCmp( component ).resetAll();
                 }
             }

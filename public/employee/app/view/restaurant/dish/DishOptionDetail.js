@@ -73,7 +73,7 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionDetail', {
         }
     ],
     resetAll:function(){
-        //console.log('Reset Option Detail');
+        ////console.log('Reset Option Detail');
         this.getForm().reset();
         this.setTitle('Option Detail');
         this.currentMethod = 'saving';

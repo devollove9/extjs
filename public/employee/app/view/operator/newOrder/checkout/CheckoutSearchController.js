@@ -14,7 +14,7 @@ Ext.define('517Employee.view.operator.newOrder.neworder.CheckoutSearchController
         var region = Ext.getCmp( 'operator-regionlist' );
         var resultStore = resultList.getStore();
         resultStore.loadData([],false);
-        //console.log(resultList);
+        ////console.log(resultList);
         if ( region.getSelectionModel().hasSelection() ) {
             var phone_number=search_field.value;
             resultList.setTitle('Search user by phone: ' +phone_number);
@@ -29,14 +29,14 @@ Ext.define('517Employee.view.operator.newOrder.neworder.CheckoutSearchController
                 },
                 success: function(result, request) {
                     var obj = Ext.decode(result.responseText);
-                    //console.log(obj);
+                    ////console.log(obj);
                     if ( obj.success == 1) {
-                        console.log("search success");
+                        //console.log("search success");
                         var records= obj.addresses;
-                        //console.log(model);
+                        ////console.log(model);
                         resultStore.add(records);
                         resultList.reconfigure();
-                        console.log(resultStore);
+                        //console.log(resultStore);
                     } else if (obj.success == 2 ) { //not found
                     } else if (obj.success == -1) {
                     } //Error
@@ -44,10 +44,10 @@ Ext.define('517Employee.view.operator.newOrder.neworder.CheckoutSearchController
                     Ext.getCmp('employee-operator-newOrder-checkout-userInfo').getForm().findField('phone').setValue(phone_number);
                 }
             });
-            //console.log(columns);
-            //console.log(button_object);
-            //console.log(event);
-            //console.log(dishRecord);
+            ////console.log(columns);
+            ////console.log(button_object);
+            ////console.log(event);
+            ////console.log(dishRecord);
         } else {
             Ext.Msg.alert( 'Error' , 'Please choose a region first.' );
         }
@@ -60,19 +60,19 @@ Ext.define('517Employee.view.operator.newOrder.neworder.CheckoutSearchController
 
         var resultStore = resultList.getStore();
         resultStore.loadData([],false);
-        //console.log(resultList);
+        ////console.log(resultList);
         search_field.reset();
         resultList.setTitle('Search User ');
 
 
     },
     addName:function(model,rowindex,columns,button_object,event,lineRecord) {
-        //console.log(model);
-        //console.log(rowindex);
-        //console.log(columns);
-        //console.log(button_object);
-        //console.log(event);
-        //console.log(dishRecord);
+        ////console.log(model);
+        ////console.log(rowindex);
+        ////console.log(columns);
+        ////console.log(button_object);
+        ////console.log(event);
+        ////console.log(dishRecord);
         if ( lineRecord.data.name ) {
             var first_name = lineRecord.data.firstName;
             var last_name = lineRecord.data.lastName;
@@ -82,12 +82,12 @@ Ext.define('517Employee.view.operator.newOrder.neworder.CheckoutSearchController
 
     },
     addStreet:function(model,rowindex,columns,button_object,event,lineRecord) {
-        //console.log(model);
-        //console.log(rowindex);
-        //console.log(columns);
-        //console.log(button_object);
-        //console.log(event);
-        //console.log(dishRecord);
+        ////console.log(model);
+        ////console.log(rowindex);
+        ////console.log(columns);
+        ////console.log(button_object);
+        ////console.log(event);
+        ////console.log(dishRecord);
         if ( lineRecord.data.streetroom ) {
             if ( Ext.getCmp('employee-operator-newOrder-checkout-userInfo').addressStatus == true ) {
                 Ext.Msg.alert( 'Warning', 'You need to hit Re-Confirm to add new address');
@@ -112,12 +112,12 @@ Ext.define('517Employee.view.operator.newOrder.neworder.CheckoutSearchController
         }
     },
     addCard:function(model,rowindex,columns,button_object,event,lineRecord) {
-        //console.log(model);
-        //console.log(rowindex);
-        //console.log(columns);
-        //console.log(button_object);
-        //console.log(event);
-        //console.log(dishRecord);
+        ////console.log(model);
+        ////console.log(rowindex);
+        ////console.log(columns);
+        ////console.log(button_object);
+        ////console.log(event);
+        ////console.log(dishRecord);
         if ( lineRecord.data.number ) {
             var card = lineRecord.data.card;
             Ext.getCmp('employee-operator-newOrder-checkout-userInfo').getForm().findField('card').setReadOnly(false);
@@ -127,7 +127,7 @@ Ext.define('517Employee.view.operator.newOrder.neworder.CheckoutSearchController
             Ext.getCmp('employee-operator-newOrder-checkout-userInfo').getForm().findField('payment_cardIndex').setValue('');
             Ext.getCmp('employee-operator-newOrder-checkout-userInfo').getForm().findField('payment_cardLoaded').setValue(false);
             //if (card != "cash"){
-            //console.log(lineRecord);
+            ////console.log(lineRecord);
 
             Ext.getCmp('operator-checkout-payment-radio').items.items[0].items.items[0].setValue(true);
             Ext.getCmp('operator-checkout-payment-radio').items.items[0].items.items[1].setValue(false);
@@ -147,12 +147,12 @@ Ext.define('517Employee.view.operator.newOrder.neworder.CheckoutSearchController
         //}
     },
     addUsername:function(model,rowindex,columns,button_object,event,lineRecord) {
-        //console.log(model);
-        //console.log(rowindex);
-        //console.log(columns);
-        //console.log(button_object);
-        //console.log(event);
-        //console.log(dishRecord);
+        ////console.log(model);
+        ////console.log(rowindex);
+        ////console.log(columns);
+        ////console.log(button_object);
+        ////console.log(event);
+        ////console.log(dishRecord);
         if ( lineRecord.data.username ) {
             var username = lineRecord.data.username;
             if ( username !="Guest" ) {
@@ -169,12 +169,12 @@ Ext.define('517Employee.view.operator.newOrder.neworder.CheckoutSearchController
         }
     },
     addRecord:function(model,rowindex,columns,button_object,event,lineRecord) {
-        //console.log(model);
-        //console.log(rowindex);
-        //console.log(columns);
-        //console.log(button_object);
-        //console.log(event);
-        //console.log(dishRecord);
+        ////console.log(model);
+        ////console.log(rowindex);
+        ////console.log(columns);
+        ////console.log(button_object);
+        ////console.log(event);
+        ////console.log(dishRecord);
         this.addCard(model,rowindex,columns,button_object,event,lineRecord);
         this.addName(model,rowindex,columns,button_object,event,lineRecord);
         this.addStreet(model,rowindex,columns,button_object,event,lineRecord);

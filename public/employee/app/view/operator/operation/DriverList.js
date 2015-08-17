@@ -122,7 +122,7 @@ Ext.define( '517Employee.view.operator.operation.DriverList' , {
         }
     },
     addMarkers:function( records ){
-        //console.log( records );
+        ////console.log( records );
         var map = Ext.getCmp( 'Employee-Operator-Operation-Map').lookupReference( 'map' );
         map.clearMarkers('driver');
         if ( records.length > 0 ) {
@@ -164,7 +164,7 @@ Ext.define( '517Employee.view.operator.operation.DriverList' , {
             var serverTime = Ext.getCmp( 'Employee-Operator').getServerTime();
             var timestamp = serverTime-timeDeduction;
             var timestamp = timestamp * 1000;
-            //console.log( timestamp );
+            ////console.log( timestamp );
         }
         return timestamp;
     }

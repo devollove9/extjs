@@ -24,7 +24,7 @@ Ext.define('517Employee.view.settings.myprofile.MyProfileView', {
     ],
  
     doNavigation:function(panel){
-        console.log( panel );
+        //console.log( panel );
     }
     
 });

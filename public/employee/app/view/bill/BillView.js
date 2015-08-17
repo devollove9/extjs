@@ -35,7 +35,7 @@ Ext.define('517Employee.view.bill.BillView', {
         }
     ],
     refreshView:function() {
-        //console.log( this.items.items[1].items.items[0] );
+        ////console.log( this.items.items[1].items.items[0] );
 
         // Refresh Restaurant Panel
         this.items.items[1].items.items[0].refreshView();

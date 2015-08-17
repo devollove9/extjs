@@ -8,18 +8,18 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
 
     ],
     SaveChange: function( button , event ) {
-        //console.log(button);
-        //console.log(b);
-        //console.log(grid);
-        //console.log( grid.store.getAt(rowIndex).data.option );
-        //console.log(i);
-        //console.log(recordLine);
+        ////console.log(button);
+        ////console.log(b);
+        ////console.log(grid);
+        ////console.log( grid.store.getAt(rowIndex).data.option );
+        ////console.log(i);
+        ////console.log(recordLine);
         var dishList = Ext.getCmp( 'Employee-Restaurant-Dish-List' );
         var dishDetail = Ext.getCmp( 'Employee-Restaurant-Dish-Detail' );
         var optionGroupList = Ext.getCmp( 'Employee-Restaurant-Dish-OptionGroupList' );
         var dishBusinessHour = Ext.getCmp( 'Employee-Restaurant-Dish-Detail-BusinessHour' );
         //.log(dishDetail);
-        //console.log(optionGroupList);
+        ////console.log(optionGroupList);
         var name = dishDetail.getForm().findField( 'name' ).getValue();
         var logoWeb = dishDetail.getForm().findField( 'logo.web' );
         var logoMini = dishDetail.getForm().findField( 'logo.mini' );
@@ -39,7 +39,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                 Ext.Msg.alert( 'Error' , 'Please choose a dish first.' );
             } else {
                 var originRecord = dishDetail.originRecord.data;
-                //console.log(originRecord);
+                ////console.log(originRecord);
                 var changedFlag = false;
                 var changedString=''; var size = 1;
                 if ( originRecord.name != name ) {
@@ -84,13 +84,13 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                             if ( btn == 'yes' ) {
                                 dishDetail.changedFlag = true;
                                 var old_record = dishList.getStore().getAt(dishList.selectedRow);
-                                //console.log(old_record);
+                                ////console.log(old_record);
                                 old_record.data.name = name;old_record.data.nameEn = nameEn;old_record.data.price = price;old_record.data.quantity = quantity;old_record.data.disabled = disabled;
                                 var dishInfo = new Object();
                                 if ( optionGroupList.changedFlag == true && totalOptionGroupNumber != 0) {
 
                                     var newOptionGroups = [];
-                                    //console.log(optionGroupList.getView().getStore().data.items);
+                                    ////console.log(optionGroupList.getView().getStore().data.items);
                                     for ( var i = 0 ; i < optionGroupList.getView().getStore().data.items.length ; i ++ ) {
                                         var curOptionGroup = new Object();
                                         var editedOptionGroup = optionGroupList.getView().getStore().data.items[i].data;
@@ -130,7 +130,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
 
                                     dishBusinessHour.getStore().each( function( record , idx ) {
                                         var newBusinessHour = new Object();
-                                        //console.log(record);
+                                        ////console.log(record);
                                         newBusinessHour.day = record.data.day;
                                         newBusinessHour.start = record.data.start;
                                         newBusinessHour.end = record.data.end;
@@ -142,7 +142,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
 
                                             for ( var i = 0 ; i < originRecord.information.businessHour.length ; i ++ ){
                                                 var newBusinessHour = new Object();
-                                                //console.log(record);
+                                                ////console.log(record);
                                                 newBusinessHour.day = originRecord.information.businessHour[i].day;
                                                 newBusinessHour.start = originRecord.information.businessHour[i].start;
                                                 newBusinessHour.end = originRecord.information.businessHour[i].end;
@@ -184,7 +184,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                             var dishInfo = new Object();
                             if ( totalOptionGroupNumber != 0 ) {
                                 var newOptionGroups = [];
-                                //console.log(optionGroupList.getView().getStore().data.items);
+                                ////console.log(optionGroupList.getView().getStore().data.items);
                                 for ( var i = 0 ; i < optionGroupList.getView().getStore().data.items.length ; i ++ ) {
                                     var curOptionGroup = new Object();
                                     var editedOptionGroup = optionGroupList.getView().getStore().data.items[i].data;
@@ -221,7 +221,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                             dishInfo.information.disabled = disabled;
                             dishBusinessHour.getStore().each( function( record , idx ) {
                                 var newBusinessHour = new Object();
-                                //console.log(record);
+                                ////console.log(record);
                                 newBusinessHour.day = record.data.day;
                                 newBusinessHour.start = record.data.start;
                                 newBusinessHour.end = record.data.end;
@@ -238,7 +238,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                             
              
                             dishInfo = JSON.stringify( dishInfo );
-                            //console.log(this.up());
+                            ////console.log(this.up());
                             dishDetail.postChange( dishInfo , 'post' );
 
                         }
@@ -439,7 +439,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                                 text: 'Save',
                                 width: 100,
                                 handler: function (field, rowIndex) {
-                                    //console.log(this.up().up().items.items[0].items.items);
+                                    ////console.log(this.up().up().items.items[0].items.items);
                                     var curwin = this.up().up();
                                     var fields = this.up().up().items.items[0].items.items[0].items.items;
                                     var day = fields[0].getValue();
@@ -470,8 +470,8 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                                     } else {
                                         curwin.close();
                                     }
-                                    //console.log(this.up().items.items.indexOf(1));
-                                    //console.log(this.up().items.items.indexOf(2).value);
+                                    ////console.log(this.up().items.items.indexOf(1));
+                                    ////console.log(this.up().items.items.indexOf(2).value);
                                 }
                             },
                             {

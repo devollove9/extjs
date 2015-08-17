@@ -48,7 +48,7 @@ Ext.define('517Employee.view.order.orderhistory.OrderHistoryToolbarWest', {
     ],
  
     doNavigation:function(panel){
-        console.log( panel );
+        //console.log( panel );
     }
     
 });

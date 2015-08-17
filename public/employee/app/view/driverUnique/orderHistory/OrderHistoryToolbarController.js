@@ -28,7 +28,7 @@ Ext.define('517Employee.view.driverUnique.orderHistory.OrderHistoryToolbarContro
             actualDay = ( startOfDay - 86400*1000 * field.dayFactor ) * 1000;
         }
 
-        console.log( actualDay );
+        //console.log( actualDay );
         // Request Params
         var params = {
             filterBy : 'placeDate' ,
@@ -85,8 +85,8 @@ Ext.define('517Employee.view.driverUnique.orderHistory.OrderHistoryToolbarContro
         var comparator = comparatorField.getValue();
         //comparatorField.getStore().each(function(record, idx) {
         //    if ( record.data.name.indexOf( comparatorField.getValue() ) > -1 ) {
-        //        console.log( record.data.name );
-        //        console.log( comparatorField.getValue() );
+        //        //console.log( record.data.name );
+        //        //console.log( comparatorField.getValue() );
         //        comparator = record.data.comparator;
         //    }
         //});
@@ -102,7 +102,7 @@ Ext.define('517Employee.view.driverUnique.orderHistory.OrderHistoryToolbarContro
             Ext.Msg.alert( 'Error' , 'Api Not Supported!' );
         } else {
             
-            console.log(new Date(start).getTime());
+            //console.log(new Date(start).getTime());
            
             // Request Params
             var params = {

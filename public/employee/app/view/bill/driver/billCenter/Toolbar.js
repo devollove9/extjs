@@ -517,7 +517,7 @@ Ext.define('517Employee.view.bill.driver.billCenter.Toolbar', {
     },
     getFieldItems:function( itemName ) {
         var form = this.items.items[ 0 ];
-        //console.log( form );
+        ////console.log( form );
         var itemValue = form.getForm().findField( itemName ).getValue();
 
         return itemValue;
@@ -536,7 +536,7 @@ Ext.define('517Employee.view.bill.driver.billCenter.Toolbar', {
             periodEnd = parseInt( placeDateArray[ 1 ] );
         }
 
-        //console.log(  me.getCurrentType() );
+        ////console.log(  me.getCurrentType() );
         if ( me.getCurrentType() == 'Search' ) {
             params.periodStart = periodStart;
             params.periodEnd = periodEnd;
@@ -545,7 +545,7 @@ Ext.define('517Employee.view.bill.driver.billCenter.Toolbar', {
             // Get Document No
             var documentNo = me.getFieldItems( 'documentNoSearch' );
             var driverId = me.getFieldItems( 'driverIdSearch' );
-            console.log( driverId );
+            ////console.log( driverId );
             if ( ! documentNo ) {
 
             } else {

@@ -86,7 +86,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
                             typeMap[ 3 ] = 'Restaurant Deliver';
                             if ( restaurantModel.hasSelection() ) {
                                 var deliverType = restaurantModel.getSelection()[0].data.delivery.method;
-                                //console.log( restaurantModel.getSelection()[0].data );
+                                ////console.log( restaurantModel.getSelection()[0].data );
                                 if ( deliverType.indexOf( newVal.types ) > -1 ) {
                                     Ext.getCmp( 'Employee-Operator-NewOrder-Checkout-UserInfo' ).resetAddress();
                                     Ext.getCmp( 'Employee-Operator-NewOrder-Checkout-UserInfo' ).calculateTip();
@@ -321,7 +321,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
                                 change: {
                                     fn: function(field,field_value,inputs,this_obj){
                                         //var me = this;
-                                        //console.log(field_value);
+                                        ////console.log(field_value);
                                     },
                                     scope: this,
                                     buffer: 1500
@@ -337,7 +337,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
                                 var paymentLoaded=this.up().items.items[0];
                                 var cardField = this.up().items.items[1];
                                 var paymentIndex = this.up().items.items[4];
-                                //console.log(paymentLoaded.getValue());
+                                ////console.log(paymentLoaded.getValue());
                                 if ( paymentLoaded.getValue() == 'true' ) {
                                     Ext.Msg.show({
                                         title:'Warning',
@@ -349,7 +349,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
                                                 cardField.setReadOnly(false);
                                                 cardField.setValue('');
                                                 paymentIndex.setValue('');
-                                                console.log(paymentLoaded.getValue());
+                                                //console.log(paymentLoaded.getValue());
                                             } else if ( btn == 'no' ) {
 
                                             }
@@ -722,7 +722,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
         data.payment.method = this.getForm().findField("paymentGroup").getValue().paymentMethod;
         if ( Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo-TypeRadio').choosedType != 1 ) data.payment.tip = this.getForm().findField("tipGroup").getValue().tips;
         if ( data.payment.method == 1 ) {
-            //console.log(this.getForm().findField("paymentCardLoaded").getValue());
+            ////console.log(this.getForm().findField("paymentCardLoaded").getValue());
             data.payment.card = new Object();
             if (this.getForm().findField("paymentCardLoaded").getValue() == 'true') {
                 //data.paymentLoaded = true;
@@ -753,7 +753,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
          */
         data.comments = this.getForm().findField('comments').getValue();
         data.dish = this.dishInfo;
-        //console.log( this.dishInfo);
+        ////console.log( this.dishInfo);
         //data.charge.discount = this.getForm().findField('discount').getValue();
         return data;
     }

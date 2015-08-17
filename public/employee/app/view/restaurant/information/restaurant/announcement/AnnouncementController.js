@@ -10,7 +10,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.announcement.Ann
 
     NewAnnouncementEn:function( button , clickEvent ) {
         var gridpanel = button.up().up();
-        console.log( 'asd' );
+        //console.log( 'asd' );
         if ( Ext.getCmp( 'Employee-Restaurant-Information-Restaurant' ).newRestaurant == false && Ext.getCmp( 'Employee-Restaurant-Information-RestaurantList' ).getSelectionModel().hasSelection() == false ) {
             Ext.Msg.alert( 'Error' , 'Please choose a restaurant first.');
         } else if ( gridpanel.gridEditing == true ){
@@ -217,7 +217,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.announcement.Ann
     },
     NewAnnouncement:function( button , clickEvent ) {
         var gridpanel = button.up().up();
-        console.log( 'asd' );
+        //console.log( 'asd' );
         if ( Ext.getCmp( 'Employee-Restaurant-Information-Restaurant' ).newRestaurant == false && Ext.getCmp( 'Employee-Restaurant-Information-RestaurantList' ).getSelectionModel().hasSelection() == false ) {
             Ext.Msg.alert( 'Error' , 'Please choose a restaurant first.');
         } else if ( gridpanel.gridEditing == true ){

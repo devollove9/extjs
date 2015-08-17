@@ -31,7 +31,7 @@ Ext.define('517Employee.view.navigation.mainpanel.LeftSection', {
         var Lx = 25;
         var Ly = 0;
         var items=[];
-        //console.log( Ext.getCmp( 'Employee-Header').getUserInfo() );
+        ////console.log( Ext.getCmp( 'Employee-Header').getUserInfo() );
         //if ( Ext.getCmp( 'Employee-Header').getUserInfo().email == 'test@test.test' ) {
         //    var driverTitle = this.createIconTitle( DriverCategory , Lx , Ly ); Ly += 50;
         //    var driverBlockOrderHistory = this.createIcon( DriverOrderHistoryIcon , 'employee-driverUnique orderHistory' , Lx , Ly );
@@ -126,7 +126,7 @@ var OperatorBlockTitle = {
     listeners: {
         render: function( panel , b , c , d , e , f , g ) {
             panel.el.on('click', function() {
-                //console.log( panel );
+                ////console.log( panel );
             });
         }, scope: this
     }

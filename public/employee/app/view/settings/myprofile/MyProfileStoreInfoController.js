@@ -41,7 +41,7 @@ Ext.define('517Employee.view.settings.myprofile.MyProfileStoreInfoController', {
     addStoreInfo:function( record ) {
         var storeInfo = Ext.getCmp( 'employee-Settings-MyProfile-StoreInfo' );
         var storeInfoForm = storeInfo.getForm();
-        console.log(record);
+        //console.log(record);
         storeInfoForm.findField( 'name').setValue( record.name );
         storeInfoForm.findField( 'nameEn').setValue( record.nameEn );
         storeInfoForm.findField( 'regionNameFull').setValue( record.regionName );

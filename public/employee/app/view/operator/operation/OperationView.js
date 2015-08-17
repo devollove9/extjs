@@ -25,7 +25,7 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
         var me = this;
         var runner = new Ext.util.TaskRunner();
         var task = runner.start({
-            run: me.refreshView , //function(){console.log('task');},
+            run: me.refreshView , //function(){//console.log('task');},
             scope: me,
             interval: 30000
         });
@@ -90,7 +90,7 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
         Ext.getCmp( 'Employee-Operator-Operation-DriverList').refreshView();
 
         var regionInfo = Ext.getCmp( 'Employee-Header-Region').regionInfo;
-        //console.log( regionInfo );
+        ////console.log( regionInfo );
         var map = Ext.getCmp( 'Employee-Operator-Operation-Map');
         map.lookupReference( 'map' ).reCenter({
             lat: regionInfo.latitude,

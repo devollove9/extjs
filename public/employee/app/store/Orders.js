@@ -30,7 +30,7 @@ Ext.define('517Employee.store.Orders', {
     sortOnLoad: true,
     listeners:{
         load:function(store){
-            console.log('load store');
+            ////console.log('load store');
             //517Employee.getApplication().fireEvent('ordersLoaded', store);
         }
     },

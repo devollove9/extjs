@@ -8,12 +8,12 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupController', {
 
     ],
     CheckEdit: function( grid, rowIndex, colIndex , delete_col , clickEvent , recordLine, tr ) {
-        //console.log(a);
-        //console.log(b);
-        //console.log(grid);
-        //console.log( grid.store.getAt(rowIndex).data.option );
-        //console.log(i);
-        //console.log(recordLine);
+        ////console.log(a);
+        ////console.log(b);
+        ////console.log(grid);
+        ////console.log( grid.store.getAt(rowIndex).data.option );
+        ////console.log(i);
+        ////console.log(recordLine);
 
     },
     Savechanges: function( button ) {
@@ -22,8 +22,8 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupController', {
         var optionList = optionGroup.items.items[3].items.items[0];
         var optionGroupList = Ext.getCmp( 'Employee-Restaurant-Dish-OptionGroupList' );
         optionGroupList.changedFlag = false;
-        //console.log(optionGroup.up());
-        //console.log(this.up().up().originRecord);
+        ////console.log(optionGroup.up());
+        ////console.log(this.up().up().originRecord);
 
         var name = optionGroup.getForm().findField( 'name' ).getValue();
         var nameEn = optionGroup.getForm().findField( 'nameEn' ).getValue();
@@ -78,7 +78,7 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupController', {
 
                                 if ( optionList.changedFlag == true ) {
                                     var new_options = [];
-                                    //console.log(optionList.getView().getStore().data.items);
+                                    ////console.log(optionList.getView().getStore().data.items);
                                     for ( var i = 0 ; i < optionList.getView().getStore().data.items.length ; i ++ ) {
                                         var cur_option = new Object();
                                         cur_option.name = optionList.getView().getStore().data.items[i].data.name;
@@ -91,7 +91,7 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupController', {
                                     }
                                     old_record.data.option = new_options;
                                 }
-                                //console.log(old_record);
+                                ////console.log(old_record);
                                 optionGroupList.getView().refresh();
                                 curWindow.close();
 

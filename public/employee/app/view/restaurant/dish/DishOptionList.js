@@ -67,18 +67,18 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionList', {
         }],
     listeners:{
         select:function( a , b , rowIdx , scope , e , f ) {
-            //console.log(rowIdx);
+            ////console.log(rowIdx);
             this.selectedRow = rowIdx;
         },
         selectionchange:function( model , records ){
-            //console.log(this.up().items.items[1]);
+            ////console.log(this.up().items.items[1]);
 
-            //console.log(this.up());
+            ////console.log(this.up());
 
 
             //var row = this.store.indexOf(this.getSelectionModel());
-            //console.log(this.selectedRow);
-            //console.log(this.up().up());
+            ////console.log(this.selectedRow);
+            ////console.log(this.up().up());
             var optionDetail = this.up().items.items[1];
 
             optionDetail.resetAll();
@@ -93,7 +93,7 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionList', {
                 optionDetail.getForm().findField('price').setValue(records[0].data.price);
                 if ( records[0].data.information ){
                     if ( typeof records[0].data.information.disabled != 'undefined'){
-                        //console.log( OptionPanel.getForm().findField('disabledGroup').items.items[0].checked = );
+                        ////console.log( OptionPanel.getForm().findField('disabledGroup').items.items[0].checked = );
                         if ( records[0].data.information.disabled == true ) {
                             optionDetail.items.items[0].items.items[0].setValue(false);
                             optionDetail.items.items[0].items.items[1].setValue(true);

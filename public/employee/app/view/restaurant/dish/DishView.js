@@ -80,7 +80,7 @@ Ext.define('517Employee.view.restaurant.dish.DishView', {
     },
 
     doNavigation:function(panel){
-        console.log( panel );
+        //console.log( panel );
     },
 
 

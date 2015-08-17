@@ -26,14 +26,14 @@ Ext.define( '517Employee.view.restaurant.dish.DishOptionDetailController' , {
 
 
             var selectedRow = optionDetail.getForm().findField('selectedRow').getValue();
-            console.log(selectedRow);
+            //console.log(selectedRow);
             if ( selectedRow >= 0 && ( name == '' || nameEn == '' || price == '' || quantity == '' ) ){
                 Ext.Msg.alert( 'Error' , 'Please fill all fields.' );
             } else {
                 optionList.getStore().each(function(record, idx) {
 
                     if ( idx == selectedRow ) {
-                        console.log(idx);
+                        //console.log(idx);
                         if ( record.data.name != name ) {
                             changedFlag = true;
                         }

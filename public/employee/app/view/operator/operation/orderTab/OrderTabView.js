@@ -144,14 +144,14 @@ Ext.define('517Employee.view.operator.operation.orderTab.OrderTabView', {
     // Function get start of current day
     getStartOfDay:function() {
         var now = new Date( ( new Date() ).getTime() +  Ext.getCmp( 'Employee-Operator' ).getServerTimeDifference() );
-        //console.log( now );
+        ////console.log( now );
         var startOfDay = new Date( now.getFullYear() , now.getMonth() , now.getDate() );
         var timestamp = startOfDay.getTime();
         return timestamp;
     },
 
     addMarkers:function( records ){
-        //console.log( records );
+        ////console.log( records );
         var map = Ext.getCmp( 'Employee-Operator-Operation-Map').lookupReference( 'map' );
         map.clearMarkers('user');
         if ( records.length > 0 ) {

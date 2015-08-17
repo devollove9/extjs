@@ -35,14 +35,14 @@ Ext.define('517Employee.view.driver.DriverView', {
         scope: this
     },
     refreshView:function() {
-        //console.log( this.items.items[1].items.items[0] );
+        ////console.log( this.items.items[1].items.items[0] );
 
         // Refresh Order History
         this.items.items[ 1 ].items.items[ 0 ].refreshView();
 
     },
     resetAll:function() {
-        //console.log( this.items.items[1].items.items[0] );
+        ////console.log( this.items.items[1].items.items[0] );
 
         // Reset Order History
         this.items.items[ 1 ].items.items[ 0 ].resetAll();

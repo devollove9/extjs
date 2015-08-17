@@ -124,7 +124,7 @@ Ext.define( '517Employee.view.bill.restaurant.billCenter.BillList', {
                     iconCls: 'download-col',
                     tooltip: 'Download',margin:'0 2 0 0',
                     handler: function( grid, rowIndex, colIndex) {
-                        //console.log(grid.store.getAt(rowIndex).data);
+                        ////console.log(grid.store.getAt(rowIndex).data);
                         Ext.Ajax.request({
                             url: Ext.getCmp( 'Employee-Header').getServerUrl() + '/bill/store/download', // you can fix a parameter like this : url?action=anAction1
                             method: 'GET',
@@ -213,7 +213,7 @@ Ext.define( '517Employee.view.bill.restaurant.billCenter.BillList', {
 
                 me.setLoading( true );
                 // Send Request
-                //console.log( jsonData );
+                ////console.log( jsonData );
                 Ext.Ajax.request({
                     url : Ext.getCmp( 'Employee-Header').getServerUrl() + '/bill/store' ,
                     headers: Ext.getCmp( 'Employee-Header').getHeaders( method ) ,

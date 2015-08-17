@@ -539,7 +539,7 @@ Ext.define('517Employee.view.bill.restaurant.billCenter.Toolbar', {
     },
     getFieldItems:function( itemName ) {
         var form = this.items.items[ 0 ];
-        //console.log( form );
+        ////console.log( form );
         var itemValue = form.getForm().findField( itemName ).getValue();
 
         return itemValue;
@@ -557,7 +557,7 @@ Ext.define('517Employee.view.bill.restaurant.billCenter.Toolbar', {
             periodStart = parseInt( placeDateArray[ 0 ] );
             periodEnd = parseInt( placeDateArray[ 1 ] );
         }
-        //console.log(  me.getCurrentType() );
+        ////console.log(  me.getCurrentType() );
         if ( me.getCurrentType() == 'Search' ) {
             params.periodStart = periodStart;
             params.periodEnd = periodEnd;

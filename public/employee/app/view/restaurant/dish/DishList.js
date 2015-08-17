@@ -196,7 +196,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishList', {
                 dishDetail.setLoading( true );
                 dishDetail.getForm().loadRecord( record );
                 dishDetail.originRecord = record;
-                //console.log(Ext.getCmp( 'restaurant-dish-detail-disabled' ));
+                ////console.log(Ext.getCmp( 'restaurant-dish-detail-disabled' ));
                 if ( record.data.information ) {
                     var dishDetailBusinessHour = Ext.getCmp( 'Employee-Restaurant-Dish-Detail-BusinessHour' );
                     if ( typeof record.data.information.disabled != 'undefined') {
@@ -226,7 +226,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishList', {
 
                 }
 
-                //console.log(record);
+                ////console.log(record);
                 if ( record.data.optionGroup ) {
                     for ( var i = 0 ; i < record.data.optionGroup.length ; i ++ ) {
                         var cur_optionGroup = JSON.parse( JSON.stringify( record.data.optionGroup[ i ] ) );
@@ -268,14 +268,14 @@ Ext.define( '517Employee.view.restaurant.dish.DishList', {
                 me.searchRegExp = new RegExp(me.searchValue, 'g' + (me.caseSensitive ? '' : 'i'));
                 me.store.each(function(record, idx) {
                     if (record.data.name.indexOf(search_value) > -1) {
-                        //console.log(record.data.name.indexOf(search_value));
+                        ////console.log(record.data.name.indexOf(search_value));
                         me.indexes.push(idx);
                         if (me.currentIndex === null) {
                             me.currentIndex = idx;
                         }
                     }
                     if (record.data.nameEn.toLowerCase().indexOf(search_value.toLowerCase()) > -1) {
-                        //console.log(record.data.name.indexOf(search_value));
+                        ////console.log(record.data.name.indexOf(search_value));
                         me.indexes.push(idx);
                         if (me.currentIndex === null) {
                             me.currentIndex = idx;

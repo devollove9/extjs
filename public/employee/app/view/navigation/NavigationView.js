@@ -45,7 +45,7 @@ Ext.define('517Employee.view.navigation.NavigationView', {
         scope: this
     },
     doNavigation:function(panel){
-        //console.log( panel.navigateAction );
+        ////console.log( panel.navigateAction );
         var employeeContent = Ext.getCmp( 'Employee-Main-ContentView' );
         //var employeeContent = Ext.ComponentQuery.query('#Employee-Main-ContentView')[0];
         if ( panel ) {
@@ -96,7 +96,7 @@ Ext.define('517Employee.view.navigation.NavigationView', {
                         employeeContent.setActiveItem(5);
                         var tab = new Object(); tab.navigateAction = navigation[1];
                         Ext.getCmp( 'Employee-Settings' ).doNavigation( tab );
-                        console.log( employeeContent );
+                        //console.log( employeeContent );
                         break;
 
                     case 'employee-region' :

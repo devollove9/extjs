@@ -72,7 +72,7 @@ Ext.define('517Employee.view.driverUnique.orderHistory.OrderHistoryToolbarCenter
             ],
             listeners:{
                 afterRender:function() {
-                    //console.log( this );
+                    ////console.log( this );
                     var fieldContainer = this.up().createFieldContainer( 'Search By:' );
                     this.add( fieldContainer );
                 }
@@ -98,7 +98,7 @@ Ext.define('517Employee.view.driverUnique.orderHistory.OrderHistoryToolbarCenter
     ],
  
     doNavigation:function(panel){
-        console.log( panel );
+        //console.log( panel );
     },
 
     updateSearchParams:function( params ) {
@@ -147,7 +147,7 @@ Ext.define('517Employee.view.driverUnique.orderHistory.OrderHistoryToolbarCenter
                 }
             }
         }
-        //console.log( this.filterByString );
+        ////console.log( this.filterByString );
         params.filterBy = this.filterByString;
         params.filterOperator = this.filterOperator;
         params.filterValue = this.filterValue;
@@ -298,7 +298,7 @@ Ext.define('517Employee.view.driverUnique.orderHistory.OrderHistoryToolbarCenter
 
         filterByField.getStore().each(function(record, idx) {
             if ( record.data.filterBy == filterByField.getValue() ) {
-                //console.log( record );
+                ////console.log( record );
                 filterBy = record.data.filterBy;
             }
         });

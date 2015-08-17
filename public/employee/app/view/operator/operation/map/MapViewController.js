@@ -6,12 +6,12 @@ Ext.define('517Employee.view.operator.operation.map.MapViewController', {
     alias: 'controller.employee-operator-operation-map-controller',
     setBtns:function(){
         if(Number(localStorage.getItem('hideUser'))){
-            console.log(this.lookupReference('userBtn'));
+            //console.log(this.lookupReference('userBtn'));
             this.lookupReference('userBtn').toggle(true);
         }
     },
     hideMarker: function(btn,state) {
-        //console.log(state);
+        ////console.log(state);
         state = state?1:0; //localstorage not support true/false type
         switch(btn.getText()){
             case '司机':
@@ -28,7 +28,7 @@ Ext.define('517Employee.view.operator.operation.map.MapViewController', {
 
     },
     initCheckbox:function( field ) {
-        //console.log( field );
+        ////console.log( field );
         var checkgroup = this.lookupReference('checkgroup');
         checkgroup.setValue({
             hideDriver: Number(localStorage.getItem('hideDriver')),

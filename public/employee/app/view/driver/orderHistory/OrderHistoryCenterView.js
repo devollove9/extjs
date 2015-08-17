@@ -27,7 +27,7 @@ Ext.define('517Employee.view.driver.orderHistory.OrderHistoryCenterView', {
     ],
 
     doNavigation:function(panel){
-        console.log( panel );
+        //console.log( panel );
     },
 
     resetAll:function() {

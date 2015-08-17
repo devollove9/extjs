@@ -104,7 +104,7 @@ Ext.define('517Employee.view.restaurant.information.restaurant.businessHour.Busi
         var businessHour = [];
         store.each( function( record , idx ) {
             var newBusinessHour = new Object();
-            //console.log(record);
+            ////console.log(record);
             newBusinessHour.day = record.data.day;
             newBusinessHour.start = record.data.start;
             newBusinessHour.end = record.data.end;

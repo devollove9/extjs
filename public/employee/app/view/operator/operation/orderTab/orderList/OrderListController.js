@@ -10,7 +10,7 @@ Ext.define( '517Employee.view.operator.operation.orderTab.orderList.OrderListCon
         //'Ext517.model.dish.Dish'
     ],
     orderLoaded:function(){
-        console.log('store laodefjdskfj');
+        //console.log('store laodefjdskfj');
     },
     orderDetail: function(grid, rowIndex, colIndex, item, e, record) {
 
@@ -96,7 +96,7 @@ Ext.define( '517Employee.view.operator.operation.orderTab.orderList.OrderListCon
                     var tab = detail.lookupReference( 'employee-operator-operation-orderDetailTab-orderDetail-orderStatus' );
                     tab.getController().activeStatus(r);
 
-                    //console.log(tab.getController().test());
+                    ////console.log(tab.getController().test());
                     tab.lookupReference('orderno').setValue(record.get('invoiceNo'));
                     tab.lookupReference('orderId').setValue(record.get('orderId'));
                     tab.lookupReference('regionId').setValue(record.get('regionId'));
@@ -108,7 +108,7 @@ Ext.define( '517Employee.view.operator.operation.orderTab.orderList.OrderListCon
                     });
                     var charge = r.get('payment');
                     Ext.Object.each(charge, function(key, value){
-                        console.log( key );
+                        //console.log( key );
                         field = grid.lookupReference(key);
                         if(field){
                             field.setValue(value);
@@ -129,7 +129,7 @@ Ext.define( '517Employee.view.operator.operation.orderTab.orderList.OrderListCon
 
     },
     orderPin:function(grid, rowIndex, colIndex, item, e, record){
-        //console.log(record.get('delivery_lat'))
+        ////console.log(record.get('delivery_lat'))
         //var mapView = Ext.ComponentQuery.query('#map-view')[0];
         var mapView = Ext.getCmp( 'Employee-Operator-Operation-Map');
         var map = mapView.lookupReference('map');

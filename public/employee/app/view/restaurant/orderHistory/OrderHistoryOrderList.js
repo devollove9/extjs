@@ -25,9 +25,9 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryOrderList', {
             emptyMsg: "No orders to display",
             listeners: {
                 afterRender: function( field ) {
-                    //console.log( field );
-                    //console.log( this );
-                    //console.log(store);
+                    ////console.log( field );
+                    ////console.log( this );
+                    ////console.log(store);
                     field.down('#refresh').hide(); 
                 },scope:this
             }

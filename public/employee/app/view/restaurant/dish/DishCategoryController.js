@@ -70,7 +70,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategoryController' , {
                 {start:0,end:86400,day:7}
             ];
             var categoryBusinessHourStore = Ext.create( '517Employee.store.restaurant.dish.category.businessHour' );
-            //console.log( record.data.information.businessHour );
+            ////console.log( record.data.information.businessHour );
             if ( record.data.information ) {
                 if ( record.data.information.businessHour ) {
                     categoryBusinessHourStore.add( record.data.information.businessHour );
@@ -253,7 +253,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategoryController' , {
                                     var disabled = Ext.getCmp(curwin).getComponent("isDisabled").getValue().disabled;
                                     //if ( disabled == 'true' ) disabled = true;
                                     //if ( disabled == 'false' ) disabled = false;
-                                    //console.log(disabled);
+                                    ////console.log(disabled);
                                     var categoryId = Ext.getCmp(curwin).getComponent('categoryId').getValue();
                                     var string ='';
                                     var size = 1;
@@ -283,8 +283,8 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategoryController' , {
                                     }
                                     if ( record.data.information ) {
                                         if ( typeof (record.data.information.disabled) != 'undefined' ) {
-                                            //console.log ( record.data.information.disabled );
-                                            //console.log(disabled);
+                                            ////console.log ( record.data.information.disabled );
+                                            ////console.log(disabled);
                                             if ( record.data.information.disabled != disabled ) {
                                                 string = string + size + '. Disabled: ' + record.data.information.disabled + ' => ' + disabled + '<br>' ;
                                                 changeflag = true;
@@ -314,7 +314,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategoryController' , {
                                                     categoryInfo.information.businessHour=[];
                                                     categoryBusinessHourStore.each( function( record , idx ) {
                                                         var newBusinessHour = new Object();
-                                                        //console.log(record);
+                                                        ////console.log(record);
                                                         newBusinessHour.day = record.data.day;
                                                         newBusinessHour.start = record.data.start;
                                                         newBusinessHour.end = record.data.end;
@@ -364,7 +364,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategoryController' , {
                                         curWindow.close();
                                     }
 
-                                    //console.log(name,nameEn);
+                                    ////console.log(name,nameEn);
 
                                 }
                             }
@@ -402,7 +402,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategoryController' , {
         } else {
             Ext.getCmp( 'Employee-Restaurant-Dish-Category' ).gridEditing = true;
             var categoryBusinessHourStore = Ext.create( '517Employee.store.restaurant.dish.category.businessHour' );
-            //console.log( record.data.information.businessHour );
+            ////console.log( record.data.information.businessHour );
             var businessHour = [
                 {start:0,end:86400,day:1},
                 {start:0,end:86400,day:2},
@@ -611,7 +611,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategoryController' , {
                                                     categoryInfo.information.disabled = disabled;
                                                     categoryBusinessHourStore.each( function( record , idx ) {
                                                         var newBusinessHour = new Object();
-                                                        //console.log(record);
+                                                        ////console.log(record);
                                                         newBusinessHour.day = record.data.day;
                                                         newBusinessHour.start = record.data.start;
                                                         newBusinessHour.end = record.data.end;
@@ -692,7 +692,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategoryController' , {
     },
 
     NewBusinessHour:function( button , clickEvent ) {
-        //console.log( button.up().up().up().items.items[ button.up().up().up().items.items.length - 2 ] );
+        ////console.log( button.up().up().up().items.items[ button.up().up().up().items.items.length - 2 ] );
         var grid = button.up().up().up().items.items[ button.up().up().up().items.items.length - 2 ];
         var gridpanel = button.up().up();
         var categoryWindow = gridpanel.up().up();
@@ -780,8 +780,8 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategoryController' , {
                                         });
                                     }
 
-                                    //console.log(this.up().items.items.indexOf(1));
-                                    //console.log(this.up().items.items.indexOf(2).value);
+                                    ////console.log(this.up().items.items.indexOf(1));
+                                    ////console.log(this.up().items.items.indexOf(2).value);
                                 }
                             },
                             {
@@ -804,7 +804,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategoryController' , {
         }
     },
     EditBusinessHour:function( grid , rowIdx , colIdx , edit_col , clickEvent , recordLine , tr ) {
-        //console.log( grid.up().up().up() );
+        ////console.log( grid.up().up().up() );
         var categoryWindow = grid.up().up().up();
         if ( categoryWindow.gridEditing == true ) {
             Ext.Msg.alert( 'Error' , 'A window already opened, please close it first.' );
@@ -888,7 +888,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategoryController' , {
                                 text: 'Save',
                                 width: 100,
                                 handler: function (field, rowIndex) {
-                                    //console.log(this.up().up().items.items[0].items.items);
+                                    ////console.log(this.up().up().items.items[0].items.items);
                                     var curwin = this.up().up();
                                     var fields = this.up().up().items.items[0].items.items[0].items.items;
                                     var day = fields[0].getValue();
@@ -919,8 +919,8 @@ Ext.define( '517Employee.view.restaurant.dish.DishCategoryController' , {
                                     } else {
                                         curwin.close();
                                     }
-                                    //console.log(this.up().items.items.indexOf(1));
-                                    //console.log(this.up().items.items.indexOf(2).value);
+                                    ////console.log(this.up().items.items.indexOf(1));
+                                    ////console.log(this.up().items.items.indexOf(2).value);
                                 }
                             },
                             {

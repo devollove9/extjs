@@ -9,12 +9,12 @@ Ext.define('517Employee.view.operator.newOrder.DishListController', {
     ],
 
     addDish:function(model,rowindex,columns,buttonObject,event,dishRecord){
-        //console.log(model);
-        //console.log(rowindex);
-        //console.log(columns);
-        //console.log(buttonObject);
-        //console.log(event);
-        //console.log(dishRecord);
+        ////console.log(model);
+        ////console.log(rowindex);
+        ////console.log(columns);
+        ////console.log(buttonObject);
+        ////console.log(event);
+        ////console.log(dishRecord);
         var checkoutList = Ext.getCmp('Employee-Operator-NewOrder-Checkout-CheckoutList');
         if ( checkoutList.checkoutStatus == true ) {
             Ext.Msg.alert('Error', 'You have already checked out,<br>please click Re-Order to change dishes.');
@@ -79,7 +79,7 @@ Ext.define('517Employee.view.operator.newOrder.DishListController', {
             if ( max == min ) var fieldLabel = ' 必选' + max + '个';
             else var fieldLabel = ' 任选 ' + min + '-' + max + ' 个';
             var options = [];
-            //console.log(curOption);
+            ////console.log(curOption);
             for ( var j = 0; j < curOption.option.length ; j ++ ) {
                 if ( j == 0 ) {
                     var option = {
@@ -103,7 +103,7 @@ Ext.define('517Employee.view.operator.newOrder.DishListController', {
                 }
                 options.push(option);
             }
-            //console.log(dish.option[i]);
+            ////console.log(dish.option[i]);
             var item= {
                 xtype: 'checkboxgroup',
                 fieldLabel: curOption.name + fieldLabel,
@@ -196,7 +196,7 @@ Ext.define('517Employee.view.operator.newOrder.DishListController', {
             recordToAdd.data.quantity += 1;
 
             checkoutList.getView().refresh();checkoutList.getView().getFeature('summaryRow').onStoreUpdate();
-            //console.log(checkoutList.getView().getFeature('summaryRow'));
+            ////console.log(checkoutList.getView().getFeature('summaryRow'));
         } else {
             checkoutListStore.add({
                 restaurantId:'',
@@ -212,7 +212,7 @@ Ext.define('517Employee.view.operator.newOrder.DishListController', {
 
             checkoutList.getView().refresh();checkoutList.getView().getFeature('summaryRow').onStoreUpdate();
         }
-        //console.log(checkoutList.getView().getFeature());
+        ////console.log(checkoutList.getView().getFeature());
         checkoutList.setLoading(false);
 
 
@@ -222,7 +222,7 @@ Ext.define('517Employee.view.operator.newOrder.DishListController', {
         var restaurantList = Ext.getCmp("Employee-Operator-NewOrder-RestaurantList");
         var optionGroup = this.up().up().getComponent('optiongroup').items.items;
         var dishRecord = this.up().up().dishRecord;
-        //console.log(dishRecord);
+        ////console.log(dishRecord);
         var groupRids = [];
         var totalPrice = 0;
         var rightAmount = true;
@@ -241,7 +241,7 @@ Ext.define('517Employee.view.operator.newOrder.DishListController', {
             var optionNameEn = '';
             for ( var j =0 ; j < options.length ; j ++ ) {
                 if ( options[j].checked == true ) {
-                    //console.log(options[j]);
+                    ////console.log(options[j]);
                     total_checked ++ ;
                     if ( firstOption == true) {
                         optionName = optionName + options[j].optionName;
@@ -267,9 +267,9 @@ Ext.define('517Employee.view.operator.newOrder.DishListController', {
                 rids : rids
             };
             groupRids.push(groupRid);
-            //console.log(groupRids);
-            //console.log(totalPrice);
-            //console.log(optionName);
+            ////console.log(groupRids);
+            ////console.log(totalPrice);
+            ////console.log(optionName);
         }
         totalPrice += dishRecord.price;
         allOptionName = dishRecord.name + '(' + allOptionName +')';
@@ -280,8 +280,8 @@ Ext.define('517Employee.view.operator.newOrder.DishListController', {
             var checkoutListStore = checkoutList.getStore();
             var recordIndex = checkoutListStore.findBy(
                 function(record, id){
-                    //console.log(record);
-                    //console.log(dishRecord);
+                    ////console.log(record);
+                    ////console.log(dishRecord);
                     if(record.get('itemId') === dishRecord.itemId ){
                         if (record.data.options) {
                             var options = record.data.options;
@@ -309,7 +309,7 @@ Ext.define('517Employee.view.operator.newOrder.DishListController', {
                                             break;
                                         }
                                     }
-                                    //console.log(options[i]);
+                                    ////console.log(options[i]);
                                 }
                             } else {
                                 flag_forOption = false;
@@ -348,13 +348,13 @@ Ext.define('517Employee.view.operator.newOrder.DishListController', {
                 checkoutList.getView().refresh();checkoutList.getView().getFeature('summaryRow').onStoreUpdate();
 
             }
-            //console.log(checkoutListStore);
+            ////console.log(checkoutListStore);
             checkoutList.checkoutStoreId = restaurantList.getSelectionModel().getSelection()[0].data.storeId;
             checkoutList.setLoading(false);
         } else {
             Ext.Msg.alert('Wrong Options', 'Please choose right amount of Options.')
         }
-        //console.log(Ext.getCmp(this.up().id));
+        ////console.log(Ext.getCmp(this.up().id));
     },
 
 
