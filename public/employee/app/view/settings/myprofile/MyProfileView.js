@@ -2,7 +2,7 @@ Ext.define('517Employee.view.settings.myprofile.MyProfileView', {
     extend: 'Ext.panel.Panel',
 
     requires: [
-        '517Employee.view.settings.myprofile.MyProfileStoreInfo'
+        '517Employee.view.settings.myprofile.MyProfileEmployeeInfo'
     ],   
     xtype: 'employee-settings-myProfile',
     frame:false , border:false,
@@ -17,8 +17,8 @@ Ext.define('517Employee.view.settings.myprofile.MyProfileView', {
        // },
         {
             region: 'center',
-            xtype: 'employee-settings-myProfile-storeInfo',
-            id: 'employee-Settings-MyProfile-StoreInfo',
+            xtype: 'employee-settings-myProfile-employeeInfo',
+            id: 'employee-Settings-MyProfile-EmployeeInfo',
         }
         
     ],

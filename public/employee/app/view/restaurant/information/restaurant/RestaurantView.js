@@ -636,7 +636,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                 announcement.loadAnnouncement( data.information.announcement );
 
                 // English Announcement
-                //announcementEn.loadBusinessHour( data.information.announcementEn );
+                announcementEn.loadAnnouncement( data.information.announcementEn );
             }
 
 

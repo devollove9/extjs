@@ -4,7 +4,7 @@ Ext.define('517Employee.view.operator.OperatorView', {
     requires: [
         '517Employee.view.operator.Sidebar',
         '517Employee.view.operator.ContentView'
-    ],   
+    ],
     xtype: 'employee-operator',
     frame:false , border:false,
     bodyStyle:{ "background-color":"white",'border-color' : 'black','border-width':'0px'},
@@ -14,11 +14,6 @@ Ext.define('517Employee.view.operator.OperatorView', {
     /*  Variables */
     elapsedServerTime:0,
 
-    initComponent:function() {
-        var me = this;
-        this.setServerTimeDifference();
-        this.callParent();
-    },
 
     items:[
         {
@@ -36,12 +31,10 @@ Ext.define('517Employee.view.operator.OperatorView', {
         }
     ],
     listeners: {
-        render: function(c) {
-            c.el.on('click', function() { 
-                //alert('onclick');
-            });
-        },
-        scope: this
+        afterRender: function(c) {
+           this.setServerTimeDifference();
+        }
+
     },
     refreshView:function() {
         ////console.log( this.items.items[1].items.items[0] );
@@ -113,14 +106,14 @@ Ext.define('517Employee.view.operator.OperatorView', {
     doNavigation:function( tab ){
         var operatorContent = Ext.getCmp( 'Employee-Operator-Content' );
         var employeeContent = Ext.getCmp( 'Employee-Main-ContentView' );
-        if ( tab ) {           
+        if ( tab ) {
             if ( tab.navigateAction ) {
                 /* 0: Operation
-                *  1: NewOrder
-                *  2: Xxx
-                *  3: Main
-                */
-                switch ( tab.navigateAction ) { 
+                 *  1: NewOrder
+                 *  2: Xxx
+                 *  3: Main
+                 */
+                switch ( tab.navigateAction ) {
                     case 'operation' :
                         operatorContent.setActiveItem(0);
                         break;
@@ -132,15 +125,15 @@ Ext.define('517Employee.view.operator.OperatorView', {
                     case 'xxxxX' :
                         operatorContent.setActiveItem(3);
                         break;
-                        
+
                     case 'employee-navigation' :
                         employeeContent.setActiveItem(0);
                         break;
 
-                }     
+                }
             } else {
                 employeeContent.setActiveItem(0);
-            }   
+            }
         }
     },
 
@@ -173,5 +166,5 @@ Ext.define('517Employee.view.operator.OperatorView', {
         var timestamp = now.getTime();
         return timestamp;
     },
-    
+
 });

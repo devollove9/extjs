@@ -2,11 +2,11 @@ Ext.define('517Employee.view.support.contactcenter.ContactCenterContactInfo', {
     extend: 'Ext.form.Panel',
     //controller: 'employee-support-contactCenter-contactInfo',
     requires: [
-       // '517Employee.view.settings.myprofile.MyProfileStoreInfoController'
+       // '517Employee.view.settings.myprofile.MyProfileEmployeeInfoController'
     ],   
     xtype: 'employee-support-contactCenter-contactInfo',
     bodyStyle:{ "background-color":"white",'border-color' : '#c1c1c1',},
-    title: '517 Store Service : Contact Center',
+    title: '517 Employee Service : Contact Center',
     header:{ height:30 ,padding:'0 0 0 10',margin:'0 0 0 0'},
     layout: 'hbox',
     autoScroll:true,

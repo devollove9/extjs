@@ -7,7 +7,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
     requires: [
 
     ],
-    
+
     validateUsername:function(button,click_event){
         var username = Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('username');
         ////console.log( Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').guestStatus);
@@ -59,7 +59,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
 
         }
     },
-    
+
     validateAddress:function(button,click_event){
         // Check if all information filled
         ////console.log(Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').addressStatus);
@@ -97,7 +97,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
                 var state= userInfoForm.findField('state').getValue();
                 var room = userInfoForm.findField('room').getValue();
 
-                
+
                 ////console.log (userInfo.storeInfo);
                 // Send request
 
@@ -245,7 +245,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
                     var response = Ext.decode( result.responseText );
                     if ( response.error ) {
                         if ( response.error.errorCode) {
-                                Ext.Msg.alert( response.error.errorCode.toString(), response.error.errorMessage.toString() );
+                            Ext.Msg.alert( response.error.errorCode.toString(), response.error.errorMessage.toString() );
                         } else if ( response.data ){
                             Ext.Msg.alert( 'Success' , 'Order has been submitted.' );
                         } else {

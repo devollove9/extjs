@@ -20,7 +20,7 @@ Ext.define('517Employee.store.region.Regions', {
             root: 'data'
         }
     },
-    autoLoad:true,
+
     //listeners:{
     //}
 

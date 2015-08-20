@@ -9,7 +9,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
     ],
     xtype: 'employee-operator-newOrder-checkout-userInfo',
     controller:'employee-operator-newOrder-checkout-userInfo-controller',
-    
+
     title: 'Checkout Info',
     header:{ titleAlign: 'left' , height:30 , padding:'0 10 0 10', margin:'0 0 0 0' },
     bodyPadding: 20,
@@ -23,19 +23,19 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
     /* Variables */
     // Delivery Types
     deliverType:0,
-    
+
     // If is Guest order
     guestStatus:true,
-    
+
     // Field **** is empty
     userIdStatus:false,
     addressStatus:false,
     couponStatus:false,
     tipStatus:false,
-    
+
     // Store Information
     checkoutStoreId:null,
-    
+
     // Delivery Information
     deliveryInfo:null,
 
@@ -573,7 +573,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
             ]
         },
         {
-          xtype:'tbfill'
+            xtype:'tbfill'
         },
         {
             dock: 'bottom',

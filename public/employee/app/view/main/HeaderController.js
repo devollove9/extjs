@@ -2,7 +2,7 @@ Ext.define( '517Employee.view.main.HeaderController' , {
     extend: 'Ext.app.ViewController',
     alias: 'controller.header',
     requires: [
-        
+
     ],
     init:function( grid ){
         //var userCookie = Ext.getCmp( 'Index' );
@@ -31,29 +31,29 @@ Ext.define( '517Employee.view.main.HeaderController' , {
     logout:function(){
         ////console.log(this.getView());
         Ext.Msg.show({
-                    title:'Warning',
-                    msg: 'You will be logged out <br> Are you sure you want to Log Out?',
-                    buttons: Ext.Msg.YESNO,
-                    fn: function(btn,text){
-                        if ( btn == 'yes' ) {
-                            var userInfo = Ext.util.Cookies.get('517Employee');
-                            userInfo = null;
-                            Ext.util.Cookies.clear('517Employee');
-                            window.location = "../login";
+            title:'Warning',
+            msg: 'You will be logged out <br> Are you sure you want to Log Out?',
+            buttons: Ext.Msg.YESNO,
+            fn: function(btn,text){
+                if ( btn == 'yes' ) {
+                    var userInfo = Ext.util.Cookies.get('517Employee');
+                    userInfo = null;
+                    Ext.util.Cookies.clear('517Employee');
+                    window.location = "../login";
 
 
-                        }
-                    },
-                    animEl: 'elId'
-                 });
+                }
+            },
+            animEl: 'elId'
+        });
     },
     myProfile:function(){
-        
+
     },
     switchView:function( panel ) {
- 
-       Ext.getCmp( 'Employee-Navigation' ).doNavigation( panel );
-       
+
+        Ext.getCmp( 'Employee-Navigation' ).doNavigation( panel );
+
 
     },
 
@@ -117,6 +117,6 @@ Ext.define( '517Employee.view.main.HeaderController' , {
             }
         }
     }
-    
+
 
 });

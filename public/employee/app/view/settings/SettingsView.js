@@ -36,7 +36,7 @@ Ext.define('517Employee.view.settings.SettingsView', {
     },
     doNavigation:function( tab ){
         var settingsContent = Ext.getCmp( 'employee-Settings-Content' );
-        var storeContent = Ext.getCmp( 'Employee-Main-ContentView' );
+        var employeeContent = Ext.getCmp( 'Employee-Main-ContentView' );
         if ( tab ) {           
             if ( tab.navigateAction ) {
                 /* 0: My Profile
@@ -53,12 +53,12 @@ Ext.define('517Employee.view.settings.SettingsView', {
                         break;
                         
                     case 'employee-navigation' :
-                        storeContent.setActiveItem(0);
+                        employeeContent.setActiveItem(0);
                         break;
 
                 }     
             } else {
-                storeContent.setActiveItem(0);
+                employeeContent.setActiveItem(0);
             }   
         }
     }

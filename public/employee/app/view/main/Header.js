@@ -34,12 +34,12 @@ Ext.define('517Employee.view.main.Header', {
         };
         // Generate region list
         //var regionMenu = this.getRegionMenu();
-        this.setServerTimeDifference();
+
         var serviceMenu = this.createServiceMenu();
-        this.tbar = new Ext.Toolbar({ 
+        this.tbar = new Ext.Toolbar({
             margin: '5 0 5 0 ',
             padding: '0 0 25 0',
-       
+
             defaultButtonUI: 'default',
             items: [
                 {
@@ -97,55 +97,60 @@ Ext.define('517Employee.view.main.Header', {
                         items:this.regionMenu,
 
                     },
-                    listeners:{
-                        beforerender:function(){
-                            ////console.log( this );
-                        },
-                        afterrender:function(){
-                            var me = this;
+                    loadRegionInfo:function( records ) {
+                        var me = this;
 
-                            var items = [];
-                            var store = Ext.getStore( 'Regions' );
-                            store.on('load', function(storeRef, records, successful){
-                                var regionMenu = Ext.getCmp( 'Employee-Header-Region' );
-                                ////console.log( Ext.getCmp('Employee-Header-Region'));
-                                var count = store.getTotalCount();
-                                if ( count != 0 ) {
-                                    store.each(function (record, idx) {
-                                        var item = new Object();
-                                        item.text = record.data.name + ' / ' + record.data.nameEn;
-                                        item.align = 'left';
-                                        item.height = 35;
-                                        item.padding = '7 0 0 10';
-                                        item.regionId = record.data.regionId;
-                                        item.regionInfo = record;
-                                        item.cancelInfo = false;
-                                        item.handler = 'switchRegion';
-                                        items.push(item);
-                                        me.menu.add( item );
-                                        if (idx != count - 1 ) {
-                                            items.push('-');
-                                            me.menu.add( '-' );
-                                        }
+                        var items = [];
 
-                                    });
+                        var regionMenu = Ext.getCmp( 'Employee-Header-Region' );
+
+                        var count = records.length;
+                        if ( count != 0 ) {
+                            for( var i = 0 ; i < records.length ; i ++ ) {
+                                var record = records[ i ];
+                                var item = new Object();
+                                item.text = record.name + ' / ' + record.nameEn;
+                                item.align = 'left';
+                                item.height = 35;
+                                item.padding = '7 0 0 10';
+                                item.regionId = record.regionId;
+                                item.regionInfo = record;
+                                item.cancelInfo = false;
+                                item.handler = 'switchRegion';
+                                items.push(item);
+                                me.menu.add( item );
+                                if ( i != count - 1 ) {
                                     items.push('-');
                                     me.menu.add( '-' );
-                                    var item = new Object();
-                                    item.text = '取消 / Cancel' ;
-                                    item.align = 'left';
-                                    item.height = 35;
-                                    item.padding = '7 0 0 10';
-                                    item.cancelInfo = true;
-                                    item.handler = 'switchRegion';
-                                    items.push( items );
-                                    me.menu.add( item );
                                 }
 
-                            }, this);
-                        },
-                        render:function() {
-                            ////console.log( this );
+                            }
+                            items.push('-');
+                            me.menu.add( '-' );
+                            var item = new Object();
+                            item.text = '取消 / Cancel' ;
+                            item.align = 'left';
+                            item.height = 35;
+                            item.padding = '7 0 0 10';
+                            item.cancelInfo = true;
+                            item.handler = 'switchRegion';
+                            items.push( items );
+                            me.menu.add( item );
+                        }
+                    },
+                    listeners:{
+                        afterRender:function(  ){
+                            var me = this;
+                            Ext.Ajax.request({
+                                method:'get',
+                                url:'https://apiv2-test.517.today/public/region',
+                                disableCaching:false,
+                                success:function( result ){
+                                    var response = Ext.decode( result.responseText );
+                                    me.loadRegionInfo( response.data );
+                                    Ext.getStore( 'Regions').add( response.data );
+                                }
+                            });
                         }
                     }
                 },
@@ -159,7 +164,7 @@ Ext.define('517Employee.view.main.Header', {
                     height: 35,
 
                     menu: {
-                        
+
                         xtype: 'menu',
                         plain: true,
                         width:150,
@@ -180,7 +185,7 @@ Ext.define('517Employee.view.main.Header', {
                     width:200,
                     height: 35,
                     menu: {
-                        
+
                         xtype: 'menu',
                         plain: true,
                         width:200,
@@ -229,6 +234,11 @@ Ext.define('517Employee.view.main.Header', {
             ]
         });
         this.callParent();
+    },
+    listenters:{
+        afterRender:function(){
+            this.setServerTimeDifference();
+        }
     },
     checkUserPermissions:function( type ) {
         var me = this;
@@ -522,6 +532,34 @@ Ext.define('517Employee.view.main.Header', {
             }
         }
     },
+    sendCustomAjaxRequest:function( panel , url , method , params , jsonData ,returnType ) {
+        var me = this;
+        var returnMessage = {};
+        returnMessage.error = true;
+        returnMessage.data={};
+        panel.setLoading( true );
+        Ext.Ajax.request({
+            url: me.getServerUrl() + url,
+            method: method,
+            headers:me.getHeaders( method ),
+            disableCaching:false,
+            params:params,
+            jsonData:jsonData,
+            success:function( result , request ) {
+                panel.setLoading( false );
+                var response = Ext.decode( result.responseText );
+                var Error = me.processErrorMessage( response );
+                returnMessage.error = Error;
+                returnMessage.data = response.data;
+                console.log( returnMessage );
+                panel.getAjaxRequestResponse( returnMessage , returnType ) ;
+            },
+            failure:function( result ) {
+                Ext.Msg.alert( "Error" , "Fail connect to server, please check your internet connection<br>If there is internet and still not working, <br> please contact technique staff");
+                panel.setLoading( false );
+            }
+        });
+    },
     setActivePanel:function ( panelId ) {
         this.activePanel = panelId;
     },
@@ -529,6 +567,66 @@ Ext.define('517Employee.view.main.Header', {
     getActivePanel:function () {
         var panelId = this.activePanel;
         return panelId;
+    },
+    searchUserInfo:function( panel , url , method , searchType , searchValue ,returnType ) {
+        var me = this;
+        if ( searchType && searchValue ) {
+            var params = {};
+            params[ searchType ] = searchValue;
+
+            me.sendCustomAjaxRequest( panel , url , method , params , null , returnType );
+        }
+    },
+    deepCopy:function( obj ) {
+        if ( Object.prototype.toString.call( obj ) === '[object Array]' ) {
+            var out = [], i = 0, len = obj.length;
+            for ( ; i < len; i++ ) {
+                out[i] = arguments.callee(obj[i]);
+            }
+            return out;
+        }
+        if (typeof obj === 'object') {
+            var out = {}, i;
+            for ( i in obj ) {
+                out[i] = arguments.callee(obj[i]);
+            }
+            return out;
+        }
+        return obj;
+    },
+    handleObject:function( type , obj1 , obj2 ) {
+        switch ( type ) {
+            case 'extend':
+                for ( var attributes in obj2 ) {
+                    obj1[ attributes ] = obj2[ attributes ];
+                }
+                break;
+        }
+    },
+    mergeObjects:function( objType , ojb1 , obj2 ) {
+        var me = this;
+        var returnObj;
+        switch ( objType ) {
+            case 'array':
+                var newObj1 = me.deepCopy( ojb1 );
+                var newObj2 = me.deepCopy( obj2 );
+                returnObj = [];
+                if ( ojb1.length == 0 && obj2.length == 0 ) {
+
+                } else if ( ojb1.length > obj2.length ) {
+                    for ( var i = 0 ; i < obj2.length ; i ++ ) {
+                        me.handleObject( 'extend' , ojb1[ i ] , obj2[ i ] );
+                    }
+                    returnObj = ojb1;
+                } else if ( obj2.length > ojb1.length ) {
+                    for ( var i = 0 ; i < obj2.length ; i ++ ) {
+                        me.handleObject( 'extend' , obj2[ i ] , ojb1[ i ] );
+                    }
+                    returnObj = obj2;
+                }
+                break;
+        }
+        return returnObj;
     }
 
 });

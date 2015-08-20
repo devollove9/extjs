@@ -12,9 +12,6 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
     ],
     xtype: 'employee-operator-operation',
     frame:false , border:false,
-    defaults: {
-        split: true,
-    },
     bodyStyle:{ "background-color":"white",'border-color' : 'black','border-width':'0px'},
     layout: 'border',
     //controller:'employee-operator-operation-controller',
@@ -38,15 +35,13 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
             layout: 'border',
             xtype: 'panel',
             border:false,frame:false,
-            defaults: {
-                split: true,
-            },
             items: [
                 {
                     region: 'center',
                     layout: 'border',
                     xtype: 'panel',
-                    border:false,frame:false,
+                    border:false,frame:false,split: true,
+                    margin: '0 0 0 0',
                     width: '66%',
                     items: [
                         {
@@ -64,7 +59,7 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
                     ]
                 },
                 {
-                    margin: '0 0 0 5' ,
+                    margin: '0 0 0 0' ,split: true,
                     region: 'east',
                     layout:'fit',
                     width: '34%',
@@ -84,7 +79,7 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
     ],
     refreshView:function(){
         // Refresh Order Tab
-        this.items.items[0].items.items[0].items.items[0].refreshView();
+        Ext.getCmp( 'Employee-Operator-Operation-OrderTab').refreshView();
 
         // Refresh Driver List
         Ext.getCmp( 'Employee-Operator-Operation-DriverList').refreshView();

@@ -169,7 +169,6 @@ Ext.define('517Employee.view.operator.newOrder.DishList', {
     },
     resetAll:function() {
         var me = this ;
-        Ext.getCmp( 'Employee-Operator-NewOrder-DishList-SearchField').setValue( '' );
         me.gridEditing = false;
         me.setLoading( false );
         me.windowPopUp = [];

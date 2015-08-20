@@ -27,10 +27,10 @@ Ext.define('517Employee.view.Index', {
         me.checkPermissions();
         me.callParent( arguments );
     },
-    bodyStyle:{"background-color":"white" , 'border-width' : '0px'}, 
+    bodyStyle:{"background-color":"white" , 'border-width' : '0px'},
     defaults: {
         collapsible: false,
-        bodyPadding: 0,       
+        bodyPadding: 0,
         split: false
     },
     items: [
@@ -51,12 +51,12 @@ Ext.define('517Employee.view.Index', {
                 'margin' : '0 25 0 25'
             }
         },
-        {            
+        {
             region: 'south',
             xtype:'footer',
             //border:false, frame:false,
             height: 40
-        }           
+        }
     ],
     /*
      *  Get Restaurant Information
@@ -65,7 +65,7 @@ Ext.define('517Employee.view.Index', {
         return this.restaurant_info;
     },
     /*
-        Initial Settings
+     Initial Settings
      */
     initialSetting:function() {
         Ext.Msg.setAutoScroll( false );
@@ -95,8 +95,8 @@ Ext.define('517Employee.view.Index', {
         }
     },
     /*
-        Load User Info
-    */
+     Load User Info
+     */
     loadUserInfo:function() {
         if ( Ext.util.Cookies.get( '517Employee' ) ) {
             var userCookie = Ext.decode( Ext.util.Cookies.get( '517Employee' ) );
@@ -112,7 +112,7 @@ Ext.define('517Employee.view.Index', {
         window.location = "../login";
     },
     /*
-         Get User Info
+     Get User Info
      */
     getUserInfo:function() {
         var userInfo = this.userInfo;
@@ -120,22 +120,11 @@ Ext.define('517Employee.view.Index', {
     },
 
     /*
-        Load Region Info
+     Load Region Info
      */
     loadRegionInfo:function() {
         var store = Ext.create('517Employee.store.region.Regions');
-        var userCookie = Ext.decode( Ext.util.Cookies.get( '517Employee' ) );
-        this.userInfo = userCookie ;
-        store.load({
-            method: 'get',
-            url: 'https://apiv2-test.517.today/public/region',
-            //disableCaching:false,
-            headers: {
-                //'Authorization-Token': userCookie.token
-            },
-            callback: function (records, operation, success) {
-            }
-        });
+
 
     }
 });

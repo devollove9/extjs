@@ -1,12 +1,12 @@
-Ext.define('517Employee.view.settings.myprofile.MyProfileStoreInfo', {
+Ext.define('517Employee.view.settings.myprofile.MyProfileEmployeeInfo', {
     extend: 'Ext.form.Panel',
-    controller: 'employee-settings-myProfile-storeInfo',
+    controller: 'employee-settings-myProfile-employeeInfo',
     requires: [
-        '517Employee.view.settings.myprofile.MyProfileStoreInfoController'
+        '517Employee.view.settings.myprofile.MyProfileEmployeeInfoController'
     ],   
-    xtype: 'employee-settings-myProfile-storeInfo',
+    xtype: 'employee-settings-myProfile-employeeInfo',
     bodyStyle:{ "background-color":"white",'border-color' : '#c1c1c1',},
-    title: '517 Store Service : My Profile',
+    title: '517 Employee Service : My Profile',
     header:{ height:30 ,padding:'0 0 0 10',margin:'0 0 0 0'},
     layout: 'hbox',
     autoScroll:true,
@@ -29,7 +29,7 @@ Ext.define('517Employee.view.settings.myprofile.MyProfileStoreInfo', {
                     items: [ 
                         { 
                             xtype : 'displayfield',
-                            value : 'Store Name: '
+                            value : 'Employee Name: '
                         },
                         { 
                             xtype : 'displayfield',
@@ -51,7 +51,7 @@ Ext.define('517Employee.view.settings.myprofile.MyProfileStoreInfo', {
                     items: [ 
                         { 
                             xtype : 'displayfield',
-                            value : 'Store English Name: '
+                            value : 'Employee English Name: '
                         },
                         { 
                             xtype : 'displayfield',
