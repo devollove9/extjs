@@ -143,7 +143,7 @@ Ext.define('517Employee.view.main.Header', {
                             var me = this;
                             Ext.Ajax.request({
                                 method:'get',
-                                url:'https://apiv2-test.517.today/public/region',
+                                url: me.up().up().getServerUrl() + '/public/region',
                                 disableCaching:false,
                                 success:function( result ){
                                     var response = Ext.decode( result.responseText );
@@ -551,7 +551,7 @@ Ext.define('517Employee.view.main.Header', {
                 var Error = me.processErrorMessage( response );
                 returnMessage.error = Error;
                 returnMessage.data = response.data;
-                console.log( returnMessage );
+                //console.log( returnMessage );
                 panel.getAjaxRequestResponse( returnMessage , returnType ) ;
             },
             failure:function( result ) {
@@ -618,7 +618,7 @@ Ext.define('517Employee.view.main.Header', {
                         me.handleObject( 'extend' , ojb1[ i ] , obj2[ i ] );
                     }
                     returnObj = ojb1;
-                } else if ( obj2.length > ojb1.length ) {
+                } else if ( obj2.length >= ojb1.length ) {
                     for ( var i = 0 ; i < obj2.length ; i ++ ) {
                         me.handleObject( 'extend' , obj2[ i ] , ojb1[ i ] );
                     }

@@ -8,19 +8,21 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
 
     ],
 
-    validateUsername:function(button,click_event){
-        var username = Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('username');
+    validateUserId:function(button,click_event){
+        var userInfo = Ext.getCmp( 'Employee-Operator-NewOrder-Checkout-UserInfo' );
+        var username = userInfo.getForm().findField( 'username' );
+        var userId = userInfo.getForm().findField( 'userId' );
         ////console.log( Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').guestStatus);
-        if ( Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').guestStatus == false ) {
+        if ( userInfo.guestStatus == false ) {
             Ext.Msg.show({
                 title:'Warning',
                 msg: 'This will cancel confirmed username<br> and will check out as Guest, Continue?',
                 buttons: Ext.Msg.YESNO,
                 fn: function(btn,text){
                     if ( btn == 'yes' ) {
-                        Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').guestStatus = true;
+                        userInfo.guestStatus = true;
                         username.setValue('Guest');
-                        username.setReadOnly(true);
+                        userId.setValue( '0' );
                         button.setText('Check');
                     } else if ( btn == 'no' ) {
 
@@ -28,34 +30,6 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
                 },
                 animEl: 'elId'
             });
-
-        } else { /*
-         if ( username.getValue().toLowerCase() == "guest" || !username.getValue() )  Ext.Msg.alert('Error','Username not valid.');
-         else  {
-         Ext.Ajax.request({
-         url: 'operator/neworder/validation', // you can fix a parameter like this : url?action=anAction1
-         method: 'GET',
-         params: {
-         item:'username',
-         username:username.getValue()
-         },
-         success: function(result, request) {
-         var obj = Ext.decode(result.responseText);
-         //console.log(obj);
-         if ( obj.success == 1) {
-         Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').guestStatus = false;
-         username.setReadOnly(true);
-         button.setText('Re-Enter');
-
-         }else if (obj.success == 2 ) {
-         Ext.Msg.alert('Error','User not found.');
-         } //not found
-         else if (obj.success == -1) {
-         Ext.Msg.alert('Error','Please contact technique staff.');
-         } //Error
-         }
-         });
-         }*/
 
         }
     },
@@ -204,37 +178,19 @@ Ext.define('517Employee.view.operator.newOrder.checkout.UserInfoController', {
                 dishes.push(dish);
             }
 
-            ////console.log(dishes);
             var delivery = checkoutInfo.delivery;
             var payment = checkoutInfo.payment;
-
-            /*
-             delivery.firstName = checkoutInfo.address.first_name;
-             delivery.lastName = checkoutInfo.address.last_name;
-             delivery.street = checkoutInfo.address.address;
-             delivery.city = checkoutInfo.address.city;
-             delivery.state = checkoutInfo.address.state;
-             delivery.phone = checkoutInfo.address.phone;
-             */
+            var userId = checkoutInfo.userId;
 
             var body = new Object();
             body.item = dishes;
             body.delivery = delivery;
             body.payment = payment;
             body.platform = 'opApp' ;
-            var userId = userInfo.getForm().findField("userId").getValue();
-            if ( userId != 'Guest' ) {
-                body.userId = userId;
-            } else {
-                body.userId = '0';
-            }
-            //body.type = type;
+            body.userId = userId;
             body.comment = checkoutInfo.comment;
-            ////console.log(Ext.getCmp('operator-regionlist'));
-            ////console.log(Ext.getCmp('operator-regionlist').getSelectionModel());
-            ////console.log(Ext.getCmp('operator-regionlist').getSelectionModel().getSelecton());
             body = JSON.stringify( body );
-            //console.log(body);
+
             Ext.Ajax.request({
                 url: Ext.getCmp( 'Employee-Header').getServerUrl() + '/order', // you can fix a parameter like this : url?action=anAction1
                 method: 'POST',

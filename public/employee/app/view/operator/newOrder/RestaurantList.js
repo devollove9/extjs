@@ -29,6 +29,36 @@ Ext.define('517Employee.view.operator.newOrder.RestaurantList', {
             width:150
         }
     ],
+    dockedItems: [{
+        dock: 'top',
+        xtype: 'toolbar',
+        items: [
+            {
+                xtype: 'tbfill'
+            },
+            {
+                xtype: 'button',
+                iconCls: 'fa fa-refresh',
+                tooltip: 'Refresh Restaurant list',
+                handler:function() {
+                    this.up().up().refreshView();
+                }
+            },
+            {
+                xtype: 'button',
+                iconCls: 'fa fa-times',
+                tooltip: 'De-select Restaurant list',
+                handler:function() {
+                    this.up().up().getSelectionModel().deselectAll();
+                    Ext.getCmp( 'Employee-Operator-NewOrder-DishList').resetAll();
+                }
+
+            },
+            {
+                xtype:'tbfill'
+            }
+        ]
+    }],
     listeners:{
         selectionchange: function(model,records,eOpts){
             var dishList=Ext.getCmp( 'Employee-Operator-NewOrder-DishList');

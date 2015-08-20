@@ -46,7 +46,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
     items: [
         {
             xtype: 'fieldset',
-            title: 'Choose Type',
+            title: 'Choose Delivery Method',
             id:'Employee-Operator-NewOrder-Checkout-UserInfo-TypeRadio',
             defaultType: 'textfield',
             choosedType:0,
@@ -155,20 +155,26 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
                     layout: 'hbox',
                     defaultType: 'textfield',
                     //margin: '0 0 5 0',
-                    items: [{
-                        fieldLabel: 'userId',
-                        name: 'userId',
-                        value:'Guest',
-                        flex: 1,
-                        readOnly:true,
-                        allowBlank: false
-                    },
+                    items: [
+                        {
+                            fieldLabel: 'User',
+                            name: 'username',
+                            value:'Guest',
+                            flex: 1,
+                            readOnly:true,
+                            allowBlank: false
+                        },
+                        {
+                            xtype:'hiddenfield',
+                            name: 'userId',
+                            value:'0'
+                        },
                         {
                             xtype: 'button',
                             text: 'Check',
-                            id: 'operatorCheckUserButton',
+                            id: 'Employee-Operator-NewOrder-Checkout-UserInfo-ValidateUserButton',
                             margin: '0 0 0 5',
-                            handler: 'validateuserId'
+                            handler: 'validateUserId'
 
                         },
                         {
@@ -306,7 +312,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
                     items: [
                         {
                             xtype : 'hidden',  //should use the more standard hiddenfield
-                            name  : 'paymentCardLoaded',
+                            name  : 'paymentIdLoaded',
                             value : false
                         },
                         {
@@ -373,7 +379,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
                         },
                         {
                             xtype : 'hidden',  //should use the more standard hiddenfield
-                            name  : 'paymentCardIndex',
+                            name  : 'paymentId',
                             value : ''
                         },
                     ]
@@ -722,11 +728,11 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
         data.payment.method = this.getForm().findField("paymentGroup").getValue().paymentMethod;
         if ( Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo-TypeRadio').choosedType != 1 ) data.payment.tip = this.getForm().findField("tipGroup").getValue().tips;
         if ( data.payment.method == 1 ) {
-            ////console.log(this.getForm().findField("paymentCardLoaded").getValue());
+            ////console.log(this.getForm().findField("paymentIdLoaded").getValue());
             data.payment.card = new Object();
-            if (this.getForm().findField("paymentCardLoaded").getValue() == 'true') {
+            if (this.getForm().findField("paymentIdLoaded").getValue() == 'true') {
                 //data.paymentLoaded = true;
-                data.payment.paymentId  = this.getForm().findField('paymentCardIndex').getValue();
+                data.payment.paymentId  = this.getForm().findField('paymentId').getValue();
             } else {
                 data.payment.card.number = this.getForm().findField("card").getValue();
                 data.payment.card.expire = this.getForm().findField("month").getValue() + '' + this.getForm().findField('year').getValue();
@@ -736,7 +742,7 @@ Ext.define( '517Employee.view.operator.newOrder.checkout.UserInfo' , {
             data.payment.card.cvv = this.getForm().findField("cvv").getValue();
             data.payment.card.zip = this.getForm().findField("zipCard").getValue();
         }
-        data.guest = this.guestStatus;
+        data.userId = this.getForm().findField( 'userId' ).getValue();
 
 
         //if ( data.guest == false ) {

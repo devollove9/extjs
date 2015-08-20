@@ -5,7 +5,8 @@ Ext.define('517Employee.view.operator.newOrder.checkout.CheckoutView', {
     extend: 'Ext.panel.Panel',
     requires: [
         '517Employee.view.operator.newOrder.checkout.CheckoutList',
-        '517Employee.view.operator.newOrder.checkout.UserInfo'
+        '517Employee.view.operator.newOrder.checkout.UserInfo',
+        '517Employee.view.operator.newOrder.checkout.CheckoutSearch'
     ],
     xtype: 'employee-operator-newOrder-checkout',
     border: false,
@@ -35,7 +36,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.CheckoutView', {
                 {
                     region:'south',
                     height: '50%',
-                    //xtype:'employee-operator-newOrder-checkout-checkoutSearch',
+                    xtype:'employee-operator-newOrder-checkout-checkoutSearch',
                     id: 'Employee-Operator-NewOrder-Checkout-CheckoutSearch',
                 }
             ]

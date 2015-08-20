@@ -293,7 +293,7 @@ Ext.define('517Employee.view.operator.newOrder.checkout.CheckoutSearch', {
         }
     },
     loadSearchRecord:function() {
-        console.log( this );
+        //console.log( this );
         var me = this;
         var mixedRecords = Ext.getCmp( 'Employee-Header').mergeObjects( 'array' , me.userAddressRecords , me.userPaymentRecords );
         if ( mixedRecords.length > 0 ) {

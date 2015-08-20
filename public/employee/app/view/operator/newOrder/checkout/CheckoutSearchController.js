@@ -38,11 +38,13 @@ Ext.define('517Employee.view.operator.newOrder.checkout.CheckoutSearchController
         ////console.log(button_object);
         ////console.log(event);
         ////console.log(dishRecord);
-        if ( lineRecord.data.name ) {
+        var userInfo = Ext.getCmp( 'Employee-Operator-NewOrder-Checkout-UserInfo' );
+        if ( lineRecord.data.firstName ) {
+            //console.log( lineRecord );
             var firstName = lineRecord.data.firstName;
             var lastName = lineRecord.data.lastName;
-            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('firstName').setValue(firstName);
-            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('lastName').setValue(lastName);
+            userInfo.getForm().findField('firstName').setValue(firstName);
+            userInfo.getForm().findField('lastName').setValue(lastName);
         }
 
     },
@@ -53,8 +55,9 @@ Ext.define('517Employee.view.operator.newOrder.checkout.CheckoutSearchController
         ////console.log(button_object);
         ////console.log(event);
         ////console.log(dishRecord);
+        var userInfo = Ext.getCmp( 'Employee-Operator-NewOrder-Checkout-UserInfo' );
         if ( lineRecord.data.streetroom ) {
-            if ( Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').addressStatus == true ) {
+            if ( userInfo.addressStatus == true ) {
                 Ext.Msg.alert( 'Warning', 'You need to hit Re-Confirm to add new address');
 
             } else {
@@ -63,14 +66,14 @@ Ext.define('517Employee.view.operator.newOrder.checkout.CheckoutSearchController
 
                 var city = lineRecord.data.city;
                 var zip = lineRecord.data.zip;
-                Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('street').setValue(street);
-                Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('state').setValue(state);
-                Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('city').setValue(city);
-                Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('zipAddress').setValue(zip);
+                userInfo.getForm().findField('street').setValue(street);
+                userInfo.getForm().findField('state').setValue(state);
+                userInfo.getForm().findField('city').setValue(city);
+                userInfo.getForm().findField('zipAddress').setValue(zip);
 
-                if ( lineRecord.data.room != 'undefined') {
+                if ( typeof lineRecord.data.room != 'undefined') {
                     var room = lineRecord.data.room;
-                    Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('room').setValue(room);
+                    userInfo.getForm().findField('room').setValue(room);
                 }
 
             }
@@ -83,33 +86,32 @@ Ext.define('517Employee.view.operator.newOrder.checkout.CheckoutSearchController
         ////console.log(button_object);
         ////console.log(event);
         ////console.log(dishRecord);
-        if ( lineRecord.data.number ) {
+        var userInfo = Ext.getCmp( 'Employee-Operator-NewOrder-Checkout-UserInfo' );
+        if ( lineRecord.data.number &&  lineRecord.data.paymentId ) {
             var card = lineRecord.data.card;
-            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('card').setReadOnly(false);
-            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('card').setValue('');
-            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('month').setValue('');
-            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('year').setValue('');
-            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('paymentCardIndex').setValue('');
-            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('paymentCardLoaded').setValue(false);
+            var paymentId = lineRecord.data.paymentId;
+            userInfo.getForm().findField('card').setReadOnly(false);
+            userInfo.getForm().findField('card').setValue('');
+            userInfo.getForm().findField('month').setValue('');
+            userInfo.getForm().findField('year').setValue('');
+            userInfo.getForm().findField('paymentId').setValue('');
+            userInfo.getForm().findField('paymentIdLoaded').setValue(false);
             //if (card != "cash"){
             ////console.log(lineRecord);
 
-            Ext.getCmp('operator-checkout-payment-radio').items.items[0].items.items[0].setValue(true);
-            Ext.getCmp('operator-checkout-payment-radio').items.items[0].items.items[1].setValue(false);
+            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo-PaymentRadio').items.items[0].items.items[0].setValue(true);
+            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo-PaymentRadio').items.items[0].items.items[1].setValue(false);
             var expireMonth = lineRecord.data.expire.substring(0,2);
             var expireYear = lineRecord.data.expire.substring(2,4);
             var paymentId = lineRecord.data.paymentId;
-            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('paymentCardLoaded').setValue(true);
-            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('paymentCardIndex').setValue( paymentId );
-            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('card').setValue('************'+ lineRecord.data.number);
-            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('month').setValue(expireMonth);
-            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('year').setValue(expireYear);
-            Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('card').setReadOnly(true);
+            userInfo.getForm().findField('paymentIdLoaded').setValue(true);
+            userInfo.getForm().findField('paymentId').setValue( paymentId );
+            userInfo.getForm().findField('card').setValue('************'+ lineRecord.data.number);
+            userInfo.getForm().findField('month').setValue(expireMonth);
+            userInfo.getForm().findField('year').setValue(expireYear);
+            userInfo.getForm().findField('card').setReadOnly(true);
         }
-        //} else {
-        //    Ext.getCmp('operator-checkout-payment-radio').items.items[0].items.items[0].setValue(false);
-        //    Ext.getCmp('operator-checkout-payment-radio').items.items[0].items.items[1].setValue(true);
-        //}
+
     },
     addUsername:function(model,rowindex,columns,button_object,event,lineRecord) {
         ////console.log(model);
@@ -118,19 +120,20 @@ Ext.define('517Employee.view.operator.newOrder.checkout.CheckoutSearchController
         ////console.log(button_object);
         ////console.log(event);
         ////console.log(dishRecord);
-        if ( lineRecord.data.username ) {
+        var userInfo = Ext.getCmp( 'Employee-Operator-NewOrder-Checkout-UserInfo' );
+        var validateUserButton = Ext.getCmp( 'Employee-Operator-NewOrder-Checkout-UserInfo-ValidateUserButton' );
+        if ( lineRecord.data.username  &&  lineRecord.data.userId ) {
             var username = lineRecord.data.username;
-            if ( username != "Guest"  ) {
-                Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('username').setValue(username);
-                Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('username').setReadOnly(true);
-                Ext.getCmp('operatorCheck_user_button').setText('Re-Enter');
-                Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').guestStatus=false;
-            } else {
-                Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('username').setValue('Guest');
-                Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').getForm().findField('username').setReadOnly(false);
-                Ext.getCmp('operatorCheck_user_button').setText('Check');
-                Ext.getCmp('Employee-Operator-NewOrder-Checkout-UserInfo').guestStatus=true;
-            }
+            var userId = lineRecord.data.userId
+            userInfo.getForm().findField('username').setValue( username );
+            userInfo.getForm().findField('userId').setValue( userId );
+            validateUserButton.setText('Re-Enter');
+            userInfo.guestStatus = false;
+        } else {
+            userInfo.getForm().findField('username').setValue('Guest');
+            userInfo.getForm().findField('userId').setValue( '0' );
+            validateUserButton.setText('Check');
+            userInfo.guestStatus=true;
         }
     },
     addRecord:function(model,rowindex,columns,button_object,event,lineRecord) {

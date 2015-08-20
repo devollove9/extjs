@@ -99,7 +99,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                                         curOptionGroup.max = editedOptionGroup.max;
                                         curOptionGroup.min = editedOptionGroup.min;
                                         curOptionGroup.quantity = editedOptionGroup.quantity;
-                                        curOptionGroup.disabled = editedOptionGroup.disabled;
+                                        if ( editedOptionGroup.information ) curOptionGroup.information = editedOptionGroup.information;
                                         curOptionGroup.option = editedOptionGroup.option;
 
                                         //curOptionGroup.information = editedOptionGroup.information;

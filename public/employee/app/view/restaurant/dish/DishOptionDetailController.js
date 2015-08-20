@@ -51,6 +51,8 @@ Ext.define( '517Employee.view.restaurant.dish.DishOptionDetailController' , {
                                 if ( record.data.information.disabled != disabled) {
                                     changedFlag = true;
                                 }
+                            } else {
+                                changedFlag = true;
                             }
                         } else {
                             changedFlag = true;
@@ -86,24 +88,17 @@ Ext.define( '517Employee.view.restaurant.dish.DishOptionDetailController' , {
                                         }
                                         if ( record.data.inforamtion ) {
                                             if ( typeof record.data.information.disabled != 'undefined') {
-                                                if ( record.data.information.disabled != disabled) {
+                                                if ( record.data.information.disabled != disabled ) {
                                                     record.data.information.disabled = disabled;
                                                 }
+                                            } else {
+                                                record.data.information.disabled = disabled;
                                             }
                                         } else {
                                             var information = new Object();
 
                                             information.disabled = disabled;
                                             record.data.information = information;
-
-                                            if ( disabled == 0 ) {
-
-                                                record.data.information.disabled = false;
-                                            }
-                                            if ( disabled == 1 ) {
-                                                record.data.information.disabled = true;
-                                            }
-
                                             record.data.changedString = record.data.changedString + '  ' + size + '. "' + record.data.information.disabled + '".<br>';
 
                                         }
@@ -128,7 +123,9 @@ Ext.define( '517Employee.view.restaurant.dish.DishOptionDetailController' , {
                     nameEn:nameEn,
                     price:price,
                     quantity:quantity,
-                    disabled:disabled
+                    information:{
+                        disabled:disabled
+                    }
                 }
                 Ext.Msg.show({
                     title:'Warning',

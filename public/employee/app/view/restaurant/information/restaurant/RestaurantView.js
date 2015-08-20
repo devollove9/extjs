@@ -1025,6 +1025,10 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
             me.forceCompareViewData( 'delivery.flatFactor' );
             me.forceCompareViewData( 'delivery.feeFactor' );
             me.forceCompareViewData( 'delivery.distance' );
+            if ( ! changedInfo.delivery.flatFactor ) changedInfo.delivery.flatFactor = 0;
+            if ( ! changedInfo.delivery.time ) changedInfo.delivery.time = 30;
+            if ( ! changedInfo.delivery.minimum ) changedInfo.delivery.flatFactor = 20;
+            if ( ! changedInfo.delivery.feeFactor ) changedInfo.delivery.flatFactor = 0;
             changedInfo.delivery.method =  me.compareViewArrayData( 'delivery.method' , 'get' );
             changed = true;
         }

@@ -26,27 +26,68 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionList', {
             //width:150,
             flex: 2,
             sortable: true,
-            dataIndex: 'name'
+            dataIndex: 'name',
+            renderer: function( val , metaData , record ) {
+                if( record.data.information ) {
+                    if ( typeof record.data.information.disabled != 'undefined' ) {
+                        if ( record.data.information.disabled == true ) {
+                            return '<span style="color:' + "#e75f5f" + ';">' + val + '</span>';
+                        }
+                    }
+                }
+                return val;
+            }
         },
+
         {
             text: 'NameEn',
             //width:150,
             flex: 2,
             sortable: true,
-            dataIndex: 'nameEn'
+            dataIndex: 'nameEn',
+            renderer: function( val , metaData , record ) {
+                if( record.data.information ) {
+                    if ( typeof record.data.information.disabled != 'undefined' ) {
+                        if ( record.data.information.disabled == true ) {
+                            return '<span style="color:' + "#e75f5f" + ';">' + val + '</span>';
+                        }
+                    }
+                }
+                return val;
+            }
         },
         {
             text: 'Price',
             //width:60,
             flex: 1,
             sortable: true,
-            dataIndex: 'price'
+            dataIndex: 'price',
+            renderer: function( val , metaData , record ) {
+                if( record.data.information ) {
+                    if ( typeof record.data.information.disabled != 'undefined' ) {
+                        if ( record.data.information.disabled == true ) {
+                            return '<span style="color:' + "#e75f5f" + ';">' + val + '</span>';
+                        }
+                    }
+                }
+                return val;
+            }
         },{
             text: 'Quantity',
             //width:60,
             flex: 1,
             sortable: true,
-            dataIndex: 'quantity'
+            dataIndex: 'quantity',
+            renderer: function( val , metaData , record ) {
+                if( record.data.information ) {
+                    if ( typeof record.data.information.disabled != 'undefined' ) {
+                        if ( record.data.information.disabled == true ) {
+                            return '<span style="color:' + "#e75f5f" + ';">' + val + '</span>';
+                        }
+                    }
+                }
+                return val;
+            }
         }],
     dockedItems: [
         {
