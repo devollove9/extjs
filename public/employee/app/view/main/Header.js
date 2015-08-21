@@ -568,6 +568,12 @@ Ext.define('517Employee.view.main.Header', {
         var panelId = this.activePanel;
         return panelId;
     },
+    doRefreshView:function ( view ) {
+        Ext.getCmp( view ).refreshView();
+    },
+    doResetView:function ( view ) {
+        Ext.getCmp( view ).resetAll();
+    },
     searchUserInfo:function( panel , url , method , searchType , searchValue ,returnType ) {
         var me = this;
         if ( searchType && searchValue ) {

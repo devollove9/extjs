@@ -14,6 +14,7 @@ Ext.define('517Employee.view.driver.orderHistory.OrderHistoryDriverList', {
     //store:'Drivers',
     title:' Driver List',
     collapsible:true,
+    columnLines:true,
     bodyStyle:{ "background-color":"white",'border-color' : '#c1c1c1' },
     header:{ height:30 ,padding:'0 10 0 10',margin:'0 0 0 0', titleAlign:'center'},
 

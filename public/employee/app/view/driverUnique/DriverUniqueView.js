@@ -35,18 +35,12 @@ Ext.define('517Employee.view.driverUnique.DriverUniqueView', {
         scope: this
     },
     refreshView:function() {
-        ////console.log( this.items.items[1].items.items[0] );
-
         // Refresh Order History
-        this.items.items[ 1 ].items.items[ 0 ].refreshView();
-
+        Ext.getCmp( 'Employee-Header' ).doRefreshView( 'Employee-DriverUnique-OrderHistory' );
     },
     resetAll:function() {
-        ////console.log( this.items.items[1].items.items[0] );
-
         // Reset Order History
-        this.items.items[ 1 ].items.items[ 0 ].resetAll();
-
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-DriverUnique-OrderHistory' );
     },
     doNavigation:function( tab ){
         var driverUniqueContent = Ext.getCmp( 'Employee-DriverUnique-Content' );

@@ -39,38 +39,41 @@ Ext.define('517Employee.view.restaurant.RestaurantView', {
     },
     resetAll:function(){
 
+        var controllerView = Ext.getCmp( 'Employee-Header' );
+
         // Reset Restaurant Order History
-        ////console.log(this.items.items[ 1 ] );
-        if ( this.items.items[ 1 ].items.items[ 0 ].items.items[ 0 ] ) {
-            this.items.items[ 1 ].items.items[ 0].items.items[0].resetAll();
+        if ( Ext.getCmp( 'Employee-Restaurant-OrderHistory' ) ) {
+            controllerView.doResetView( 'Employee-Restaurant-OrderHistory' );
         }
 
         // Reset Restaurant Information
-        if ( this.items.items[ 1 ].items.items[ 0].items.items[1] ) {
-            this.items.items[ 1 ].items.items[ 0].items.items[ 1 ].resetAll();
+        if ( Ext.getCmp( 'Employee-Restaurant-Information' ) ) {
+            controllerView.doResetView( 'Employee-Restaurant-Information' );
         }
 
         // Reset Restaurant Dish
-        if ( this.items.items[ 1 ].items.items[ 0].items.items[2] ) {
-            this.items.items[ 1 ].items.items[ 0].items.items[ 2 ].resetAll();
+        if ( Ext.getCmp( 'Employee-Restaurant-Dish' ) ) {
+            controllerView.doResetView( 'Employee-Restaurant-Dish' );
         }
     },
 
     refreshView:function(){
 
+        var controllerView = Ext.getCmp( 'Employee-Header' );
+
         // Refresh Restaurant Order History
-        if ( this.items.items[ 1 ].items.items[ 0 ].items.items[ 0 ] ) {
-            this.items.items[ 1 ].items.items[ 0 ].items.items[ 0 ].refreshView();
+        if ( Ext.getCmp( 'Employee-Restaurant-OrderHistory' ) ) {
+            controllerView.doRefreshView( 'Employee-Restaurant-OrderHistory' );
         }
 
         // Refresh Restaurant Information
-        if ( this.items.items[ 1 ].items.items[ 0 ].items.items[ 1 ] ) {
-            this.items.items[ 1 ].items.items[ 0 ].items.items[ 1 ].refreshView();
+        if ( Ext.getCmp( 'Employee-Restaurant-Information' ) ) {
+            controllerView.doRefreshView( 'Employee-Restaurant-Information' );
         }
 
         // Refresh Restaurant Dish
-        if ( this.items.items[ 1 ].items.items[ 0 ].items.items[ 2 ] ) {
-            this.items.items[ 1].items.items[ 0 ].items.items[ 2 ].refreshView();
+        if ( Ext.getCmp( 'Employee-Restaurant-Dish' ) ) {
+            controllerView.doRefreshView( 'Employee-Restaurant-Dish' );
         }
 
         // PreLoad Data

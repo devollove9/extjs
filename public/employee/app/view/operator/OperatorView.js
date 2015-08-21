@@ -39,9 +39,9 @@ Ext.define('517Employee.view.operator.OperatorView', {
     refreshView:function() {
         ////console.log( this.items.items[1].items.items[0] );
         // Refresh Operation Panel
-        this.items.items[1].items.items[0].refreshView();
+        Ext.getCmp( 'Employee-Header').doRefreshView( 'Employee-Operator-Operation' );
         // Refresh New Order Panel
-        this.items.items[1].items.items[1].refreshView();
+        Ext.getCmp( 'Employee-Header').doRefreshView( 'Employee-Operator-NewOrder' );
 
         // PreLoad Data
         var region = Ext.getCmp( 'Employee-Header-Region');
@@ -98,10 +98,11 @@ Ext.define('517Employee.view.operator.OperatorView', {
 
     },
     resetAll:function() {
+
         // Reset Operation Panel
-        this.items.items[1].items.items[0].resetAll();
+        Ext.getCmp( 'Employee-Header').doResetView( 'Employee-Operator-Operation' );
         // Reset New Order Panel
-        this.items.items[1].items.items[1].resetAll();
+        Ext.getCmp( 'Employee-Header').doResetView( 'Employee-Operator-NewOrder' );
     },
     doNavigation:function( tab ){
         var operatorContent = Ext.getCmp( 'Employee-Operator-Content' );

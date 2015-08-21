@@ -35,19 +35,16 @@ Ext.define('517Employee.view.bill.BillView', {
         }
     ],
     refreshView:function() {
-        ////console.log( this.items.items[1].items.items[0] );
-
         // Refresh Restaurant Panel
-        this.items.items[1].items.items[0].refreshView();
+        Ext.getCmp( 'Employee-Header' ).doRefreshView( 'Employee-Bill-Driver' );
         // Refresh Driver Panel
-        this.items.items[1].items.items[1].refreshView();
-
+        Ext.getCmp( 'Employee-Header' ).doRefreshView( 'Employee-Bill-Restaurant' );
     },
     resetAll:function() {
         // Reset Restaurant Panel
-        this.items.items[1].items.items[0].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Driver-OrderHistory' );
         // Reset Driver Panel
-        this.items.items[1].items.items[1].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Driver-OrderHistory' );
     },
     doNavigation:function( tab ){
         var billContent = Ext.getCmp( 'Employee-Bill-Content' );
