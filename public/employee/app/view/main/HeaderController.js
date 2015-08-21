@@ -72,6 +72,7 @@ Ext.define( '517Employee.view.main.HeaderController' , {
         });
         var map = Ext.getCmp( 'Employee-Operator-Operation-Map').lookupReference( 'map' );
         map.clearMarkers('user');
+
         if ( panel.cancelInfo == true ) {
             menuBar.setText( '地区 / Region ' );
             this.doReset( mainPanel );
@@ -86,8 +87,14 @@ Ext.define( '517Employee.view.main.HeaderController' , {
             //Ext.getCmp( 'Employee-Main-ContentView').setLoading( true );
             this.doRefresh( mainPanel );
             Ext.getCmp( 'Employee-Main-ContentView' ).setLoading( false );
-
         }
+        var regionInfo = menuBar.regionInfo;
+        map.reCenter(
+            {
+                lat: regionInfo.latitude,
+                lng: regionInfo.longitude
+            }
+        );
 
 
 

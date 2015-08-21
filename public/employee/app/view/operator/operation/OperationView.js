@@ -8,15 +8,12 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
         '517Employee.view.operator.operation.orderTab.OrderTabView',
         '517Employee.view.operator.operation.orderDetailTab.OrderDetailTabView',
         '517Employee.view.operator.operation.DriverList',
-        //'517Employee.view.operator.operation.OperationViewController'
+
     ],
     xtype: 'employee-operator-operation',
     frame:false , border:false,
     bodyStyle:{ "background-color":"white",'border-color' : 'black','border-width':'0px'},
     layout: 'border',
-    //controller:'employee-operator-operation-controller',
-    //autoScroll:true,
-    //title: 'operation',
 
     initComponent:function(){
         var me = this;
@@ -54,7 +51,7 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
                             region:'south',
                             height: '45%',
                             xtype:'employee-operator-operation-orderDetailTab',
-                            id: 'Employee-Operator-Operation-OrderDetailTab',
+                            id: 'Employee-Operator-Operation-OrderDetailTab'
                         }
                     ]
                 },
@@ -84,13 +81,6 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
         // Refresh Driver List
         Ext.getCmp( 'Employee-Operator-Operation-DriverList').refreshView();
 
-        var regionInfo = Ext.getCmp( 'Employee-Header-Region').regionInfo;
-        ////console.log( regionInfo );
-        var map = Ext.getCmp( 'Employee-Operator-Operation-Map');
-        map.lookupReference( 'map' ).reCenter({
-            lat: regionInfo.latitude,
-            lng: regionInfo.longitude
-        });
     }
 
 
