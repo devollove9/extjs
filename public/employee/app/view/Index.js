@@ -108,7 +108,7 @@ Ext.define('517Employee.view.Index', {
     },
     forceLogout:function( message ) {
         Ext.Msg.alert( 'Error' , message );
-        //Ext.util.Cookies.clear('517Employee');
+        Ext.util.Cookies.clear('517Employee');
         window.location = "../login";
     },
     /*
