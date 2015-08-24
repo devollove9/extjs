@@ -33,15 +33,14 @@ Ext.define( '517Employee.view.bill.driver.billCenter.BillCenterView' , {
     },
 
     resetAll:function() {
-
-        // Reset Order List
-        this.items.items[ 1 ].resetAll();
+        // Reset Bill List
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Bill-Driver-BillCenter-BillList' );
 
     },
 
     refreshView:function() {
         // Reset Order List
-        this.items.items[ 1 ].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Bill-Driver-BillCenter-BillList' );
     }
 
 

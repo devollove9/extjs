@@ -42,7 +42,7 @@ Ext.define('517Employee.view.restaurant.dish.DishView', {
 
     refreshView:function() {
         // Refresh Restaurant List
-        this.items.items[ 0].refreshView();
+        Ext.getCmp( 'Employee-Header' ).doRefreshView( 'Employee-Restaurant-Dish-RestaurantList' );
     },
 
     getOptionGroupFlag:function(){

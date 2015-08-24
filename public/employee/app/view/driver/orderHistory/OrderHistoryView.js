@@ -28,17 +28,17 @@ Ext.define('517Employee.view.driver.orderHistory.OrderHistoryView', {
     ],
     refreshView:function(){
         // Refresh Driver List
-        this.items.items[ 0 ].refreshView();
+        Ext.getCmp( 'Employee-Header' ).doRefreshView( 'Employee-Driver-OrderHistory-DriverList' );
 
         // Refresh Order History
-        this.items.items[ 1 ].refreshView();
+        Ext.getCmp( 'Employee-Header' ).doRefreshView( 'Employee-Driver-OrderHistory-CenterView' );
     },
     resetAll:function(){
-        // Refresh Driver List
-        this.items.items[ 0 ].resetAll();
+        // Reset Driver List
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Driver-OrderHistory-DriverList' );
 
-        // Refresh Order History
-        this.items.items[ 1 ].resetAll();
+        // Reset Order History
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Driver-OrderHistory-CenterView' );
     },
     doNavigation:function(panel){
         //console.log( panel );

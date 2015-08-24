@@ -29,17 +29,17 @@ Ext.define( '517Employee.view.bill.driver.DriverView' , {
     ],
     refreshView:function() {
         // Refresh Driver List
-        this.items.items[ 0 ].refreshView();
+        Ext.getCmp( 'Employee-Header' ).doRefreshView( 'Employee-Bill-Driver-DriverList' );
 
         // Refresh Bill Center
-        this.items.items[ 1 ].refreshView();
+        Ext.getCmp( 'Employee-Header' ).doRefreshView( 'Employee-Bill-Driver-BillCenter' );
     },
 
     resetAll:function() {
         // Reset Driver List
-        this.items.items[ 0 ].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Bill-Driver-DriverList' );
 
         // Reset Bill Center
-        this.items.items[ 1 ].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Bill-Driver-BillCenter' );
     }
 });

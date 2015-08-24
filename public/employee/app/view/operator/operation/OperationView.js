@@ -76,10 +76,10 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
     ],
     refreshView:function(){
         // Refresh Order Tab
-        Ext.getCmp( 'Employee-Operator-Operation-OrderTab').refreshView();
+        Ext.getCmp( 'Employee-Operator-Operation-OrderTab' ).refreshView();
 
         // Refresh Driver List
-        Ext.getCmp( 'Employee-Operator-Operation-DriverList').refreshView();
+        Ext.getCmp( 'Employee-Operator-Operation-DriverList' ).refreshView();
 
     }
 
@@ -87,7 +87,7 @@ Ext.define('517Employee.view.operator.operation.OperationView', {
     ,
     resetAll:function(){
         // Reset Order Tab
-        this.items.items[0].items.items[0].items.items[0].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Operator-Operation-OrderTab' );
 
         // Reset Driver List
         Ext.getCmp( 'Employee-Operator-Operation-DriverList').resetAll();

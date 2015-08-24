@@ -30,15 +30,15 @@ Ext.define('517Employee.view.driverUnique.orderHistory.OrderHistoryView', {
         // Refresh DriverUnique List
         //this.items.items[ 0 ].refreshView();
 
-        // Refresh Order History
-        this.items.items[ 1 ].refreshView();
+        // Refresh Order History Center
+        Ext.getCmp( 'Employee-Header' ).doRefreshView( 'Employee-DriverUnique-OrderHistory-CenterView' );
     },
     resetAll:function(){
         // Refresh DriverUnique List
         // this.items.items[ 0 ].resetAll();
 
         // Refresh Order History
-        this.items.items[ 1 ].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-DriverUnique-OrderHistory-CenterView' );
     },
     doNavigation:function(panel){
         //console.log( panel );

@@ -35,13 +35,13 @@ Ext.define( '517Employee.view.bill.restaurant.billCenter.BillCenterView' , {
     resetAll:function() {
 
         // Reset Order List
-        this.items.items[ 1 ].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Bill-Restaurant-BillCenter-BillList' );
 
     },
 
     refreshView:function() {
         // Reset Order List
-        this.items.items[ 1 ].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Bill-Restaurant-BillCenter-BillList' );
     }
 
 

@@ -33,17 +33,17 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryView', {
 
     resetAll:function() {
         // Reset Restaurant List
-        this.items.items[ 0].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Restaurant-OrderHistory-RestaurantList' );
 
-        // Reset Order History List
-        this.items.items[ 0].resetAll();
+        // Reset Order History Center
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Restaurant-OrderHistory-CenterView' );
     },
 
     refreshView:function() {
         // Refresh Restaurant List
-        this.items.items[ 0 ].refreshView();
+        Ext.getCmp( 'Employee-Header' ).doRefreshView( 'Employee-Restaurant-OrderHistory-RestaurantList' );
 
-        // Refresh Order History List
-        this.items.items[ 0 ].refreshView();
+        // Refresh Order History Center
+        Ext.getCmp( 'Employee-Header' ).doRefreshView( 'Employee-Restaurant-OrderHistory-CenterView' );
     }
 });

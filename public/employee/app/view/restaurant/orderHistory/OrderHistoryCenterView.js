@@ -33,13 +33,13 @@ Ext.define('517Employee.view.restaurant.orderHistory.OrderHistoryCenterView', {
     resetAll:function() {
 
         // Reset Order List
-        this.items.items[ 1 ].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Restaurant-OrderHistory-OrderList' );
 
     },
 
     refreshView:function() {
         // Reset Order List
-        this.items.items[ 1 ].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Restaurant-OrderHistory-OrderList' );
     }
 
 

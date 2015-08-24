@@ -32,12 +32,12 @@ Ext.define('517Employee.view.restaurant.information.InformationView', {
     },
     resetAll:function() {
         // Refresh Restaurant List
-        this.items.items[ 0 ].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Restaurant-Information-RestaurantList' );
     },
 
     refreshView:function() {
         // Refresh Restaurant List
-        this.items.items[ 0 ].refreshView();
+        Ext.getCmp( 'Employee-Header' ).doRefreshView( 'Employee-Restaurant-Information-RestaurantList' );
     }
     
 });

@@ -124,7 +124,7 @@ Ext.define('Ext.ux.GMapPanel', {
     },
     getCarMarker: function( index,name ) {
         //var stackedIcon = '<div class="carIcon-stack fa-3x"><i class="fa fa-car"></i><span class="carIcon-text">' + index + '</span></div>';
-        var stackedIcon = '<span class="fa-stack fa-2x"><i class="fa fa-car" style="color:#D6497F;margin-top:13px"></i><span class="fa fa-stack-1x" ><span style="color:#D6497F;font-size:13px; margin-top:-15px;margin-right:35px; display:block;">' + name + '</span></span></span>';
+        var stackedIcon = '<span class="fa-stack fa-2x"><i class="fa fa-car" style="color:#D6497F;margin-top:13px"></i><span class="fa fa-stack-1x" ><span style="color:#D6497F;font-size:13px; margin-top:-13px;margin-right:35px; display:block;">' + name + '</span></span></span>';
         // var stackedIcon = '<span class="carIcon-stack"><i class="fa fa-car fa-2x"></i><span class="car-text">' + index + '</span>';
         return stackedIcon;
 

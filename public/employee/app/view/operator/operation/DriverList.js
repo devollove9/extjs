@@ -134,7 +134,7 @@ Ext.define( '517Employee.view.operator.operation.DriverList' , {
                         lat: r.latitude,
                         lng: r.longitude,
                     },
-                    r.name.substr( 0 , 4 ),
+                    ( i + 1 ) + '.' + r.name.substr( 0 , 4 ),
                     i + 1,
                     'driver'
                 );

@@ -41,19 +41,19 @@ Ext.define('517Employee.view.operator.newOrder.NewOrderView', {
     ],
     refreshView:function() {
         // Refresh Restaurant List
-        this.items.items[0].refreshView();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Operator-NewOrder-RestaurantList' );
 
         // Refresh Dish List
-        this.items.items[1].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Operator-NewOrder-DishList' );
         // Refresh Checkout Panel
         //this.items.items[2].items.items[1].refreshView();
     },
     resetAll:function() {
         // Reset Restaurant List
-        this.items.items[0].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Operator-NewOrder-RestaurantList' );
 
         // Reset Dish List
-        this.items.items[1].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Operator-NewOrder-DishList' );
         // Reset Checkout Panel
         //this.items.items[2].resetAll();
     }

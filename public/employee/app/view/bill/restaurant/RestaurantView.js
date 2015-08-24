@@ -29,17 +29,17 @@ Ext.define( '517Employee.view.bill.restaurant.RestaurantView' , {
     ],
     refreshView:function() {
         // Refresh Restaurant List
-        this.items.items[ 0 ].refreshView();
+        Ext.getCmp( 'Employee-Header' ).doRefreshView( 'Employee-Bill-Restaurant-RestaurantList' );
 
         // Refresh Bill Center
-        this.items.items[ 1 ].refreshView();
+        Ext.getCmp( 'Employee-Header' ).doRefreshView( 'Employee-Bill-Restaurant-BillCenter' );
     },
 
     resetAll:function() {
         // Reset Restaurant List
-        this.items.items[ 0 ].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Bill-Restaurant-RestaurantList' );
 
         // Reset Bill Center
-        this.items.items[ 1 ].resetAll();
+        Ext.getCmp( 'Employee-Header' ).doResetView( 'Employee-Bill-Restaurant-BillCenter' );
     }
 });
