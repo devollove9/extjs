@@ -1,32 +1,32 @@
-﻿Ext.define( '517Employee.view.order.ContentView' , {
+﻿Ext.define( '517Employee.view.user.ContentView' , {
     extend: 'Ext.panel.Panel',
-    xtype: 'employee-order-content',
+    xtype: 'employee-user-content',
     requires: [
-        '517Employee.view.order.orderhistory.OrderHistoryView',
+        '517Employee.view.user.userHistory.UserHistoryView',
     ],
-    border: false,frame:false,
+    buser: false,frame:false,
     layout: { type:'card' , padding:0 },
-    bodyStyle:{ "background-color":"white",'border-color' : 'black','border-width':'0px'},
+    bodyStyle:{ "background-color":"white",'buser-color' : 'black','buser-width':'0px'},
     items: [
         {
-            border:false,frame:false,
-            xtype: 'employee-order-orderHistory',
-            id: 'employee-Order-OrderHistory',
+            buser:false,frame:false,
+            xtype: 'employee-user-userHistory',
+            id: 'employee-User-UserHistory',
         },
         {
-            border:false,frame:false,
-            //xtype: 'employee-order-xxxx',
-            id: 'employee-Order-Xxxx',
+            buser:false,frame:false,
+            //xtype: 'employee-user-xxxx',
+            id: 'employee-User-Xxxx',
         },/*
        {
-            border:false,frame:false,
-            //xtype: 'employee-order-xxxx',
-            id: 'employee-Order-Xxxx',
+            buser:false,frame:false,
+            //xtype: 'employee-user-xxxx',
+            id: 'employee-User-Xxxx',
         }, 
         {
-            border:false,frame:false,
-            xtype: 'employee-order-xxxx',
-            id: 'employee-Order-Xxxx',
+            buser:false,frame:false,
+            xtype: 'employee-user-xxxx',
+            id: 'employee-User-Xxxx',
         } */
         
     ]

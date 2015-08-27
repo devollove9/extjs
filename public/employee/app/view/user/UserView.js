@@ -1,28 +1,28 @@
-Ext.define('517Employee.view.order.OrderView', {
+Ext.define('517Employee.view.user.UserView', {
     extend: 'Ext.panel.Panel',
 
     requires: [
-        '517Employee.view.order.Sidebar',
-        '517Employee.view.order.ContentView'
+        '517Employee.view.user.Sidebar',
+        '517Employee.view.user.ContentView'
     ],   
-    xtype: 'employee-order',
-    frame:false , border:false,
-    bodyStyle:{ "background-color":"white",'border-color' : 'black','border-width':'0px'},
-    layout: 'border',
+    xtype: 'employee-user',
+    frame:false , buser:false,
+    bodyStyle:{ "background-color":"white",'buser-color' : 'black','buser-width':'0px'},
+    layout: 'buser',
     autosSroll:true,
     items:[
         {
             region: 'west',
-            xtype: 'employee-order-sidebar',
-            // Border Color
+            xtype: 'employee-user-sidebar',
+            // Buser Color
             style:{ "background-color":"none"},
-            id: 'employee-Order-Sidebar',
+            id: 'employee-User-Sidebar',
         },
         {
             region: 'center',
-            margin: '0 0 0 10' , frame:false , border:false , 
-            xtype: 'employee-order-content',
-            id: 'employee-Order-Content',
+            margin: '0 0 0 10' , frame:false , buser:false ,
+            xtype: 'employee-user-content',
+            id: 'employee-User-Content',
         }
         
     ],
@@ -35,30 +35,30 @@ Ext.define('517Employee.view.order.OrderView', {
         scope: this
     },
     doNavigation:function( tab ){
-        var orderContent = Ext.getCmp( 'employee-Order-Content' );
-        var storeContent = Ext.getCmp( 'employee-content-view' );
+        var userContent = Ext.getCmp( 'Employee-User-Content' );
+        var employeeContent = Ext.getCmp( 'Employee-Content' );
         if ( tab ) {           
             if ( tab.navigateAction ) {
-                /* 0: Order History
+                /* 0: User History
                 *  1: xxx
                 *  2: Main 
                 */
                 switch ( tab.navigateAction ) { 
-                    case 'orderHistory' : 
-                        orderContent.setActiveItem(0);
+                    case 'userHistory' :
+                        userContent.setActiveItem(0);
                         break;
                         
                     case 'xxxxX' : 
-                        orderContent.setActiveItem(1);
+                        userContent.setActiveItem(1);
                         break;
                         
                     case 'employee-navigation' :
-                        storeContent.setActiveItem(0);
+                        employeeContent.setActiveItem(0);
                         break;
 
                 }     
             } else {
-                storeContent.setActiveItem(0);
+                employeeContent.setActiveItem(0);
             }   
         }
     }

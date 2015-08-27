@@ -19,7 +19,8 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
     //store: 'Restaurantdetail',
     xtype: 'employee-restaurant-information-restaurant',
     bodyPadding: 20,
-    autoScroll: true,
+    overflowY: 'scroll',
+    //autoScroll: true,
     title: 'Restaurant Information',
     header:{ titleAlign: 'left' , height:30 , padding:'0 10 0 10', margin:'0 0 0 0' },
     fieldDefaults: {
@@ -63,6 +64,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
             xtype: 'fieldset',
             title: 'Restaurant Info',
             defaultType: 'textfield',
+            collapsible: true,
             width : '50%',
             layout: {
                 //type:'vbox',
@@ -154,6 +156,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                 type:'hbox',
                 align: 'stretch'
             },
+            collapsible: true,
             padding:'0 0 10 0',
             defaults: {
                 anchor: '100%'
@@ -200,6 +203,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
             defaults:{
                 anchor: '100%'
             },
+            collapsible: true,
             items:[
                 {
                     xtype: 'fieldcontainer',
@@ -305,6 +309,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
             defaults: {
                 anchor: '100%'
             },
+            collapsible: true,
             items:[
                 {
                     xtype: 'fieldcontainer',
@@ -429,6 +434,7 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
             title: 'Description',
             defaultType: 'textfield',
             layout: 'anchor',
+            collapsible: true,
             items: [
                 {
                     xtype: 'container',
@@ -1002,10 +1008,10 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
         if ( nameEnChange == true ) me.forceCompareViewData( 'nameEn' );
 
         var latitudeChange = me.compareViewData( 'location.latitude' );
-        if ( latitudeChange == true ) me.forceCompareViewData( 'latitudeChange' );
+        if ( latitudeChange == true ) me.forceCompareViewData( 'location.latitude' );
 
         var longitudeChange = me.compareViewData( 'location.longitude' );
-        if ( longitudeChange == true ) me.forceCompareViewData( 'longitudeChange' );
+        if ( longitudeChange == true ) me.forceCompareViewData( 'location.longitude' );
 
         if ( nameChange == true || nameEnChange == true || latitudeChange == true || longitudeChange == true ) {
             changed = true;

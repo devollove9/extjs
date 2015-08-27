@@ -26,12 +26,16 @@ Ext.define('517Employee.view.operator.newOrder.DishListController', {
                 else if ( checkoutList.checkoutStoreId != '' && grid.getSelectionModel().getSelection()[0].data.storeId != checkoutList.checkoutStoreId ) {
                     Ext.Msg.alert( 'Error' , 'Trying to add dish from different restaurant' );
                 } else {
-                    if (dishRecord.data.optionGroup) {
-                        win = this.dishOptionWindow(dishRecord.data);
-                        win.show();
+                    checkoutList.checkoutStoreId = grid.getSelectionModel().getSelection()[0].data.storeId;
+                    if ( dishRecord.data.optionGroup ) {
+                        if ( dishRecord.data.optionGroup.length > 0 ) {
+                            win = this.dishOptionWindow(dishRecord.data);
+                            win.show();
+                        } else {
+                            this.CheckoutDish(dishRecord);
+                        }
                     } else {
                         this.CheckoutDish(dishRecord);
-                        checkoutList.checkoutStoreId = grid.getSelectionModel().getSelection()[0].data.storeId;
                     }
 
                 }

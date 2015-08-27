@@ -1,24 +1,24 @@
-﻿Ext.define('517Employee.view.order.Sidebar', {
+﻿Ext.define('517Employee.view.user.Sidebar', {
     extend: 'Ext.panel.Panel',
-    xtype: 'employee-order-sidebar',
+    xtype: 'employee-user-sidebar',
     requires: [
-        '517Employee.view.order.SidebarController'
+        '517Employee.view.user.SidebarController'
     ],
     title: 'ORDER',
     width:150,
     split: false,
     collapsible: true,
-    controller:'employee-order-sidebar',
-    layout: { type: 'border' },
+    controller:'employee-user-sidebar',
+    layout: { type: 'buser' },
     glyph: 'xf0c9@FontAwesome',
     header: { titleAlign: 'center' ,height:30,padding:'0 10 0 10',margin:'0 0 0 0'},
-    bodyStyle:{ 'border-left':'0', 'border-right':'1px solid #cececce' , margin:'0' , padding:'0' , 'background-color': 'white' },
+    bodyStyle:{ 'buser-left':'0', 'buser-right':'1px solid #cececce' , margin:'0' , padding:'0' , 'background-color': 'white' },
     dockedItems: [   
         {
             xtype: 'toolbar',
             dock:'left',
             width: 150,
-            //border:false,
+            //buser:false,
             frame: false,
             style:{ 'text-align':'center'},
             layout: { type: 'vbox', pack: 'stretch',},
@@ -28,7 +28,7 @@
                     text: 'History',
                     glyph: 'xf03a@FontAwesome',
                     textAlign: 'left',
-                    navigateAction: 'orderHistory',
+                    navigateAction: 'userHistory',
                     handler: 'doNavigation',
                     scale: 'medium'
                 },

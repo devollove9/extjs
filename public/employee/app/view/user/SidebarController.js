@@ -1,6 +1,6 @@
-Ext.define('517Employee.view.order.SidebarController', {
+Ext.define('517Employee.view.user.SidebarController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.employee-order-sidebar',
+    alias: 'controller.employee-user-sidebar',
     requires: [
         //'517.view.main.AdminMain'
         //'517.517Time'
@@ -10,6 +10,6 @@ Ext.define('517Employee.view.order.SidebarController', {
         
     },
     doNavigation:function( tab ){
-        Ext.getCmp( 'Employee-Order' ).doNavigation( tab );
+        Ext.getCmp( 'Employee-User' ).doNavigation( tab );
     }
 })
