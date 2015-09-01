@@ -7,22 +7,22 @@ Ext.define('517Employee.view.user.UserView', {
     ],   
     xtype: 'employee-user',
     frame:false , buser:false,
-    bodyStyle:{ "background-color":"white",'buser-color' : 'black','buser-width':'0px'},
-    layout: 'buser',
+    bodyStyle:{ "background-color":"white",'border-color' : 'black','border-width':'0px'},
+    layout: 'border',
     autosSroll:true,
     items:[
         {
             region: 'west',
             xtype: 'employee-user-sidebar',
-            // Buser Color
+            // Border Color
             style:{ "background-color":"none"},
-            id: 'employee-User-Sidebar',
+            id: 'Employee-User-Sidebar',
         },
         {
             region: 'center',
             margin: '0 0 0 10' , frame:false , buser:false ,
             xtype: 'employee-user-content',
-            id: 'employee-User-Content',
+            id: 'Employee-User-Content',
         }
         
     ],
@@ -36,7 +36,7 @@ Ext.define('517Employee.view.user.UserView', {
     },
     doNavigation:function( tab ){
         var userContent = Ext.getCmp( 'Employee-User-Content' );
-        var employeeContent = Ext.getCmp( 'Employee-Content' );
+        var employeeContent = Ext.getCmp( 'Employee-Main-ContentView' );
         if ( tab ) {           
             if ( tab.navigateAction ) {
                 /* 0: User History
@@ -47,9 +47,13 @@ Ext.define('517Employee.view.user.UserView', {
                     case 'userHistory' :
                         userContent.setActiveItem(0);
                         break;
-                        
-                    case 'xxxxX' : 
+
+                    case 'information' :
                         userContent.setActiveItem(1);
+                        break;
+
+                    case 'xxxxX' : 
+                        userContent.setActiveItem(2);
                         break;
                         
                     case 'employee-navigation' :

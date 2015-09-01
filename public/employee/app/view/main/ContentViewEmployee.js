@@ -13,7 +13,7 @@
     return false;
 };
 function checkUserPermissions_Local( type ) {
-    if ( type == 'testingyy' ) {
+    if ( type == 'testing' ) {
         return true;
     }
     var userCookie = Ext.decode( Ext.util.Cookies.get( '517Employee' ) );
@@ -30,21 +30,22 @@ var Employee_Main_ContentView_Requires = [
 //if ( checkUserPermissions_Local( 'testingyy' ) == true ) {
 //   Employee_Main_ContentView_Requires.push( '517Employee.view.driverUnique.DriverUniqueView' );
 //} else {
-if ( checkUserPermissions_Local( 'operator' ) == true ) {
+if ( checkUserPermissions_Local( 'admin' ) == true ) {
+    Employee_Main_ContentView_Requires.push( '517Employee.view.bill.BillView' );
+    Employee_Main_ContentView_Requires.push( '517Employee.view.user.UserView' );
     Employee_Main_ContentView_Requires.push( '517Employee.view.operator.OperatorView' );
     Employee_Main_ContentView_Requires.push( '517Employee.view.restaurant.RestaurantView' );
-}
-if ( checkUserPermissions_Local( 'admin' ) == true || checkUserPermissions_Local( 'operator' ) == true ) {
     Employee_Main_ContentView_Requires.push( '517Employee.view.driver.DriverView' );
+    // Employee_Main_ContentView_Requires.push( '517Employee.view.region.RegionView' );
+} else if ( checkUserPermissions_Local( 'operator' ) == true ) {
+    Employee_Main_ContentView_Requires.push( '517Employee.view.driver.DriverView' );
+    Employee_Main_ContentView_Requires.push( '517Employee.view.operator.OperatorView' );
+    Employee_Main_ContentView_Requires.push( '517Employee.view.restaurant.RestaurantView' );
 } else if ( checkUserPermissions_Local( 'driver' ) == true ) {
     Employee_Main_ContentView_Requires.push( '517Employee.view.driverUnique.DriverUniqueView' );
     // Employee_Main_ContentView_Requires.push( '517Employee.view.region.RegionView' );
 }
-if ( checkUserPermissions_Local( 'admin' ) == true ) {
-    Employee_Main_ContentView_Requires.push( '517Employee.view.bill.BillView' );
-    // Employee_Main_ContentView_Requires.push( '517Employee.view.region.RegionView' );
-}
-//}
+
 
 Ext.define( '517Employee.view.main.ContentViewEmployee' , {
     extend: 'Ext.panel.Panel',
@@ -134,27 +135,30 @@ Ext.define( '517Employee.view.main.ContentViewEmployee' , {
                 //xtype: 'employee-driverUnique',
                 //id: 'Employee-DriverUnique',
             },
+            {
+                border:false,frame:false,
+                //xtype: 'employee-user',
+                //id: 'Employee-User',
+            },
         ];
         ////console.log( items[2]);
         var userCookie = Ext.decode( Ext.util.Cookies.get( '517Employee' ) );
         var permissions = Ext.decode( Ext.util.Cookies.get( '517Employee' ) ).role;
-        //if ( Ext.getCmp( 'Employee-Header' ).getUserInfo().email == 'test@test.test' ) {
-        //    items[ 8 ] = { border:false ,frame:false , xtype: 'employee-driverUnique' , id: 'Employee-DriverUnique' };
-        //} else {
-        if ( this.checkUserPermissions( 'operator' ) == true ) {
+
+        if ( this.checkUserPermissions( 'admin' ) == true ) {
             items[ 1 ] = { border:false ,frame:false , xtype: 'employee-operator' , id: 'Employee-Operator' };
             items[ 2 ] = { border:false ,frame:false , xtype: 'employee-restaurant' , id: 'Employee-Restaurant' };
-
-        }
-        if ( this.checkUserPermissions( 'admin' ) == true || this.checkUserPermissions( 'operator' ) == true) {
+            items[ 3 ] = { border:false ,frame:false , xtype: 'employee-driver' , id: 'Employee-Driver' };
+            items[ 4 ] = { border:false ,frame:false , xtype: 'employee-bill' , id: 'Employee-Bill' };
+            items[ 9 ] = { border:false ,frame:false , xtype: 'employee-user' , id: 'Employee-User' };
+            //items[ 6 ] = { border:false ,frame:false , xtype: 'employee-region' , id: 'Employee-Region' };
+        } else if ( this.checkUserPermissions( 'operator' ) == true ) {
+            items[ 1 ] = { border:false ,frame:false , xtype: 'employee-operator' , id: 'Employee-Operator' };
+            items[ 2 ] = { border:false ,frame:false , xtype: 'employee-restaurant' , id: 'Employee-Restaurant' };
             items[ 3 ] = { border:false ,frame:false , xtype: 'employee-driver' , id: 'Employee-Driver' };
         } else if ( this.checkUserPermissions( 'driver' ) == true ) {
             // Driver Only
             items[ 8 ] = { border:false ,frame:false , xtype: 'employee-driverUnique' , id: 'Employee-DriverUnique' };
-        }
-        if ( this.checkUserPermissions( 'admin' ) == true ) {
-            items[ 4 ] = { border:false ,frame:false , xtype: 'employee-bill' , id: 'Employee-Bill' };
-            //items[ 6 ] = { border:false ,frame:false , xtype: 'employee-region' , id: 'Employee-Region' };
         }
         //}
 

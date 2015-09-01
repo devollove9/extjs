@@ -120,6 +120,7 @@ Ext.define( '517Employee.view.bill.restaurant.billCenter.BillList', {
             minwidth: 50,
             width:50,
             items: [
+
                 {
                     iconCls: 'download-col',
                     tooltip: 'Download',margin:'0 2 0 0',
@@ -146,6 +147,32 @@ Ext.define( '517Employee.view.bill.restaurant.billCenter.BillList', {
                             },
                             failure: function(result, request) {
                                 Ext.Msg.alert('Error', 'Download failed. Please contact technical staff');
+                            }
+                        });
+                    }
+                },
+                {
+                    iconCls: 'send_email',
+                    tooltip: 'Send Email',margin:'0 2 0 2',
+                    //Post
+                    handler:function(grid, rowIndex, colIndex) {
+                        Ext.Ajax.request({
+                            url: Ext.getCmp( 'Employee-Header').getServerUrl() + '/bill/store/send', // you can fix a parameter like this : url?action=anAction1
+                            method: 'GET',
+                            headers: Ext.getCmp( 'Employee-Header').getHeaders( 'get' ) ,
+                            disableCaching:false,
+                            params: {
+                                documentId: grid.store.getAt( rowIndex ).data.documentId
+                            },
+                            success: function(result, request) {
+                                var response =  JSON.parse( result.responseText );
+                                var Error = Ext.getCmp( 'Employee-Header').processErrorMessage( response );
+                                if ( Error == false ) {
+                                    Ext.Msg.alert( "Success" , "Email has been sent." );
+                                }
+                            },
+                            failure: function(result, request) {
+                                Ext.Msg.alert('Error', 'Send Email failed. Please contact technical staff');
                             }
                         });
                     }

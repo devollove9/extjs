@@ -116,6 +116,12 @@ Ext.define('517Employee.view.navigation.NavigationView', {
                         var tab = new Object(); tab.navigateAction = navigation[1];
                         Ext.getCmp( 'Employee-DriverUnique' ).doNavigation( tab );
                         break;
+
+                    case 'employee-user' :
+                        employeeContent.setActiveItem(9);
+                        var tab = new Object(); tab.navigateAction = navigation[1];
+                        Ext.getCmp( 'Employee-User' ).doNavigation( tab );
+                        break;
                 }
             } else {
                 employeeContent.setActiveItem(0);

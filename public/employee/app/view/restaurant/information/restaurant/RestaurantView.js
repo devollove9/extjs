@@ -297,6 +297,175 @@ Ext.define( '517Employee.view.restaurant.information.restaurant.RestaurantView' 
                             }
                         },
                     ]
+                },
+                {
+                    xtype: 'fieldcontainer',
+                    layout: 'hbox',
+                    combineErrors: true,
+                    defaultType: 'textfield',
+                    items:[
+                        {
+                            labelWidth: 110,
+                            fieldLabel: 'Store Email:',
+                            id: 'Employee-Restaurant-CreateStoreEmail',
+                            name: 'storeEmail',
+                            flex:3
+                        },
+                        {
+                            xtype: 'button',
+                            text: 'Bind Store Account',
+                            flex:3 ,
+                            margin:'0 0 0 10',
+                            userId:'0',
+                            handler:function(){
+                                var me = this;
+                                var emailField = Ext.getCmp( 'Employee-Restaurant-CreateStoreEmail' );
+                                var email = emailField.getValue();
+                                var information = Ext.getCmp( 'Employee-Restaurant-Information-Restaurant' );
+                                var storeList = Ext.getCmp( 'Employee-Restaurant-Information-RestaurantList' );
+                                if ( ! email ) {
+                                    Ext.Msg.alert( 'Error' ,  "Please Enter Store's Email first" );
+                                } else if ( storeList.getSelectionModel().hasSelection() == false ) {
+                                    Ext.Msg.alert( 'Error' , 'Please Choose a store first' );
+                                } else if ( information.newRestaurant == true ) {
+                                    Ext.Msg.alert( 'Error' , 'Unable to bind when creating store.' );
+                                } else {
+                                    Ext.getCmp( 'Employee-Header').searchUserInfo( me , '/user' , 'get' , 'email' , email , 'userInfo' );
+                                }
+                            },
+                            getAjaxRequestResponse:function ( returnMessage , returnType ) {
+                                var me = this;
+                                var storeList = Ext.getCmp( 'Employee-Restaurant-Information-RestaurantList' );
+
+                                if ( returnMessage.error == false ) {
+                                    switch ( returnType ) {
+                                        case 'storeProfile':
+                                            if ( returnMessage.data.length > 0 ) {
+                                                if ( returnMessage.data[ 0 ].userId ) {}
+                                            }
+                                            break;
+                                        case 'userInfo':
+                                            if ( returnMessage.data.length > 0 ) {
+                                                if ( returnMessage.data[ 0 ].userId ) {
+                                                    var userId = returnMessage.data[ 0 ].userId;
+                                                    me.userId = userId;
+                                                    var storeProfile = {
+                                                        userId:userId,
+                                                        storeId:storeList.getSelectionModel().getSelection()[0].data.storeId,
+                                                        email:Ext.getCmp( 'Employee-Restaurant-CreateStoreEmail' ).getValue(),
+                                                        regionId: Ext.getCmp( 'Employee-Header-Region').regionId
+                                                    };
+                                                    storeProfile=JSON.stringify( storeProfile );
+
+                                                    Ext.getCmp( 'Employee-Header').sendCustomAjaxRequest( me , '/user/store' , 'post' , null , storeProfile , 'storeProfile' );
+                                                    Ext.getCmp( 'Employee-Header').sendCustomAjaxRequest( me , '/user/permission' , 'get' ,{ userId:userId } , {} , 'checkPermissionId' );
+                                                }
+                                            }
+                                            break;
+                                        case 'checkPermissionId':
+                                            if ( returnMessage.data.length > 0 ) {
+                                                if ( returnMessage.data[ 0 ].permissionId ) {
+                                                    var permissionId = returnMessage.data[ 0 ].permissionId;
+                                                    if ( returnMessage.data[ 0].permission ) {
+                                                        var permissionArray = returnMessage.data[ 0].permission;
+                                                        var newPermissionArray =[];
+                                                        if ( permissionArray.length > 0 ) {/*
+                                                            for ( var i = 0 ; i < permissionArray.length ; i ++ ) {
+                                                                var oldPermission = permissionArray[ i ];
+                                                                var newPermission = {};
+                                                                if ( oldPermission.role ) newPermission.role = oldPermission.role;
+                                                                if ( oldPermission.action ) newPermission.action = oldPermission.action;
+                                                                if ( oldPermission.parameter ) {
+                                                                    newPermission.parameter = {};
+                                                                    if ( oldPermission.parameter.length > 0 ) {
+                                                                        for ( var i = 0 ; i < oldPermission.parameter.length ; i ++ ) {
+                                                                            var param = oldPermission.parameter[ i ];
+                                                                            var newParam = {};
+                                                                            newParam[ param.key ] = param.value;
+                                                                            newPermission.parameter = newParam;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                if ( oldPermission[ 'restrict' ] ) newPermission.restrict = oldPermission[ 'restrict' ];
+                                                            }
+                                                            newPermissionArray.push( newPermission )*/
+                                                            newPermissionArray = permissionArray;
+                                                        }
+                                                    }
+                                                    newPermissionArray.push(
+                                                        {
+                                                            role:"store",
+                                                            action:[ "*"],
+                                                            parameter:{
+                                                                regionId:Ext.getCmp( 'Employee-Header-Region').regionId,
+                                                                storeId:storeList.getSelectionModel().getSelection()[0].data.storeId
+                                                            }
+
+                                                        }
+                                                    );
+
+                                                    var permissionProfile = {
+                                                        permissionId:permissionId ,
+                                                        permission:newPermissionArray
+                                                    };
+                                                    permissionProfile=JSON.stringify( permissionProfile );
+
+                                                    Ext.getCmp( 'Employee-Header').sendCustomAjaxRequest( me , '/user/permission' , 'put' , null , permissionProfile , 'permissionProfile' );
+
+                                                } else {
+                                                    var userId = me.userId;
+                                                    var permissionProfile = {
+                                                        userId:userId ,
+                                                        permission:[
+                                                            {
+                                                                role:"store",
+                                                                action:[ "*" ],
+                                                                parameter:{
+                                                                    regionId:Ext.getCmp( 'Employee-Header-Region').regionId,
+                                                                    storeId:storeList.getSelectionModel().getSelection()[0].data.storeId
+                                                                }
+                                                            }
+                                                        ]
+                                                    };
+                                                    permissionProfile=JSON.stringify( permissionProfile );
+                                                    Ext.getCmp( 'Employee-Header').sendCustomAjaxRequest( me , '/user/permission' , 'post' , null , permissionProfile , 'permissionProfile' );
+
+                                                }
+                                            } else {
+                                                var userId = me.userId;
+                                                var permissionProfile = {
+                                                    userId:userId ,
+                                                    permission:[
+                                                        {
+                                                            role:"store",
+                                                            action:[ "*" ],
+                                                            parameter:{
+                                                                regionId:Ext.getCmp( 'Employee-Header-Region').regionId,
+                                                                storeId:storeList.getSelectionModel().getSelection()[0].data.storeId
+                                                            }
+                                                        }
+                                                    ]
+                                                };
+                                                permissionProfile=JSON.stringify( permissionProfile );
+                                                Ext.getCmp( 'Employee-Header').sendCustomAjaxRequest( me , '/user/permission' , 'post' , null , permissionProfile , 'permissionProfile' );
+
+                                            }
+                                            break;
+                                        case 'permissionProfile':
+                                            if ( returnMessage.data.length > 0 ) {
+                                                if ( returnMessage.data.userId ) {
+                                                    Ext.Msg.alert( "Success" , "Store Bind Successfully")
+                                                }
+                                            }
+                                            break;
+                                    }
+
+
+
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },

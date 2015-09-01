@@ -10,6 +10,10 @@ var BillCategory = "<h2>Bill &nbsp&nbsp</h2>";
     var RestaurantBillIcon = partanA +"fa fa-cutlery fa-3x"+partanB+"Restaurant"+partanC+"Check/Edit Restaurants' Bill"+partanD;
     var DrivertBillIcon = partanA +"fa fa-bus fa-3x"+partanB+"Driver"+partanC+"Check/Edit Drivers' Bill"+partanD;
 
+var UserCategory = "<h2>User &nbsp&nbsp</h2>";
+    var UserOrderHistoyIcon = partanA +"fa fa-users fa-3x"+partanB+"Order History"+partanC+"Check/Edit Restaurants' Bill"+partanD;
+    var UserInformationIcon = partanA +"fa fa-info-circle fa-3x"+partanB+"Information"+partanC+"Check/Edit Users' Information"+partanD;
+    var UserPermissionIcon = partanA +"fa fa-bus fa-3x"+partanB+"Permission"+partanC+"Check/Edit Drivers' Bill"+partanD;
 
 var mainpanel_center_panel_minWidth = 400;var mainpanel_center_icon_Height = 50;var mainpanel_center_icon_Width = 350;
 
@@ -28,6 +32,10 @@ Ext.define( '517Employee.view.navigation.mainpanel.CenterSection' , {
         var Cy = 0;
         var items=[];
 
+        var SettingsTitle = this.createIconTitle( EmployeeSettingCategory , Cx , Cy ); Cy += 50;
+        var SettingsBlockMyProfile = this.createIcon( EmployeeMyprofileIcon , 'employee-settings myProfile' , Cx , Cy );
+        items.push( SettingsTitle ); items.push( SettingsBlockMyProfile );
+        Cy += 70;
        //if ( Ext.getCmp( 'Employee-Header').getUserInfo().email == 'test@test.test' ) {
 //
         //} else {
@@ -42,12 +50,16 @@ Ext.define( '517Employee.view.navigation.mainpanel.CenterSection' , {
                 items.push(BillTitle);
                 items.push(BillBlockRestaurant);
                 items.push(BillBlockDriver);
+                var UserTitle = this.createIconTitle(UserCategory, Cx, Cy);
+                Cy += 50;
+                var UserInformation = this.createIcon(UserInformationIcon, 'employee-user information', Cx, Cy);
+                Cy += 70;
+                items.push(UserTitle);
+                items.push(UserInformation);
             }
         //}
 
-        var SettingsTitle = this.createIconTitle( EmployeeSettingCategory , Cx , Cy ); Cy += 50;
-        var SettingsBlockMyProfile = this.createIcon( EmployeeMyprofileIcon , 'employee-settings myProfile' , Cx , Cy );
-        items.push( SettingsTitle ); items.push( SettingsBlockMyProfile );
+
 
         this.items = items;
         this.callParent(arguments);
