@@ -175,6 +175,20 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupList', {
         this.gridEditing = false;
         this.windowPopUp = [];
     },
+    getOptionGroup:function() {
+        var me = this;
+        var store = me.getStore();
+        var newOptionGroups = [];
+        store.each( function( record ) {
+
+            var oldOptionGroup = record.data;
+            var newOptionGroup = Ext.getCmp( 'Employee-Header').copyOptionGroup( oldOptionGroup );
+            newOptionGroups.push( newOptionGroup );
+
+        });
+        console.log( newOptionGroups );
+        return newOptionGroups;
+    }
 });
 
 

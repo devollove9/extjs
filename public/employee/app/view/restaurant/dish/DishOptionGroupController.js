@@ -18,8 +18,9 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupController', {
     },
     Savechanges: function( button ) {
         var optionGroup = button.up().up();
+        var businessHour = optionGroup.lookupReference( 'employee-restaurant-dish-optionGroup-businessHour' );
         var curWindow = optionGroup.up();
-        var optionList = optionGroup.items.items[3].items.items[0];
+        var optionList = optionGroup.lookupReference( 'employee-restaurant-dish-optionSelection' ).items.items[ 0 ];
         var optionGroupList = Ext.getCmp( 'Employee-Restaurant-Dish-OptionGroupList' );
         optionGroupList.changedFlag = false;
         ////console.log(optionGroup.up());
@@ -32,9 +33,10 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupController', {
         var quantity = parseInt( optionGroup.getForm().findField( 'quantity' ).getValue() );
         var disabled = optionGroup.getForm().findField( 'disabledGroup' ).getValue().disabled;
         var total_optionNumber = optionList.getView().getStore().getCount();
+        
         if ( optionGroup.currentMethod == 'saving' ) {
             var originRecord = optionGroup.originRecord.data;
-            if ( name == '' || nameEn == '' || max == '' || min == '' || quantity == '' || total_optionNumber == 0 || max < min ) {
+            if ( !name || !nameEn || !max || typeof ( min ) == 'undefined' || !quantity || name == '' || nameEn == '' || max == '' || total_optionNumber == 0 || max < min ) {
                 Ext.Msg.alert( 'Error' , 'Please make sure all fields are filled.<br>Please make sure option list are not empty' );
             } else if ( optionGroup.itemId != Ext.getCmp( 'Employee-Restaurant-Dish-Detail' ).getForm().findField( 'itemId' ).getValue() ) {
                 Ext.Msg.alert( 'Error' , 'Trying to edit option group of another dish' );
@@ -42,16 +44,25 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupController', {
                 var changedFlag = false;
                 if ( originRecord.information ) {
                     if ( typeof originRecord.information.disabled != 'undefined' ){
-                        if ( originRecord.disabled != disabled ) {
+                        if ( originRecord.information.disabled != disabled ) {
                             changedFlag = true;
                         }
                     } else {
                         changedFlag = true;
                     }
+                    if ( typeof originRecord.information.businessHour != 'undefined' ) {
+                        if ( originRecord.information.businessHour.length == 0 ) {
+                            changedFlag = true;
+                        }
+                    } else {
+                        changedFlag = true
+                    }
                 } else {
                     changedFlag = true;
                 }
-
+                if ( businessHour.changed == true ) {
+                    changedFlag = true;
+                }
                 if ( originRecord.name != name || originRecord.nameEn != nameEn || originRecord.max != max || originRecord.min != min || originRecord.quantity != quantity
                     || optionList.changedFlag == true ) {
                     changedFlag = true;
@@ -66,32 +77,21 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupController', {
                             if ( btn == 'yes' ) {
                                 optionGroupList.changedFlag = true;
                                 var old_record = optionGroupList.getStore().getAt(optionGroup.selectedRow);
-
                                 if ( old_record.data.information ) {
                                     old_record.data.information.disabled = disabled;
+                                    old_record.data.information.businessHour = businessHour.getBusinessHour();
                                 } else {
                                     var information = new Object();
                                     information.disabled = disabled;
+                                    information.businessHour = businessHour.getBusinessHour();
                                     old_record.data.information = information;
                                 }
                                 old_record.data.name = name;old_record.data.nameEn = nameEn;old_record.data.max = max;old_record.data.min = min;old_record.data.quantity = quantity;
 
                                 if ( optionList.changedFlag == true ) {
-                                    var new_options = [];
-                                    ////console.log(optionList.getView().getStore().data.items);
-                                    for ( var i = 0 ; i < optionList.getView().getStore().data.items.length ; i ++ ) {
-                                        var cur_option = new Object();
-                                        cur_option.name = optionList.getView().getStore().data.items[i].data.name;
-                                        cur_option.price = optionList.getView().getStore().data.items[i].data.price;
-                                        cur_option.nameEn = optionList.getView().getStore().data.items[i].data.nameEn;
-                                        cur_option.quantity = optionList.getView().getStore().data.items[i].data.quantity;
-                                        cur_option.information = optionList.getView().getStore().data.items[i].data.information;
-                                        //cur_option.information = optionList.getView().getStore().data.items[i].data.information;
-                                        new_options.push(cur_option);
-                                    }
-                                    old_record.data.option = new_options;
+                                    var newOption = Ext.getCmp( 'Employee-Header').copyStoreToArray( optionList.getView().getStore() );
+                                    old_record.data.option = newOption;
                                 }
-                                ////console.log(old_record);
                                 optionGroupList.getView().refresh();
                                 curWindow.close();
 
@@ -103,7 +103,9 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupController', {
             }
         }
         if ( optionGroup.currentMethod == 'adding' ) {
-            if ( name == '' || nameEn == '' || max == '' || min == '' || quantity == '' || total_optionNumber == 0 || max < min ) {
+
+            if ( min == '' ) console.log( min );
+            if ( !name || !nameEn || !max || typeof ( min ) == 'undefined' || !quantity || name == '' || nameEn == '' || max == '' || total_optionNumber == 0 || max < min ) {
                 Ext.Msg.alert( 'Error' , 'Please make sure all fields are filled.<br>Please make sure option list are not empty.<br>Please make sure max >= min.' );
             } else {
                 Ext.Msg.show({
@@ -115,23 +117,26 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupController', {
                             optionGroupList.changedFlag = true;
                             //var old_record = optionGroupList.getStore().getAt(optionGroup.selectedRow);
                             var newOptionGroup = new Object();
+
+                            // Get Information
                             var information = new Object();
                             information.disabled = disabled;
+                            information.businesssHour = businessHour.getBusinessHour();
                             newOptionGroup.information = information;
-                            newOptionGroup.name = name; newOptionGroup.nameEn = nameEn; newOptionGroup.max = max; newOptionGroup.min = min; newOptionGroup.quantity = quantity;
-                            var new_options = [];
-                            for ( var i = 0 ; i < optionList.getView().getStore().data.items.length ; i ++ ) {
-                                var cur_option = new Object();
-                                cur_option.name = optionList.getView().getStore().data.items[i].data.name;
-                                cur_option.price = optionList.getView().getStore().data.items[i].data.price;
-                                cur_option.nameEn = optionList.getView().getStore().data.items[i].data.nameEn;
-                                cur_option.quantity = optionList.getView().getStore().data.items[i].data.quantity;
-                                cur_option.information = optionList.getView().getStore().data.items[i].data.information;
-                                new_options.push(cur_option);
-                            }
-                            newOptionGroup.option = new_options;
-                            optionGroupList.getStore().add( newOptionGroup );
 
+                            // Get name, nameEn , max , min ,quantity
+                            newOptionGroup.name = name;
+                            newOptionGroup.nameEn = nameEn;
+                            newOptionGroup.max = max;
+                            newOptionGroup.min = min;
+                            newOptionGroup.quantity = quantity;
+
+                            // Get Option
+                            var newOption = Ext.getCmp( 'Employee-Header').copyStoreToArray( optionList.getView().getStore() );
+                            newOptionGroup.option = newOption;
+
+                            // Add Record
+                            optionGroupList.getStore().add( newOptionGroup );
                             optionGroupList.getView().refresh();
                             curWindow.close();
 

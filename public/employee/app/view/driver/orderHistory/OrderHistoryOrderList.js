@@ -78,7 +78,7 @@ Ext.define('517Employee.view.driver.orderHistory.OrderHistoryOrderList', {
             align : 'center', 
             
             renderer: function(val) {
-                return '$' + val.total.toFixed(2);
+                return '$' + val.subtotal.toFixed(2);
             }
         },
         {

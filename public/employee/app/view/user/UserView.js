@@ -34,6 +34,8 @@ Ext.define('517Employee.view.user.UserView', {
         },
         scope: this
     },
+    refreshView:function(){},
+    resetAll:function(){},
     doNavigation:function( tab ){
         var userContent = Ext.getCmp( 'Employee-User-Content' );
         var employeeContent = Ext.getCmp( 'Employee-Main-ContentView' );

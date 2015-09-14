@@ -1,7 +1,4 @@
 /**
- * Created by devo on 8/31/2015.
- */
-/**
  * Created by devo on 7/28/2015.
  */
 Ext.define( '517Employee.store.user.information.SearchFilters' , {

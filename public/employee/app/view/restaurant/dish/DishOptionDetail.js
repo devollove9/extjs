@@ -8,10 +8,10 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionDetail', {
     ],
     xtype: 'employee-restaurant-dish-optionDetail',
     controller: 'employee-restaurant-dish-optionDetail-controller' ,
-    autoScroll:true,
     title:'Option Details',
-    border: true,
-    frame: true,
+    columnLines: true , autoScroll: true ,
+    header:{ titleAlign: 'left' , height:30 , padding:'0 10 0 10', margin:'0 0 0 0' },
+    viewConfig: { enableTextSelection: true },
     margin: '2 0 0 5',
     defaultType: 'textfield',
     bodyPadding: 5,
@@ -44,18 +44,25 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionDetail', {
                 inputValue: true
             }]
         },
-        {allowBlank: false, fieldLabel: 'Option(中文)', name: 'name'},
-        {allowBlank: false, fieldLabel: 'Option(English)', name: 'nameEn'},
-        {allowBlank: false, fieldLabel: 'Price', name: 'price'},
-        {allowBlank: false, fieldLabel: 'Quantity', name: 'quantity'},
+        {allowBlank: false, fieldLabel: 'Name(中文)', name: 'name'},
+        {allowBlank: false, fieldLabel: 'Name(English)', name: 'nameEn'},
+        {
+            allowBlank: false, fieldLabel: 'Price', name: 'price',
+            enforceMaxLength: true,
+            maxLength: '10',
+            maskRe: /[0-9.]/},
+        {
+            allowBlank: false, fieldLabel: 'Quantity', name: 'quantity',
+            enforceMaxLength: true,
+            maxLength: '10',
+            maskRe: /[\-0-9]/
+        },
         {xtype:'hidden', name: 'selectedRow',value:-1},
     ],
     dockedItems:[
         {
             dock: 'top',
             xtype: 'toolbar',
-            frame:false,
-            border:false,
             items: [{
                 xtype: 'tbfill'
             },

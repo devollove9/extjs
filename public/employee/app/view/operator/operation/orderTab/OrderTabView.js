@@ -168,6 +168,21 @@ Ext.define('517Employee.view.operator.operation.orderTab.OrderTabView', {
                         Ext.util.Format.substr(r.invoiceNo , 12 ) ,
                         'user'
                     );
+                    if ( r.store ) {
+                        if ( r.store.logo && r.store.location ) {
+                            if ( r.store.logo.mini && r.store.location.latitude && r.store.location.longitude ) {
+                                map.addMarker(
+                                    {
+                                        lat: r.store.location.latitude,
+                                        lng: r.store.location.longitude
+                                    },
+                                    r.store.logo.mini,
+                                    Ext.util.Format.substr(r.invoiceNo , 12 ) ,
+                                    'res'
+                                );
+                            }
+                        }
+                    }
                 }
             }
 
@@ -181,8 +196,8 @@ Ext.define('517Employee.view.operator.operation.orderTab.OrderTabView', {
     updateClock:function() {
 
         Ext.fly('Employee-Operator-Operation-OrderTab-LocalClock').setText(Ext.Date.format( new Date() , 'h:i:s A'));
-        Ext.fly('Employee-Operator-Operation-OrderTab-ServerClock').setText(Ext.Date.format( new Date( (new Date()).getTime() +
-                            Ext.getCmp( 'Employee-Operator' ).getServerTimeDifference() ), ' h:i:s A'));
+        Ext.fly('Employee-Operator-Operation-OrderTab-ServerClock').setText(Ext.Date.format( new Date( ( new Date() ).getTime() -
+                            Ext.getCmp( 'Employee-Header' ).getServerTimeDifference() ), ' h:i:s A') );
 
     }
 

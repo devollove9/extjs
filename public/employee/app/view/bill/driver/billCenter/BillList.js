@@ -38,14 +38,14 @@ Ext.define( '517Employee.view.bill.driver.billCenter.BillList', {
         {
             text: 'Document No.',
             flex: 5,
-            minwidth: 270,
+            minwidth: 200,
             sortable: false,
             dataIndex: 'documentNo'
         },
         {
             text: 'Start Date',
             sortable: true,
-            maxwidth: 120,
+            maxwidth: 100,
             flex: 3,
             dataIndex: 'periodStart',
             renderer:function(val){
@@ -55,7 +55,7 @@ Ext.define( '517Employee.view.bill.driver.billCenter.BillList', {
         {
             text: 'End Date',
             sortable: true,
-            maxwidth: 120,
+            maxwidth: 100,
             flex: 3,
             dataIndex: 'periodEnd',
             renderer:function(val){
@@ -65,41 +65,46 @@ Ext.define( '517Employee.view.bill.driver.billCenter.BillList', {
         {
             text: 'Total',
             sortable: false,
-            maxwidth: 120,
+            maxwidth: 100,
             flex: 3,
-            dataIndex: 'total'
+            dataIndex: 'total',
+            renderer:function(val){
+                var value = parseFloat(val);
+                return value.toFixed(3);
+            }
+
         },
         {
             text: 'Earning',
             sortable: false,
-            maxwidth: 120,
+            maxwidth: 100,
             flex: 3,
             dataIndex: 'earning',
             renderer:function(val){
                 var value = parseFloat(val);
-                return value.toFixed(2);
+                return value.toFixed(3);
             }
         },
         {
             text: 'Hourly',
             sortable: false,
-            maxwidth: 120,
+            maxwidth: 100,
             flex: 3,
             dataIndex: 'hourly',
             renderer:function(val){
                 var value = parseFloat(val);
-                return value.toFixed(2);
+                return value.toFixed(3);
             }
         },
         {
             text: 'Pay Driver',
             sortable: false,
-            maxwidth: 120,
+            maxwidth: 100,
             flex: 3,
             dataIndex: 'pay',
             renderer:function(val){
                 var value = parseFloat(val);
-                return value.toFixed(2);
+                return value.toFixed(3);
             }
         },
         {
@@ -115,7 +120,7 @@ Ext.define( '517Employee.view.bill.driver.billCenter.BillList', {
         {
             text: 'Signed',
             sortable: true,
-            maxwidth: 120,
+            maxwidth: 80,
             flex: 3,
             dataIndex: 'signed',
             renderer:function(val){
@@ -134,8 +139,8 @@ Ext.define( '517Employee.view.bill.driver.billCenter.BillList', {
             menuDisabled: true,
             sortable: false,
             xtype: 'actioncolumn',
-            minwidth: 50,
-            width:50,
+            minwidth: 55,
+            width:55,
             items: [
                 {
                     iconCls: 'download-col',
@@ -164,6 +169,32 @@ Ext.define( '517Employee.view.bill.driver.billCenter.BillList', {
                             },
                             failure: function(result, request) {
                                 Ext.Msg.alert('Error', 'Download failed. Please contact technical staff');
+                            }
+                        });
+                    }
+                },
+                {
+                    iconCls: 'send_email',
+                    tooltip: 'Send Email',margin:'0 2 0 2',
+                    //Post
+                    handler:function(grid, rowIndex, colIndex) {
+                        Ext.Ajax.request({
+                            url: Ext.getCmp( 'Employee-Header').getServerUrl() + '/bill/driver/send', // you can fix a parameter like this : url?action=anAction1
+                            method: 'GET',
+                            headers: Ext.getCmp( 'Employee-Header').getHeaders( 'get' ) ,
+                            disableCaching:false,
+                            params: {
+                                documentId: grid.store.getAt( rowIndex ).data.documentId
+                            },
+                            success: function(result, request) {
+                                var response =  JSON.parse( result.responseText );
+                                var Error = Ext.getCmp( 'Employee-Header').processErrorMessage( response );
+                                if ( Error == false ) {
+                                    Ext.Msg.alert( "Success" , "Email has been sent." );
+                                }
+                            },
+                            failure: function(result, request) {
+                                Ext.Msg.alert('Error', 'Send Email failed. Please contact technical staff');
                             }
                         });
                     }

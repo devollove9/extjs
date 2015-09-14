@@ -15,6 +15,7 @@ Ext.define('517Employee.view.main.EmployeeMain', {
     itemId: 'employee-main',
     layout:'border',
     minWidth: 1350,
+
     items: [   
         {
             xtype: 'panel',

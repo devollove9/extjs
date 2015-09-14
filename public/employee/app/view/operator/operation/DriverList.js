@@ -31,10 +31,11 @@ Ext.define( '517Employee.view.operator.operation.DriverList' , {
                     labelWidth:50,
                     width:150,
                     margin:0,
-                    timestamp:600000,
+                    timestamp:180000,
                     store: Ext.create('Ext.data.Store', {
                         fields: ['minutes', 'timestamp'],
                         data : [
+                            {minutes:"3 mins", timestamp:180000},
                             {minutes:"10 mins", timestamp:600000},
                             {minutes:"30 mins", timestamp:1800000},
                             {minutes:"60 mins", timestamp:3600000},
@@ -50,7 +51,7 @@ Ext.define( '517Employee.view.operator.operation.DriverList' , {
                     listeners:{
                         afterrender:function( field,b,c,d,e,f,g) {
                             field.setValue( this.getStore().getAt( 0).get('minutes') );
-                            this.timestamp = 600000;
+                            this.timestamp = 180000;
                         },
                         select:function( combobox ,selection ,listener ) {
                             this.timestamp = selection[ 0 ].data.timestamp;
@@ -161,7 +162,7 @@ Ext.define( '517Employee.view.operator.operation.DriverList' , {
         var timeDeduction =  combox.timestamp;
         var timestamp = 0;
         if ( timeDeduction != 0 ) {
-            var serverTime = Ext.getCmp( 'Employee-Operator').getServerTime();
+            var serverTime = Ext.getCmp( 'Employee-Header' ).getServerTime();
             var timestamp = serverTime-timeDeduction;
             var timestamp = timestamp * 1000;
             ////console.log( timestamp );

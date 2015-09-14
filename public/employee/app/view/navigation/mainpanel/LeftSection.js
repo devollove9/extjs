@@ -37,33 +37,46 @@ Ext.define('517Employee.view.navigation.mainpanel.LeftSection', {
         //    var driverBlockOrderHistory = this.createIcon( DriverOrderHistoryIcon , 'employee-driverUnique orderHistory' , Lx , Ly );
         //    items.push( driverTitle );   items.push( driverBlockOrderHistory );
         //} else {
-            // If Operator
-            if ( Ext.getCmp( 'Employee-Header').checkUserPermissions( 'operator' ) == true ) {
+            // If Admin
+            if ( Ext.getCmp( 'Employee-Header').checkUserPermissions( 'admin' ) == true ) {
+
                 var operatorTitle = this.createIconTitle( OperatorCategory , Lx , Ly ); Ly += 50;
                 var operatorBlockOperation = this.createIcon( OperationIcon , 'employee-operator operation' , Lx , Ly ); Ly += 50;
                 var operatorBlockNewOrder = this.createIcon( NewOrderIcon , 'employee-operator newOrder' , Lx , Ly ); Ly += 70;
                 items.push( operatorTitle ); items.push( operatorBlockOperation ); items.push( operatorBlockNewOrder );
+
                 var restaurantTitle = this.createIconTitle( RestaurantCategory , Lx , Ly ); Ly += 50;
                 var restaurantBlockOrderHistory = this.createIcon( OrderHistoryIcon , 'employee-restaurant orderHistory' , Lx , Ly ); Ly += 50;
                 items.push( restaurantTitle ); items.push( restaurantBlockOrderHistory );
-            }
-
-            // If Admin
-            if ( Ext.getCmp( 'Employee-Header').checkUserPermissions( 'admin' ) == true ) {
                 var restaurantBlockInformation = this.createIcon( InformationIcon , 'employee-restaurant information' , Lx , Ly ); Ly += 50;
                 var restaurantBlockDish = this.createIcon( DishIcon , 'employee-restaurant dish' , Lx , Ly ); Ly += 70;
                 items.push( restaurantBlockInformation ); items.push( restaurantBlockDish );
-            }
 
-            // If Driver
-            var driverTitle = this.createIconTitle( DriverCategory , Lx , Ly ); Ly += 50;
-            if ( Ext.getCmp( 'Employee-Header').checkUserPermissions( 'operator' ) == true || Ext.getCmp( 'Employee-Header').checkUserPermissions( 'admin' ) == true ) {
+                var driverTitle = this.createIconTitle( DriverCategory , Lx , Ly ); Ly += 50;
                 var driverBlockOrderHistory = this.createIcon( DriverOrderHistoryIcon , 'employee-driver orderHistory' , Lx , Ly );
+                items.push( driverTitle );   items.push( driverBlockOrderHistory );
+
+            } else if ( Ext.getCmp( 'Employee-Header').checkUserPermissions( 'operator' ) == true ) {
+             // If Operator
+                var operatorTitle = this.createIconTitle( OperatorCategory , Lx , Ly ); Ly += 50;
+                var operatorBlockOperation = this.createIcon( OperationIcon , 'employee-operator operation' , Lx , Ly ); Ly += 50;
+                var operatorBlockNewOrder = this.createIcon( NewOrderIcon , 'employee-operator newOrder' , Lx , Ly ); Ly += 70;
+                items.push( operatorTitle ); items.push( operatorBlockOperation ); items.push( operatorBlockNewOrder );
+
+                var restaurantTitle = this.createIconTitle( RestaurantCategory , Lx , Ly ); Ly += 50;
+                var restaurantBlockOrderHistory = this.createIcon( OrderHistoryIcon , 'employee-restaurant orderHistory' , Lx , Ly ); Ly += 50;
+                items.push( restaurantTitle ); items.push( restaurantBlockOrderHistory );
+
+                var driverTitle = this.createIconTitle( DriverCategory , Lx , Ly ); Ly += 50;
+                var driverBlockOrderHistory = this.createIcon( DriverOrderHistoryIcon , 'employee-driver orderHistory' , Lx , Ly );
+                items.push( driverTitle );   items.push( driverBlockOrderHistory );
             } else if ( Ext.getCmp( 'Employee-Header').checkUserPermissions( 'driver' ) == true ) {
                 // If Only Driver Permission
+                var driverTitle = this.createIconTitle( DriverCategory , Lx , Ly ); Ly += 50;
                 var driverBlockOrderHistory = this.createIcon( DriverOrderHistoryIcon , 'employee-driverUnique orderHistory' , Lx , Ly );
+                items.push( driverTitle );   items.push( driverBlockOrderHistory );
             }
-            items.push( driverTitle );   items.push( driverBlockOrderHistory );
+
 
        // }
 

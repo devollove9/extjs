@@ -26,6 +26,7 @@ Ext.define('517Employee.view.restaurant.dish.DishDetail', {
         labelWidth: 70,
         msgTarget: 'side'
     },
+    autoScroll:true,
 
     /*  Variables  */
     // Variable detect if editing

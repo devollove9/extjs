@@ -68,7 +68,7 @@ Ext.define('Ext.ux.GMapPanel', {
             marker.labelClass = "carIconlabels"; // the CSS class for the label
             var o = new MarkerWithLabel(marker);
         } else {
-            console.log(status);
+            //console.log(status);
             marker.icon = new google.maps.MarkerImage(status ,new google.maps.Size(50,20),new google.maps.Point(0,0),new google.maps.Point(0,0),new google.maps.Size(50,20));
             var o = new google.maps.Marker(marker);
         }

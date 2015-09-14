@@ -5,8 +5,8 @@ Ext.define('517Employee.view.user.information.InformationView', {
     extend: 'Ext.panel.Panel',
 
     requires: [
-        //'517Employee.view.user.information.user.UserView',
-        //'517Employee.view.user.information.InformationUserList',
+        '517Employee.view.user.information.userInfo.UserInfoView',
+        '517Employee.view.user.information.UserList',
         '517Employee.view.user.information.Toolbar'
     ],
     xtype: 'employee-user-information',
@@ -19,27 +19,31 @@ Ext.define('517Employee.view.user.information.InformationView', {
             region: 'west',
             xtype: 'panel',
             flex:4 ,
-            border:false,frame:false,
-            margin:'0 5 0 0',
+            border:false,frame:false,split:true,
+            margin:'0 0 0 0',
+            layout:'border',
             items:[
                 {
                     region: 'north',
                     xtype: 'employee-user-information-toolbar',
                     id: 'Employee-User-Information-Toolbar',
-                    height:150,maxHeight:350,margin:'0 0 5 0',
+                    height:150,maxHeight:350,margin:'0 0 0 0',
+                    split:true
                 },
                 {
                     region: 'center',
-                    //xtype: 'employee-user-information-userList',
-                    //id: 'Employee-User-Information-UserList',
-                    flex:3
+                    xtype: 'employee-user-information-userList',
+                    id: 'Employee-User-Information-UserList',
+                    flex:1,
+                    split:true
                 }
             ]
         },
         {
             region: 'center',
-            //xtype: 'employee-user-information-user',
-            //id: 'Employee-User-Information-User',
+            split:true,
+            xtype: 'employee-user-information-userInfo',
+            id: 'Employee-User-Information-UserInfo',
             flex:3
         },
 

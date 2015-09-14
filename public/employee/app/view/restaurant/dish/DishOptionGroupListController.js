@@ -24,10 +24,8 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupListController', {
                 var win = Ext.create('Ext.window.Window', {
                     xtype: 'employee-restaurant-dish-optionGroup-check-window',
                     title: 'Dish Option Group - ' + recordLine.data.name + '(' + recordLine.data.nameEn + ')',
-                    width:850,
-                    minWidth:800,
-                    height:500,
-                    minHeight:500,
+                    width:800,resizable:false,
+                    height:700,
                     listeners:{
                         'close':function( win ) {
                             Ext.getCmp( 'Employee-Restaurant-Dish-OptionGroupList' ).gridEditing = false;
@@ -47,9 +45,18 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupListController', {
                 if ( typeof recordLine.data.information.disabled != 'undefined' ) {
                     ////console.log( OptionPanel.getForm().findField('disabledGroup').items.items[0].checked = );
                     if ( recordLine.data.information.disabled == true ) {
-                        OptionPanel.items.items[ 0 ].items.items[ 0 ].setValue( false );
-                        OptionPanel.items.items[ 0 ].items.items[ 1 ].setValue( true );
+                        OptionPanel.lookupReference( 'employee-restaurant-dish-optionGroup-disabled' ).items.items[ 0 ].items.items[ 0 ].setValue( false );
+                        OptionPanel.lookupReference( 'employee-restaurant-dish-optionGroup-disabled' ).items.items[ 0 ].items.items[ 1 ].setValue( true );
                     }
+                }
+                if ( typeof recordLine.data.information.businessHour != 'undefined' ) {
+                    if ( recordLine.data.information.businessHour.length == 0 ) {
+                        OptionPanel.setBusinessHourGrid( recordLine.data.name + '/' + recordLine.data.nameEn , Ext.getCmp( 'Employee-Header').getDefaultValue( 'businessHour') );
+                    } else {
+                        OptionPanel.setBusinessHourGrid( recordLine.data.name + '/' + recordLine.data.nameEn , recordLine.data.information.businessHour );
+                    }
+                } else {
+                    OptionPanel.setBusinessHourGrid( recordLine.data.name + '/' + recordLine.data.nameEn , Ext.getCmp( 'Employee-Header').getDefaultValue( 'businessHour') );
                 }
             }
             OptionPanel.selectedRow = rowIndex;
@@ -60,43 +67,18 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupListController', {
                 OptionPanel.itemId = Ext.getCmp( 'Employee-Restaurant-Dish-Detail' ).getForm().findField( 'itemId' ).getValue();
             }
             var optionList_store = Ext.create( '517Employee.store.restaurant.dish.detail.OptionList' );
-            OptionPanel.items.items[3].items.items[0].getView().bindStore( optionList_store );
+            OptionPanel.items.items[1].items.items[0].getView().bindStore( optionList_store );
+            OptionPanel.items.items[1].lookupReference( 'employee-restaurant-dish-optionGroup-option-businessHour').resetAll();
             for ( var i = 0 ; i < recordLine.data.option.length ; i ++ ) {
                 var cur_option = JSON.parse( JSON.stringify( recordLine.data.option[ i ] ) );
                 optionList_store.add( cur_option );
             }
-            OptionPanel.items.items[3].items.items[0].getView().refresh();
+            OptionPanel.items.items[1].items.items[0].getView().refresh();
 
             win.insert(OptionPanel);
             gridPanel.addOpenedWindow( win ) ;
             win.show();
         }
-    },
-    Copy: function( grid, rowIndex, colIndex , delete_col , clickEvent , recordLine, tr ) {
-        //console.log(recordLine);
-        var oldOptionGroup= recordLine.data;
-        var newOptionGroup = new Object();
-        var information = new Object();
-        information.disabled = false;
-        if ( oldOptionGroup.information ) {
-            if ( typeof oldOptionGroup.information.disabled != 'undefined' ) {
-                information.disabled = oldOptionGroup.information.disabled
-            }
-        }
-        //newOptionGroup.information = information;
-        newOptionGroup.name = oldOptionGroup.name; newOptionGroup.nameEn = oldOptionGroup.nameEn; newOptionGroup.max = oldOptionGroup.max; newOptionGroup.min = oldOptionGroup.min; newOptionGroup.quantity = oldOptionGroup.quantity;
-        var new_options = [];
-        for ( var i = 0 ; i < oldOptionGroup.option.length ; i ++ ) {
-            var cur_option = new Object();
-            cur_option.name = oldOptionGroup.option[i].name;
-            cur_option.price = oldOptionGroup.option[i].price;
-            cur_option.nameEn = oldOptionGroup.option[i].nameEn;
-            cur_option.quantity = oldOptionGroup.option[i].quantity;
-            //cur_option.information = oldOptionGroup.option[i].information;
-            new_options.push(cur_option);
-        }
-        newOptionGroup.option = new_options;
-        Ext.getCmp( 'Employee-Restaurant-Dish' ).setOptionGroup( newOptionGroup );
     },
     CreateNewOptionGroup:function( button ) {
         ////console.log(a);
@@ -117,10 +99,9 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupListController', {
                 var win = Ext.create('Ext.window.Window', {
                     xtype: 'employee-restaurant-dish-optionGroup-generate-window',
                     title: 'Dish Option Group - New',
-                    width:850,
-                    minWidth:800,
-                    height:500,
-                    minHeight:500,
+                    width:800,resizable:false,
+                    height:700,
+
                     listeners:{
                         'close':function( win ) {
                             Ext.getCmp( 'Employee-Restaurant-Dish-OptionGroupList' ).gridEditing = false;
@@ -136,13 +117,19 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupListController', {
             OptionPanel.originRecord = null;
             OptionPanel.itemId = Ext.getCmp( 'Employee-Restaurant-Dish-Detail' ).getForm().findField( 'itemId' ).getValue();
             var optionList_store = Ext.create( '517Employee.store.restaurant.dish.detail.OptionList' );
-            OptionPanel.items.items[3].items.items[0].getView().bindStore( optionList_store );
-
+            OptionPanel.items.items[1].items.items[0].getView().bindStore( optionList_store );
+            OptionPanel.items.items[1].lookupReference( 'employee-restaurant-dish-optionGroup-option-businessHour').resetAll();
+            OptionPanel.setBusinessHourGrid( 'New' , Ext.getCmp( 'Employee-Header').getDefaultValue( 'businessHour') );
             OptionPanel.dockedItems.items[0].items.items[1].setText( 'Add Option Group' );
             win.insert(OptionPanel);
             gridPanel.addOpenedWindow( win ) ;
             win.show();
         }
+    },
+    Copy: function( grid, rowIndex, colIndex , delete_col , clickEvent , recordLine, tr ) {
+        var newOptionGroup = Ext.getCmp( 'Employee-Header').copyOptionGroup( recordLine.data );
+        console.log( newOptionGroup );
+        Ext.getCmp( 'Employee-Restaurant-Dish' ).setOptionGroup( newOptionGroup );
     },
     AddCopiedOptionGroup:function(){
         var copiedGroupFlag = Ext.getCmp( 'Employee-Restaurant-Dish' ).getOptionGroupFlag();
@@ -156,31 +143,10 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionGroupListController', {
         else {
             var copiedGroup = Ext.getCmp( 'Employee-Restaurant-Dish').getOptionGroup();
             ////console.log( copiedGroup );
-            var newOptionGroup = new Object();
-            var information = new Object();
-            information.disabled = false;
-            if ( copiedGroup.information ) {
-                if ( typeof copiedGroup.information.disabled != 'undefined' ) {
-                    information.disabled = copiedGroup.information.disabled
-                }
-            }
-            //newOptionGroup.information = information;
-
-            newOptionGroup.name = copiedGroup.name; newOptionGroup.nameEn = copiedGroup.nameEn; newOptionGroup.max = copiedGroup.max; newOptionGroup.min = copiedGroup.min; newOptionGroup.quantity = copiedGroup.quantity;
-            var new_options = [];
-            for ( var i = 0 ; i < copiedGroup.option.length ; i ++ ) {
-                var cur_option = new Object();
-                cur_option.name = copiedGroup.option[i].name;
-                cur_option.price = copiedGroup.option[i].price;
-                cur_option.nameEn = copiedGroup.option[i].nameEn;
-                cur_option.quantity = copiedGroup.option[i].quantity;
-                //cur_option.information = copiedGroup.option[i].information;
-                new_options.push(cur_option);
-            }
-            newOptionGroup.option = new_options;
+            var newOptionGroup = Ext.getCmp( 'Employee-Header').copyOptionGroup( copiedGroup );
             optionGroupList.changedFlag = true;
             optionGroupList.getStore().add( newOptionGroup );
-
+            console.log( newOptionGroup );
             optionGroupList.getView().refresh();
         }
     }

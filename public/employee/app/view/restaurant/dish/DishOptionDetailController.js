@@ -18,12 +18,12 @@ Ext.define( '517Employee.view.restaurant.dish.DishOptionDetailController' , {
         var price = optionDetail.getForm().findField( 'price' ).getValue();
         var quantity = optionDetail.getForm().findField( 'quantity' ).getValue();
         var disabled = optionDetail.getForm().findField( 'disabledGroup' ).getValue().disabled;
+        var businessHour = button.up().up().up().lookupReference( 'employee-restaurant-dish-optionGroup-option-businessHour');
         if ( optionDetail.currentMethod == 'saving' ) {
 
             var changedFlag = false;
             var changedString = '';
             var size = 1;
-
 
             var selectedRow = optionDetail.getForm().findField('selectedRow').getValue();
             //console.log(selectedRow);
@@ -57,6 +57,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishOptionDetailController' , {
                         } else {
                             changedFlag = true;
                         }
+                        if ( businessHour.changed == true ) { changedFlag = true; }
                     }
                 });
                 if ( changedFlag == true ) {
@@ -86,22 +87,25 @@ Ext.define( '517Employee.view.restaurant.dish.DishOptionDetailController' , {
                                             record.data.quantity = quantity;
                                             record.data.changedString = record.data.changedString + '  ' + size + '. "' + record.data.quantity + '" => "' + quantity + '".<br>';
                                         }
+
+                                        var newBusinessHour = businessHour.getBusinessHour();
                                         if ( record.data.inforamtion ) {
-                                            if ( typeof record.data.information.disabled != 'undefined') {
-                                                if ( record.data.information.disabled != disabled ) {
-                                                    record.data.information.disabled = disabled;
-                                                }
-                                            } else {
-                                                record.data.information.disabled = disabled;
-                                            }
+                                           record.data.information.disabled = disabled;
                                         } else {
                                             var information = new Object();
 
                                             information.disabled = disabled;
+                                            information.businessHour = newBusinessHour;
                                             record.data.information = information;
                                             record.data.changedString = record.data.changedString + '  ' + size + '. "' + record.data.information.disabled + '".<br>';
 
                                         }
+                                        if ( newBusinessHour.length == 0 ) {
+                                            record.data.information.businessHour = Ext.getCmp( 'Employee-Header').getDefaultValue( 'businesHour' );
+                                        } else {
+                                            record.data.information.businessHour = newBusinessHour;
+                                        }
+
                                     }
                                 });
                                 optionList.refresh();
@@ -124,9 +128,10 @@ Ext.define( '517Employee.view.restaurant.dish.DishOptionDetailController' , {
                     price:price,
                     quantity:quantity,
                     information:{
-                        disabled:disabled
+                        disabled:disabled,
+                        businessHour:businessHour.getBusinessHour()
                     }
-                }
+                };
                 Ext.Msg.show({
                     title:'Warning',
                     msg: 'You will all new option to local.<br>Are you sure want to add the option?<br>(you will need to click save on Dish detail page to post to database)',
@@ -142,6 +147,7 @@ Ext.define( '517Employee.view.restaurant.dish.DishOptionDetailController' , {
                 });
             }
             optionDetail.resetAll();
+            businessHour.resetAll();
         }
     }
 

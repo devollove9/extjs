@@ -78,7 +78,7 @@ Ext.define('517Employee.view.operator.operation.orderTab.orderList.OrderListView
             sortable: true,
             dataIndex: 'placeDate',
             renderer: function(val) {
-                return Ext.Date.format(new Date( val/1000 ), 'h:i A');
+                return Ext.Date.format(new Date( val / 1000 ), 'h:i A');
             }
         },
         {
@@ -92,8 +92,9 @@ Ext.define('517Employee.view.operator.operation.orderTab.orderList.OrderListView
 
                 if( activeStatus >= 0 && activeStatus < 8 && val ) {
 
-                    elapsed = Ext.Date.getElapsed(new Date(val/1000), new Date() );
-                    elapsed += Ext.getCmp('Employee-Operator').getServerTimeDifference();
+                    elapsed = Ext.Date.getElapsed( new Date(val/1000), new Date( Ext.getCmp( 'Employee-Header').getServerTime() ) );
+
+                    //elapsed += Ext.getCmp('Employee-Operator').getServerTimeDifference();
                     out = Ext.util.Format.number(elapsed /60000, '0');
 
 

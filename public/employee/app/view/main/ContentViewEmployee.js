@@ -56,7 +56,6 @@ Ext.define( '517Employee.view.main.ContentViewEmployee' , {
     margin: '10 0 10 0',
     border: false,frame:false,
     minWidth: 1350,
-    //autoScroll:true,
     style:{ "background-color":"#157fcc"},
     layout: { type:'card' , padding:0 },
     initComponent:function( ){

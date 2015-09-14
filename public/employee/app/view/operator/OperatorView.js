@@ -31,7 +31,7 @@ Ext.define('517Employee.view.operator.OperatorView', {
         }
     ],
     listeners: {
-        afterRender: function(c) {
+        afterrender: function(c) {
            this.setServerTimeDifference();
         }
 

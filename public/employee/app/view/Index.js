@@ -76,7 +76,9 @@ Ext.define('517Employee.view.Index', {
     checkPermissions:function() {
         var valid = false;
         if ( Ext.util.Cookies.get( '517Employee' ) ) {
+
             var userCookie = Ext.decode( Ext.util.Cookies.get( '517Employee' ) );
+            //console.log( userCookie );
             if ( userCookie.role ) {
                 if ( userCookie.role.length > 0 ) {
 

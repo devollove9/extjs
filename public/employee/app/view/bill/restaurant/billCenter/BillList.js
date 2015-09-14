@@ -38,14 +38,14 @@ Ext.define( '517Employee.view.bill.restaurant.billCenter.BillList', {
         {
             text: 'Document No.',
             flex: 5,
-            minwidth: 270,
+            minwidth: 200,
             sortable: false,
             dataIndex: 'documentNo'
         },
         {
             text: 'Start Date',
             sortable: true,
-            maxwidth: 120,
+            maxwidth: 100,
             flex: 3,
             dataIndex: 'periodStart',
             renderer:function(val){
@@ -55,7 +55,7 @@ Ext.define( '517Employee.view.bill.restaurant.billCenter.BillList', {
         {
             text: 'End Date',
             sortable: true,
-            maxwidth: 120,
+            maxwidth: 100,
             flex: 3,
             dataIndex: 'periodEnd',
             renderer:function(val){
@@ -65,30 +65,30 @@ Ext.define( '517Employee.view.bill.restaurant.billCenter.BillList', {
         {
             text: 'Sub Total',
             sortable: false,
-            maxwidth: 120,
+            maxwidth: 100,
             flex: 3,
             dataIndex: 'subtotal',
             renderer:function(val){
                 var value = parseFloat(val);
-                return value.toFixed(2);
+                return value.toFixed(3);
             }
         },
         {
             text: 'Tax',
             sortable: false,
-            maxwidth: 120,
+            maxwidth: 100,
             flex: 2,
             dataIndex: 'tax',
             renderer:function(val){
                 var value = parseFloat(val);
-                return value.toFixed(2);
+                return value.toFixed(3);
             }
         },
 
         {
             text: 'Generate Date',
             sortable: true,
-            maxwidth: 120,
+            maxwidth: 100,
             flex: 3,
             dataIndex: 'generateDate',
             renderer:function(val){
@@ -98,7 +98,7 @@ Ext.define( '517Employee.view.bill.restaurant.billCenter.BillList', {
         {
             text: 'Signed',
             sortable: true,
-            maxwidth: 120,
+            maxwidth: 80,
             flex: 3,
             dataIndex: 'signed',
             renderer:function(val){
@@ -117,8 +117,8 @@ Ext.define( '517Employee.view.bill.restaurant.billCenter.BillList', {
             menuDisabled: true,
             sortable: false,
             xtype: 'actioncolumn',
-            minwidth: 50,
-            width:50,
+            minwidth: 55,
+            width:55,
             items: [
 
                 {

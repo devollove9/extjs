@@ -10,10 +10,10 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionList', {
 
     xtype: 'employee-restaurant-dish-optionList',
     controller: 'employee-restaurant-dish-optionList-controller',
-    columnLines: true,
-    border:false,
+    columnLines: true , autoScroll: true ,
     title:'Option List',
-    frame: true,
+    header:{ titleAlign: 'left' , height:30 , padding:'0 10 0 10', margin:'0 0 0 0' },
+    viewConfig: { enableTextSelection: true },
     referenceHolder:true,
     selectedRow:-1,
     margin: '2 2 2 2',
@@ -121,8 +121,8 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionList', {
             ////console.log(this.selectedRow);
             ////console.log(this.up().up());
             var optionDetail = this.up().items.items[1];
-
-            optionDetail.resetAll();
+            var optionBusinessHour = this.up().lookupReference( 'employee-restaurant-dish-optionGroup-option-businessHour' );
+            optionDetail.resetAll();optionBusinessHour.resetAll();
 
             optionDetail.setTitle( 'Option Details' );
             if ( records[0] ) {
@@ -140,6 +140,15 @@ Ext.define('517Employee.view.restaurant.dish.DishOptionList', {
                             optionDetail.items.items[0].items.items[1].setValue(true);
                         }
                     }
+                    if ( records[0].data.information.businessHour ) {
+                        if (records[0].data.information.businessHour.length > 0) {
+                            optionBusinessHour.setBusinessHourGrid( records[0].data.name , records[0].data.information.businessHour)
+                        }
+                    } else {
+                        optionBusinessHour.setBusinessHourGrid( 'New' , Ext.getCmp( 'Employee-Header').getDefaultValue( 'businessHour' ) );
+                    }
+                } else {
+                    optionBusinessHour.setBusinessHourGrid( 'New' , Ext.getCmp( 'Employee-Header').getDefaultValue( 'businessHour' ) );
                 }
                 optionDetail.setTitle('Option Detail - ' + records[0].data.name + '(' + records[0].data.nameEn + ')');
             }

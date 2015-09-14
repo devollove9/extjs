@@ -197,8 +197,9 @@ Ext.define( '517Employee.view.restaurant.dish.DishList', {
                 dishDetail.getForm().loadRecord( record );
                 dishDetail.originRecord = record;
                 ////console.log(Ext.getCmp( 'restaurant-dish-detail-disabled' ));
+                var dishDetailBusinessHour = Ext.getCmp( 'Employee-Restaurant-Dish-Detail-BusinessHour' );
                 if ( record.data.information ) {
-                    var dishDetailBusinessHour = Ext.getCmp( 'Employee-Restaurant-Dish-Detail-BusinessHour' );
+
                     if ( typeof record.data.information.disabled != 'undefined') {
                         if ( record.data.information.disabled == true ) {
                             Ext.getCmp( 'Employee-Restaurant-Dish-Detail-Disabled' ).items.items[0].setValue( false );
@@ -221,9 +222,25 @@ Ext.define( '517Employee.view.restaurant.dish.DishList', {
                         dishDetailBusinessHour.changedString = [ ' Day: 1 Start:0 End: 86400 ',' Day: 2 Start:0 End: 86400 ',' Day: 3 Start:0 End: 86400 '
                             ,' Day: 4 Start:0 End: 86400 ',' Day: 5 Start:0 End: 86400 ',' Day: 6 Start:0 End: 86400 ',' Day: 7 Start:0 End: 86400 ']
                         dishDetailBusinessHour.getStore().add( defaultBusinessHour );
+                        //console.log(dishDetailBusinessHour);
                     }
                 } else {
-
+                    Ext.getCmp( 'Employee-Restaurant-Dish-Detail-Disabled' ).items.items[1].setValue( false );
+                    Ext.getCmp( 'Employee-Restaurant-Dish-Detail-Disabled' ).items.items[0].setValue( true );
+                    var defaultBusinessHour = [
+                        {start:0,end:86400,day:1},
+                        {start:0,end:86400,day:2},
+                        {start:0,end:86400,day:3},
+                        {start:0,end:86400,day:4},
+                        {start:0,end:86400,day:5},
+                        {start:0,end:86400,day:6},
+                        {start:0,end:86400,day:7}
+                    ];
+                    dishDetailBusinessHour.changed = true;
+                    dishDetailBusinessHour.changedString = [ ' Day: 1 Start:0 End: 86400 ',' Day: 2 Start:0 End: 86400 ',' Day: 3 Start:0 End: 86400 '
+                        ,' Day: 4 Start:0 End: 86400 ',' Day: 5 Start:0 End: 86400 ',' Day: 6 Start:0 End: 86400 ',' Day: 7 Start:0 End: 86400 ']
+                    dishDetailBusinessHour.getStore().add( defaultBusinessHour );
+                    //console.log(dishDetailBusinessHour);
                 }
 
                 ////console.log(record);

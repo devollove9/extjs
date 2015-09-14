@@ -69,6 +69,7 @@ Ext.define('517Employee.view.operator.newOrder.RestaurantList', {
     },
     refreshView:function(){
         var me = this;
+        me.resetAll();
         var store =  this.getStore();
         var region = Ext.getCmp( 'Employee-Header-Region');
         if ( region.regionId != -1 ) {

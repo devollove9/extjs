@@ -143,7 +143,8 @@ Ext.define('517Employee.view.main.Header', {
                             var me = this;
                             Ext.Ajax.request({
                                 method:'get',
-                                url: me.up().up().getServerUrl() + '/public/region',
+                                url: me.up().up().getServerUrl() + '/region',
+                                headers:me.up().up().getHeaders( 'get' ),
                                 disableCaching:false,
                                 success:function( result ){
                                     var response = Ext.decode( result.responseText );
@@ -215,28 +216,28 @@ Ext.define('517Employee.view.main.Header', {
                         ]
                     }
                 }/*
-                {
-                    text: '切换界面',
-                    iconCls: null,
-                    glyph: 'xf12e@FontAwesome',
-                    height:29,
-                    reference:'switch-btn',
-                    menu: [{
-                            text: 'Admin View',
-                            handler:'switchView'
-                        },{
-                            text: 'Operator View',
-                            handler:'switchView'
-                        }
-                    ]
-                }, */
+                 {
+                 text: '切换界面',
+                 iconCls: null,
+                 glyph: 'xf12e@FontAwesome',
+                 height:29,
+                 reference:'switch-btn',
+                 menu: [{
+                 text: 'Admin View',
+                 handler:'switchView'
+                 },{
+                 text: 'Operator View',
+                 handler:'switchView'
+                 }
+                 ]
+                 }, */
 
             ]
         });
         this.callParent();
     },
-    listenters:{
-        afterRender:function(){
+    listeners:{
+        afterrender:function(){
             this.setServerTimeDifference();
         }
     },
@@ -279,8 +280,7 @@ Ext.define('517Employee.view.main.Header', {
         var me = this;
         var menu = [];
         var MainMenu = me.createMenuItem( 'Main Menu' , 'employee-navigation');
-        menu.push( MainMenu );menu.push( '-' );
-        var DriverMenu = [];
+        menu.push( MainMenu );
         //if ( me.getUserInfo().email == 'test@test.test' ) {
         //    var DriverOrderHistory = me.createMenuItem('Order History', 'employee-driverUnique orderHistory');
         //    DriverMenu.push(DriverOrderHistory);
@@ -325,6 +325,7 @@ Ext.define('517Employee.view.main.Header', {
             menu.push( Operator );
 
             // Driver
+            menu.push( '-');
             var DriverMenu = [];
             var DriverOrderHistory = me.createMenuItem('Order History', 'employee-driver orderHistory');
             DriverMenu.push(DriverOrderHistory);
@@ -333,6 +334,7 @@ Ext.define('517Employee.view.main.Header', {
             menu.push(Driver);
 
             // User
+            menu.push( '-');
             var UserMenu = [];
             var UserInformation = me.createMenuItem('User Information', 'employee-user information');
             UserMenu.push(UserInformation);
@@ -362,6 +364,7 @@ Ext.define('517Employee.view.main.Header', {
             menu.push( Restaurant );
 
             // Driver
+            menu.push( '-');
             var DriverMenu = [];
             var DriverOrderHistory = me.createMenuItem('Order History', 'employee-driver orderHistory');
             DriverMenu.push(DriverOrderHistory);
@@ -374,6 +377,7 @@ Ext.define('517Employee.view.main.Header', {
             // If Driver Only
             //var DriverOrderHistory = this.createMenuItem( 'Order History' , 'employee-driver orderHistorySingle' );
             // Else
+            menu.push( '-');
             var DriverMenu = [];
             var DriverOrderHistory = me.createMenuItem('Order History', 'employee-driverUnique orderHistory');
             DriverMenu.push(DriverOrderHistory);
@@ -461,7 +465,7 @@ Ext.define('517Employee.view.main.Header', {
                     };
                     break;
                 case 'get':
-                     header = {
+                    header = {
                         'Authorization-Token': Token,
                     }
                     break;
@@ -491,13 +495,17 @@ Ext.define('517Employee.view.main.Header', {
         var timestamp = startOfDay.getTime();
         return timestamp;
     },
+    getServerTime:function() {
+        var now = new Date( ( new Date() ).getTime()  -  this.getServerTimeDifference() );
+        var timestamp = now.getTime();
+        return timestamp;
+    },
     getServerTimeDifference:function() {
         var elapsedTime = this.elapsedServerTime;
         return elapsedTime;
     },
     setServerTimeDifference:function() {
         var me = this;
-
         Ext.Ajax.request({
             url:me.getServerUrl() + '/public/time',
             method:'get',
@@ -505,7 +513,10 @@ Ext.define('517Employee.view.main.Header', {
                 var response = Ext.decode( result.responseText );
                 var Error = me.processErrorMessage( response );
                 if ( Error == false ) {
-                    var elapsed = Ext.Date.getElapsed( new Date() , new Date( response.data/1000 ) );
+                    //var elapsed = Ext.Date.getElapsed( new Date( response.data/1000 ) , new Date() );
+                    var elapsed = ( new Date() ).getTime() - Math.round( response.data / 1000 );
+                    console.log( elapsed );
+
                     me.elapsedServerTime = elapsed;
                 }
             }
@@ -562,7 +573,11 @@ Ext.define('517Employee.view.main.Header', {
         var returnMessage = {};
         returnMessage.error = true;
         returnMessage.data={};
-        panel.setLoading( true );
+        if ( panel.loadingMessage ) {
+            panel.setLoading( panel.loadingMessage );
+        } else {
+            panel.setLoading( true );
+        }
         Ext.Ajax.request({
             url: me.getServerUrl() + url,
             method: method,
@@ -608,6 +623,15 @@ Ext.define('517Employee.view.main.Header', {
             me.sendCustomAjaxRequest( panel , url , method , params , null , returnType );
         }
     },
+
+    searchUserPermission:function( panel , userId , returnType ) {
+        var me =this;
+        if ( panel && userId && returnType ) {
+            var params ={};
+            params.userId = userId;
+            me.sendCustomAjaxRequest( panel , '/user/permission' , 'get' , params , null , returnType );
+        }
+    },
     deepCopy:function( obj ) {
         if ( Object.prototype.toString.call( obj ) === '[object Array]' ) {
             var out = [], i = 0, len = obj.length;
@@ -634,6 +658,22 @@ Ext.define('517Employee.view.main.Header', {
                 break;
         }
     },
+    /*
+     Copy Store Value Into Array
+     - Require Store
+     - Return Copied Array
+     */
+    copyStoreToArray:function( store ) {
+        var me = this;
+        var newArray = [];
+        store.each( function ( record ) {
+            if ( record.data ) {
+                var newRecord = me.deepCopy( record.data )
+                newArray.push( newRecord );
+            }
+        });
+        return newArray
+    },
     mergeObjects:function( objType , ojb1 , obj2 ) {
         var me = this;
         var returnObj;
@@ -658,6 +698,794 @@ Ext.define('517Employee.view.main.Header', {
                 break;
         }
         return returnObj;
-    }
+    },
+    getDefaultValue:function( name ) {
+        var me = this;
+        var returnObject;
+        if ( typeof name != 'undefined' ) {
+            switch ( name ) {
+                case 'businessHour':
+                    returnObject = [
+                        {start:0,end:86400,day:1},
+                        {start:0,end:86400,day:2},
+                        {start:0,end:86400,day:3},
+                        {start:0,end:86400,day:4},
+                        {start:0,end:86400,day:5},
+                        {start:0,end:86400,day:6},
+                        {start:0,end:86400,day:7}
+                    ];
+                    break;
+                case 'information':
+                    returnObject={};
+                    returnObject.disabled = false;
+                    returnObject.businessHour = me.getDefaultValue( 'businessHour' );
+                    break;
+            }
+        }
+        return returnObject;
+    },
+    newBusinessHour:function( grid ){
+        if ( grid.gridEditing == true ) {
+            Ext.Msg.alert( 'Error' , 'A window already opened, please close it first.' );
+        } else {
+            var business_hour_store = grid.getStore();
+            var win = Ext.create( 'Ext.window.Window' , {
+                extend:'Ext.form.Panel',
+                title: 'New Business Hour',
+                width:450 , height:110,
+                autoScroll:false , resizable:false ,
+                items:[
+                    {
+                        xtype: 'fieldset',
+                        layout: 'anchor',
+                        labelWidth:0,
+                        border: false ,frame: false ,
+                        margin:'10 0 0 0',
+                        items: [
+                            {
+                                xtype: 'fieldcontainer',
+                                layout: 'hbox',
+                                labelWidth:0 ,
+                                originRecord :null,
+                                padding:'0 10 0 0',
+                                border:false , frame: false ,
+                                fieldDefaults: {
+                                    labelAlign: 'right',
+                                    labelWidth: 40,
+                                    msgTarget: 'qtip'
 
+                                },
+                                items: [
+                                    { xtype:'textfield',fieldLabel: 'Day',flex:2,value:1, enforceMaxLength: true, maxLength: '1',  maskRe: /[0-9]/, maxValue:7, minValue:0},
+                                    { xtype:'textfield',fieldLabel: 'Start', flex:3, value:0, enforceMaxLength: true, maxLength: '5',  maskRe: /[0-9]/, maxValue:86400, minValue:0},
+                                    { xtype:'textfield',fieldLabel: 'End', flex:3, value:86400, enforceMaxLength: true, maxLength: '5',  maskRe: /[0-9]/, maxValue:86400, minValue:0 },
+                                ]
+                            }
+                        ]
+                    },
+                ],
+                dockedItems:[
+                    {
+                        xtype:'toolbar',
+                        border:false,frame:false,
+                        dock:'bottom',
+                        items:[
+                            {
+                                xtype: 'tbfill'
+                            },
+                            {
+                                xtype: 'button',
+                                text:  'Add',
+                                width:100,
+                                handler:function(field, rowIndex) {
+                                    var curwin = this.up().up();
+                                    var fields=this.up().up().items.items[0].items.items[0].items.items;
+                                    var day = fields[0].getValue();
+                                    var start = fields[1].getValue();
+                                    var end = fields[2].getValue();
+                                    if ( day > 7 || day < 1) Ext.Msg.alert( 'Error' , 'Day must be in 1 - 7 ' );
+                                    else if ( start > 86400 || end > 86400 || start < 0 || end < 0 ) Ext.Msg.alert( 'Error' , 'Start/End must be in range 0 - 86400 ' );
+                                    else if ( start > end ) Ext.Msg.alert( 'Error' , 'Start must be smaller or equal to End' );
+                                    else {
+                                        Ext.Msg.show({
+                                            title:'Add Business Hour?',
+                                            msg: 'You will add business hour: <br/>  Day: '+ day + ' Start: ' + start + ' End: ' + end + ' <br/>Would you like to add the business hour?',
+                                            buttons: Ext.Msg.YESNO,
+                                            fn: function(btn,text){
+                                                if ( btn == 'yes' ) {
+                                                    var newBusiness_hour = new Object();
+                                                    newBusiness_hour.day =day;
+                                                    newBusiness_hour.start =start;
+                                                    newBusiness_hour.end =end;
+                                                    business_hour_store.add( newBusiness_hour );
+                                                    grid.changed = true;
+                                                    grid.changedString.push('Added: Day:' + day + ' Start:' + start +' End:' + end);
+                                                    curwin.close();
+                                                    grid.getView().refresh();
+                                                }
+                                            },
+                                            animEl: 'elId'
+                                        });
+                                    }
+
+                                    ////console.log(this.up().items.items.indexOf(1));
+                                    ////console.log(this.up().items.items.indexOf(2).value);
+                                }
+                            },
+                            {
+                                xtype:'tbfill'
+                            }
+                        ]
+
+                    },
+                ],
+
+                listeners:{
+                    'close':function( win ) {
+                        grid.gridEditing = false;
+                    }
+                }
+
+            });
+            grid.addOpenedWindow( win );
+            win.show();
+        }
+    },
+    editBusinessHour:function( grid , rowIdx , colIdx , edit_col , clickEvent , recordLine , tr ) {
+        ////console.log( grid.up().up().up() );
+        //var grid = grid.up().up().up();
+        if ( grid.gridEditing == true ) {
+            Ext.Msg.alert( 'Error' , 'A window already opened, please close it first.' );
+        } else {
+            var win = Ext.create('Ext.window.Window', {
+                extend: 'Ext.form.Panel',
+                title: 'Edit Business Hour - at row ' + ( rowIdx + 1 ),
+                width: 450, height: 110,
+                autoScroll: false, resizable: false,
+                items: [
+                    {
+                        xtype: 'fieldset',
+                        layout: 'anchor',
+                        labelWidth: 0,
+                        border: false, frame: false,
+                        margin: '10 0 0 0',
+                        items: [
+                            {
+                                xtype: 'fieldcontainer',
+                                layout: 'hbox',
+                                labelWidth: 0,
+                                originRecord: null,
+                                padding: '0 10 0 0',
+                                border: false, frame: false,
+                                fieldDefaults: {
+                                    labelAlign: 'right',
+                                    labelWidth: 40,
+                                    msgTarget: 'qtip'
+
+                                },
+                                items: [
+                                    {
+                                        xtype: 'textfield',
+                                        fieldLabel: 'Day',
+                                        flex: 2,
+                                        value: recordLine.data.day,
+                                        enforceMaxLength: true,
+                                        maxLength: '1',
+                                        maskRe: /[0-9]/,
+                                        maxValue: 7,
+                                        minValue: 0
+                                    },
+                                    {
+                                        xtype: 'textfield',
+                                        fieldLabel: 'Start',
+                                        flex: 3,
+                                        value: recordLine.data.start,
+                                        enforceMaxLength: true,
+                                        maxLength: '5',
+                                        maskRe: /[0-9]/,
+                                        maxValue: 86400,
+                                        minValue: 0
+                                    },
+                                    {
+                                        xtype: 'textfield',
+                                        fieldLabel: 'End',
+                                        flex: 3,
+                                        value: recordLine.data.end,
+                                        enforceMaxLength: true,
+                                        maxLength: '5',
+                                        maskRe: /[0-9]/,
+                                        maxValue: 86400,
+                                        minValue: 0
+                                    },
+                                ]
+                            }
+                        ]
+                    },
+                ],
+                dockedItems: [
+                    {
+                        xtype: 'toolbar',
+                        border: false , frame:false ,
+                        dock: 'bottom',
+                        items: [
+                            {
+                                xtype: 'tbfill'
+                            },
+                            {
+                                xtype: 'button',
+                                text: 'Save',
+                                width: 100,
+                                handler: function (field, rowIndex) {
+                                    ////console.log(this.up().up().items.items[0].items.items);
+                                    var curwin = this.up().up();
+                                    var fields = this.up().up().items.items[0].items.items[0].items.items;
+                                    var day = fields[0].getValue();
+                                    var start = fields[1].getValue();
+                                    var end = fields[2].getValue();
+                                    if (day > 7 || day < 1) Ext.Msg.alert('Error', 'Day must be in 1 - 7 ');
+                                    else if (start > 86400 || end > 86400 || start < 0 || end < 0) Ext.Msg.alert('Error', 'Start/End must be in range 0 - 86400 ');
+                                    else if (start > end) Ext.Msg.alert('Error', 'Start must be smaller or equal to End');
+                                    else if (recordLine.data.day != day || recordLine.data.start != start || recordLine.data.end != end) {
+                                        Ext.Msg.show({
+                                            title: 'Save Business Hour?',
+                                            msg: 'You will change business hour to : <br/>  Day: ' + day + ' Start: ' + start + ' End: ' + end + ' <br/>Would you like to save the change?',
+                                            buttons: Ext.Msg.YESNO,
+                                            fn: function (btn, text) {
+                                                if (btn == 'yes') {
+
+                                                    recordLine.data.day = day;
+                                                    recordLine.data.start = start;
+                                                    recordLine.data.end = end;
+                                                    grid.changed = true;
+                                                    grid.changedString.push('Edited: Day:' + day + ' Start:' + start + ' End:' + end);
+                                                    curwin.close();
+                                                    grid.getView().refresh();
+                                                }
+                                            },
+                                            animEl: 'elId'
+                                        });
+                                    } else {
+                                        curwin.close();
+                                    }
+                                    ////console.log(this.up().items.items.indexOf(1));
+                                    ////console.log(this.up().items.items.indexOf(2).value);
+                                }
+                            },
+                            {
+                                xtype: 'tbfill'
+                            }
+                        ]
+
+                    },
+                ],
+                listeners:{
+                    'close':function( win ) {
+                        grid.gridEditing = false;
+                    }
+                }
+
+            });
+            grid.addOpenedWindow( win );
+            win.show();
+        }
+    },
+    deleteBusinessHour:function( grid , rowIdx , colIdx , edit_col , clickEvent , recordLine , tr ) {
+        if ( grid.gridEditing == true ) {
+            Ext.Msg.alert( 'Error' , 'A window already opened, please close it first.' );
+        } else {
+            Ext.Msg.show({
+                title:'Delete Business Hour?',
+                msg: 'You will delete business hour : <br/>  Day: '+ recordLine.data.day + ' Start: ' + recordLine.data.start + ' End: ' + recordLine.data.end + ' <br/>Would you like to save the change?',
+                buttons: Ext.Msg.YESNO,
+                fn: function(btn,text){
+                    if ( btn == 'yes' ) {
+                        grid.changed = true;
+                        grid.changedString.push('Removed: Day:' + recordLine.data.day + ' Start:' + recordLine.data.start +' End:' + recordLine.data.end);
+                        grid.getStore().removeAt(rowIdx);
+                        grid.getView().refresh();
+                    }
+                },
+                animEl: 'elId'
+            });
+        }
+    },
+
+    /*
+     Create new permission
+     - Require
+     - Return Permission Data
+     */
+    newPermission:function( grid ) {
+
+    },
+    /*
+     Delete permission
+     - Require
+     - Return Permission Data
+     */
+    deletePermission:function( grid , rowIdx , colIdx , edit_col , clickEvent , recordLine , tr ) {
+        if ( grid.gridEditing == true ) {
+            Ext.Msg.alert( 'Error' , 'A window already opened, please close it first.' );
+        } else {
+            Ext.Msg.show({
+                title:'Delete Permission?',
+                msg: 'You will delete permission : '+ recordLine.data.role + ' <br/>Would you like to save the change?',
+                buttons: Ext.Msg.YESNO,
+                fn: function(btn,text){
+                    if ( btn == 'yes' ) {
+                        grid.changed = true;
+                        grid.changedString.push('Removed: Permission:' + recordLine.data.role );
+                        grid.getStore().removeAt(rowIdx);
+                        grid.getView().refresh();
+                    }
+                },
+                animEl: 'elId'
+            });
+        }
+    },
+    /*
+     Create new permission parameter
+     - Require
+     - Return Permission Parameter Data
+     */
+    newParameter:function(){
+
+    },
+
+    copyBusinessHour:function( businessHour ){
+        var newBusinessHours = [];
+        if ( businessHour ) {
+            if ( businessHour.length > 0 ) {
+                for ( var i = 0 ; i < businessHour.length ; i ++ ) {
+                    var newBusinessHour = new Object();
+                    var oldBusinessHour = businessHour[ i ];
+                    newBusinessHour.day = oldBusinessHour.day;
+                    newBusinessHour.start = oldBusinessHour.start;
+                    newBusinessHour.end = oldBusinessHour.end;
+                    newBusinessHours.push( newBusinessHour );
+                }
+            }
+        }
+        return newBusinessHours;
+    },
+    copyInformation:function( newObject , information ) {
+        var me = this;
+        if ( information ) {
+            newObject.information = new Object();
+            if ( information.disabled ) {
+                newObject.information.disabled = information.disabled;
+            } else {
+                newObject.information.disabled = false;
+            }
+            if ( information.businessHour ) {
+                if ( information.businessHour.length > 0 ) {
+                    newObject.information.businessHour = me.copyBusinessHour( information.businessHour );
+
+                } else {
+                    newObject.information.businessHour = me.getDefaultValue( 'businessHour' );
+                }
+            } else {
+                newObject.information.businessHour = me.getDefaultValue( 'businessHour' );
+            }
+        } else {
+            newObject.information = me.getDefaultValue( 'information' );
+        }
+    },
+    copyOption:function( newObject , options ) {
+        var me = this;
+        newObject.option = [];
+        if ( options ) {
+            if ( options.length > 0 ) {
+                for ( var i = 0 ; i < options.length ; i ++ ) {
+                    var oldOption = options[ i ];
+                    var newOption = new Object();
+                    newOption.name = oldOption.name;
+                    newOption.nameEn =oldOption.nameEn;
+                    newOption.price = oldOption.price;
+                    newOption.quantity = oldOption.quantity;
+                    if ( oldOption.information ) {
+                        me.copyInformation( newOption , oldOption.information );
+                    } else {
+                        newOption.information = me.getDefaultValue( 'information' );
+                    }
+                    newObject.option.push( newOption );
+                }
+            }
+        }
+    },
+    copyOptionGroup:function( oldOptionGroup ) {
+        var me = this;
+        var newOptionGroup = new Object();
+
+        // Copy Name , NameEn, Max , Min , Quantity
+        newOptionGroup.name = oldOptionGroup.name;
+        newOptionGroup.nameEn = oldOptionGroup.nameEn;
+        newOptionGroup.max = oldOptionGroup.max;
+        newOptionGroup.min = oldOptionGroup.min;
+        newOptionGroup.quantity = oldOptionGroup.quantity;
+
+        // Copy Information
+        if ( oldOptionGroup.information ) {
+            me.copyInformation( newOptionGroup , oldOptionGroup.information );
+        } else {
+            newOptionGroup.information = me.getDefaultValue( 'information' );
+        }
+        // Copy Option
+        if ( oldOptionGroup.option.length == 0 ) {
+            Ext.Msg.alert( "Warning" , "This Option Group Doesn't Have Any Option!" );
+        } else {
+            me.copyOption( newOptionGroup , oldOptionGroup.option );
+        }
+        return newOptionGroup;
+    },
+
+    copyPermission:function( oldPermissions ){
+        var me = this;
+        var newPermissions = [];
+        if ( oldPermissions ) {
+            if ( oldPermissions.length > 0 ) {
+                for ( var i = 0 ; i < oldPermissions.length ; i ++ ) {
+                    var newPermission = new Object();
+                    var oldPermission = oldPermissions[ i ];
+                    newPermission.role = oldPermission.role;
+                    newPermission.restrict = me.copyPermissionRestricts( oldPermission.restrict );
+                    newPermission.action = me.copyPermissionActions( oldPermission.action );
+                    newPermission.parameter = me.copyPermissionParameters( oldPermission.parameter );
+                    newPermissions.push( newPermission );
+                }
+            }
+        }
+
+        return newPermissions;
+    },
+    copyPermissionParameters:function( oldParameters ) {
+        var newParameters = new Object();
+        if ( oldParameters ) {
+            for (var key in oldParameters) {
+                if (oldParameters.hasOwnProperty(key)) {
+                    var oldParameter = oldParameters[key];
+                    newParameters[ oldParameter.key ] = oldParameter.value;
+                }
+            }
+
+        }
+        return newParameters;
+    },
+    copyPermissionRestricts:function( oldRestricts ) {
+        var newRestricts = [];
+        if ( oldRestricts ) {
+            if ( oldRestricts.length > 0 ) {
+                for ( var i = 0 ; i < oldRestricts.length ; i ++ ) {
+                    var newRestrict = '';
+                    var oldRestrict = oldRestricts[ i ];
+                    newRestrict = oldRestrict;
+                    newRestricts.push( newRestrict );
+                }
+            }
+        }
+        return newRestricts;
+    },
+    copyPermissionActions:function( oldActions ) {
+        var newActions = [];
+        if ( oldActions ) {
+            if ( oldActions.length > 0 ) {
+                for ( var i = 0 ; i < oldActions.length ; i ++ ) {
+                    var newAction = '';
+                    var oldAction = oldActions[ i ];
+                    newAction = oldAction;
+                    newActions.push( newAction );
+                }
+            }
+        }
+        return newActions;
+    },
+    getComboFields:function( type , width ) {
+
+        var field = {};
+        switch ( type ) {
+            case 'dateStart':
+                field = {
+                    xtype: 'datefield',
+                    width:width,
+                    name: 'start',
+                    maxValue: new Date(),
+                    listeners: {
+                        change: function(field , newVal ,oldVal ,func ) {
+                            var end_field = field.up().items.items[ field.up().items.items.length - 2 ];
+                            if ( typeof newVal == 'object' ) {
+                                end_field.setMinValue( field.getValue() );
+                            }
+                        }
+                    }
+                };
+                break;
+            case 'dateEnd':
+                field = {
+                    xtype: 'datefield',
+                    width:width,
+                    name: 'end',
+                    minValue: 0,
+                    maxValue: new Date(),
+                    listeners: {
+                        afterrender:function( field ){
+                            field.hide();
+                        },
+                        change: function( field , newVal ,oldVal ,func ) {
+                            var start_field = field.up().items.items[ field.up().items.items.length - 4 ];
+                            if ( typeof newVal == 'object'){
+                                start_field.setMaxValue(field.getValue());
+                            }
+                        }
+                    }
+                };
+                break;
+            case 'dateEndShow':
+                field = {
+                    xtype: 'datefield',
+                    width:width,
+                    name: 'end',
+                    minValue: 0,
+                    maxValue: new Date(),
+                    listeners: {
+                        change: function( field , newVal ,oldVal ,func ) {
+                            var start_field = field.up().items.items[ field.up().items.items.length - 4 ];
+                            if ( typeof newVal == 'object'){
+                                start_field.setMaxValue(field.getValue());
+                            }
+                        }
+                    }
+                };
+                break;
+            case 'and':
+                field = {
+                    xtype : 'displayfield',
+                    value : 'And',
+                    width : width,
+                    listeners:{
+                        afterrender:function( field ){
+                            field.hide();
+                        }
+                    }
+                };
+                break;
+            case 'andShow':
+                field = {
+                    xtype : 'displayfield',
+                    value : 'And',
+                    width : width
+                };
+                break;
+            case 'statusField':
+                field = {
+                    xtype: 'textfield',
+                    width:width,
+                    enforceMaxLength: true,
+                    maxLength: '1',
+                    maskRe: /[0-9]/,
+                    maxValue: 9,
+                    minValue: 0,
+                    listeners:{
+                        afterrender:function( field ){
+                            field.hide();
+                        }
+                    }
+                };
+                break;
+            case 'statusFieldShow':
+                field = {
+                    xtype: 'textfield',
+                    width:width,
+                    enforceMaxLength: true,
+                    maxLength: '1',
+                    maskRe: /[0-9]/,
+                    maxValue: 9,
+                    minValue: 0
+                };
+                break;
+            case 'numberField':
+                field = {
+                    xtype: 'textfield',
+                    width:width,
+                    maskRe: /[0-9]/,
+                    listeners:{
+                        afterrender:function( field ){
+                            field.hide();
+                        }
+                    }
+                };
+                break;
+            case 'phoneField':
+                field = {
+                    xtype: 'textfield',
+                    width:width,
+                    maskRe: /[0-9]/,
+                    enforceMaxLength: true,
+                    //minLength: '15',
+                    maxLength: '10',
+                    listeners:{
+                        afterrender:function( field ){
+                            field.hide();
+                        }
+                    }
+                };
+                break;
+            case 'phoneFieldShow':
+                field = {
+                    xtype: 'textfield',
+                    width:width,
+                    enforceMaxLength: true,
+                    //minLength: '15',
+                    maxLength: '10',
+                    maskRe: /[0-9]/
+                };
+                break;
+            case 'valueField':
+                field = {
+                    xtype: 'textfield',
+                    width:width,
+                    maskRe: /[0-9a-zA-Z]/,
+                    listeners:{
+                        afterrender:function( field ){
+                            field.hide();
+                        }
+                    }
+                };
+                break;
+            case 'numberFieldShow':
+                field = {
+                    xtype: 'textfield',
+                    width:width,
+                    maskRe: /[0-9]/
+                };
+                break;
+            case 'valueFieldShow':
+                field = {
+                    xtype: 'textfield',
+                    width:width,
+                    maskRe: /[0-9a-zA-Z]/
+                };
+                break;
+            case 'textField':
+                field = {
+                    xtype: 'textfield',
+                    width:width,
+                    listeners:{
+                        afterrender:function( field ){
+                            field.hide();
+                        }
+                    }
+                };
+                break;
+            case 'textFieldShow':
+                field = {
+                    xtype: 'textfield',
+                    width:width
+                };
+                break;
+            case 'close':
+                field = {
+                    xtype: 'displayfield',
+                    value: 'X',
+                    style: {
+                        'border-width':'0px',
+                        cursor:'pointer'
+                    },
+                    listeners:{
+                        render: function( field , b , c , d , e , f , g ) {
+                            this.getEl().on('click', function() {
+                                field.up().up().removeSearch( field.up() );
+                            });
+                        }
+                    }
+                };
+                break;
+        }
+        return field;
+    },
+
+    /*
+     Create User Account
+     - Require origin panel , registerType , request method , username and password (json) ,returnType
+     activeStatus
+     */
+    createUserAccount:function( panel ,registerType , method , jsonData , returnType ) {
+        var me = this;
+        if ( panel && registerType && method && jsonData && returnType ) {
+            me.sendCustomAjaxRequest( panel , '/request/' + registerType , method , null , jsonData , returnType );
+        }
+    },
+
+    /*
+     Create User Profile
+     - Require origin panel , method , request method , userId ,  activationCode ,returnType
+     */
+    createUserProfile:function( panel , profileData , returnType ) {
+        var me = this;
+        var method = me.getRequestMethod( returnType );
+        var url = me.getRequestUrl( returnType );
+        me.sendCustomAjaxRequest( panel , url , method , null , profileData , returnType );
+    },
+
+    /*
+     Active & Disable User Account
+     - Require origin panel , method , request method , userId , reasonDisabled , codeDisabled , activeStatus ,returnType
+     */
+    activeUserAccount:function( panel , url , userId , reasonDisabled , codeDisabled , activeStatus , returnType ) {
+        var me = this;
+        if ( panel && url && userId && reasonDisabled && typeof codeDisabled != 'undefined' && typeof activeStatus != 'undefined' && returnType ) {
+            var jsonData = new Object();
+            jsonData.userId = userId;
+            if ( activeStatus == false ) {
+                jsonData.reasonDisabled = reasonDisabled;
+                jsonData.codeDisabled = codeDisabled;
+                jsonData.disabled = activeStatus;
+            } else if ( activeStatus == true ) {
+                jsonData.reasonDisabled = reasonDisabled;
+                jsonData.codeDisabled = codeDisabled;
+                jsonData.disabled = activeStatus;
+            }
+            jsonData = JSON.stringify( jsonData );
+            me.sendCustomAjaxRequest( panel , url , 'put' , null , jsonData , returnType );
+        }
+    },
+    /*
+     Active & Disable User Account By Code
+     - Require origin panel , method , request method , userId ,  activationCode ,returnType
+     */
+    activeUserAccountByCode:function( panel , url , userId , activationCode , returnType ) {
+        var me = this;
+        if ( panel && url && userId && activationCode && returnType ) {
+            var jsonData = new Object();
+            jsonData.userId = userId;
+            jsonData.code = activationCode;
+            jsonData = JSON.stringify( jsonData );
+            me.sendCustomAjaxRequest( panel , url , 'put' , null , jsonData , returnType );
+        }
+    },
+
+
+    getAjaxRequestResponse:function( returnMessage , returnType ) {
+        var me = this;
+        if ( returnMessage.error == false ) {
+            switch( returnType ) {
+                case 'createUserAccount':
+                    Ext.Msg.alert( 'Success' , "User's account has been created" );
+                    me.setLoading( false );
+                    break;
+                case 'createActiveUserAccount':
+                    // Search User Info - To searchUserInfo
+                    //Ext.getCmp( 'Employee-Header').sendCustomAjaxRequest( me , '/request/' + registerType , 'post' , null , params ,);
+                    break;
+            }
+        }
+    },
+
+    getRequestMethod:function( requestName ) {
+        var method = '';
+        if ( requestName ) {
+            switch( requestName ) {
+                case 'createDriverProfile':
+                    method = 'post';
+                    break;
+                case 'createStoreProfile':
+                    method = 'post';
+                    break;
+            }
+        }
+        return method;
+    },
+    getRequestUrl:function( requestName ) {
+        var method = '';
+        if ( requestName ) {
+            switch( requestName ) {
+                case 'createDriverProfile':
+                    method = '/user/driver';
+                    break;
+                case 'createStoreProfile':
+                    method = '/user/store';
+                    break;
+            }
+        }
+        return method;
+    }
 });

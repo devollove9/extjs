@@ -89,27 +89,28 @@ Ext.define( '517Employee.view.restaurant.dish.DishDetailController', {
                                 var dishInfo = new Object();
                                 if ( optionGroupList.changedFlag == true && totalOptionGroupNumber != 0) {
 
-                                    var newOptionGroups = [];
-                                    ////console.log(optionGroupList.getView().getStore().data.items);
-                                    for ( var i = 0 ; i < optionGroupList.getView().getStore().data.items.length ; i ++ ) {
-                                        var curOptionGroup = new Object();
-                                        var editedOptionGroup = optionGroupList.getView().getStore().data.items[i].data;
-                                        curOptionGroup.name = editedOptionGroup.name;
-                                        curOptionGroup.nameEn = editedOptionGroup.nameEn;
-                                        curOptionGroup.max = editedOptionGroup.max;
-                                        curOptionGroup.min = editedOptionGroup.min;
-                                        curOptionGroup.quantity = editedOptionGroup.quantity;
-                                        if ( editedOptionGroup.information ) curOptionGroup.information = editedOptionGroup.information;
-                                        curOptionGroup.option = editedOptionGroup.option;
+                                    var newOptionGroups = optionGroupList.getOptionGroup();
+                                    dishInfo.optionGroup = newOptionGroups;
+                                    /*///console.log(optionGroupList.getView().getStore().data.items);
+                                     for ( var i = 0 ; i < optionGroupList.getView().getStore().data.items.length ; i ++ ) {
+                                     var curOptionGroup = new Object();
+                                     var editedOptionGroup = optionGroupList.getView().getStore().data.items[i].data;
+                                     curOptionGroup.name = editedOptionGroup.name;
+                                     curOptionGroup.nameEn = editedOptionGroup.nameEn;
+                                     curOptionGroup.max = editedOptionGroup.max;
+                                     curOptionGroup.min = editedOptionGroup.min;
+                                     curOptionGroup.quantity = editedOptionGroup.quantity;
+                                     if ( editedOptionGroup.information ) curOptionGroup.information = editedOptionGroup.information;
+                                     curOptionGroup.option = editedOptionGroup.option;
 
-                                        //curOptionGroup.information = editedOptionGroup.information;
-                                        // for ( var j = 0 ; j < editedOptionGroup.option.length ++ ; j++ ) {
-                                        //    var curOption = new Object();
-                                        //    curOption. = editedOptionGroup.option[j].
-                                        //}
-                                        newOptionGroups.push(curOptionGroup);
-                                    }
-                                    dishInfo.optionGroup=newOptionGroups;
+                                     //curOptionGroup.information = editedOptionGroup.information;
+                                     // for ( var j = 0 ; j < editedOptionGroup.option.length ++ ; j++ ) {
+                                     //    var curOption = new Object();
+                                     //    curOption. = editedOptionGroup.option[j].
+                                     //}
+                                     newOptionGroups.push(curOptionGroup);
+                                     }
+                                     */
                                     old_record.data.optionGroup = newOptionGroups;
 
                                 }

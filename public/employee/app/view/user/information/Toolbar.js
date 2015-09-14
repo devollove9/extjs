@@ -59,7 +59,7 @@ Ext.define('517Employee.view.user.information.Toolbar', {
                             //height:84,
                             text:'Add Filter',
                             handler:function(){
-                                this.up().up().addSearchContainer();
+                                this.up().up().up().addSearchContainer();
                             }
                         },
                         {
@@ -68,8 +68,20 @@ Ext.define('517Employee.view.user.information.Toolbar', {
                             //height:84,
                             text:'Search',
                             handler:function(){
-                                this.up().up().searchUser();
+                                this.up().up().up().searchUser();
                             }
+                        },
+                        {
+                            xtype: 'button',
+                            width:84,
+                            //height:84,
+                            text:'Clear',
+                            handler:function(){
+                                this.up().up().up().clearUserList();
+                            }
+                        },
+                        {
+                            xtype : 'tbfill'
                         },
                         {
                             xtype: 'button',
@@ -77,12 +89,14 @@ Ext.define('517Employee.view.user.information.Toolbar', {
                             //height:84,
                             text:'New User',
                             handler:function(){
-                                this.up().up().newUser();
+                                this.up().up().up().newUser();
                             }
                         },
                         {
                             xtype : 'tbfill'
-                        }
+                        },
+
+
 
                     ]
 
@@ -114,7 +128,10 @@ Ext.define('517Employee.view.user.information.Toolbar', {
             }
         }
     ],
-
+    clearUserList:function() {
+        Ext.getCmp( 'Employee-User-Information-UserList' ).resetAll();
+        Ext.getCmp( 'Employee-User-Information-UserInfo' ).resetAll();
+    },
     doNavigation:function(panel){
         //console.log( panel );
     },
@@ -129,9 +146,34 @@ Ext.define('517Employee.view.user.information.Toolbar', {
 
     },
     searchUser:function(){
+        Ext.getCmp( 'Employee-User-Information-UserInfo' ).resetAll();
         Ext.getCmp( 'Employee-User-Information-UserList').searchUser();
     },
     newUser:function(){
+        var me = this;
+        var win;
+        if ( me.gridEditing == true ) {
+            Ext.Msg.alert( 'Error' , 'A window already opened, please close it first.' );
+        } else {
+            if (!win) {
+                var win = Ext.create('Ext.window.Window', {
+                    xtype: 'employee-user-information-userCreation',
+                    title: 'Create New User',
+                    width:430,resizable:false,
+                    height:170,
+                    listeners:{
+                        'close':function( win ) {
+                            me.gridEditing = false;
+                        }
+                    }
+                });
+                var UserRegisterPanel = Ext.create( '517Employee.view.user.information.userRegister.UserRegisterView' );
+                win.insert( UserRegisterPanel );
+                me.addOpenedWindow( win ) ;
+                win.show();
+            }
+        }
+
 
     },
     addOpenedWindow:function ( window ) {
@@ -619,19 +661,6 @@ Ext.define('517Employee.view.user.information.Toolbar', {
                 break;
         }
         return field;
-    },
-
-    getTimeOfDay:function ( timestamp , moment ) {
-        var ts = 0;
-        var newTime = new Date( ( timestamp +  Ext.getCmp( 'Employee-Header' ).getServerTimeDifference() ) );
-        var startOfDay = new Date( newTime.getFullYear() , newTime.getMonth() , newTime.getDate() );
-        var timestamp = startOfDay.getTime();
-        if ( moment == 'start' ) {
-            ts = timestamp;
-        } else if ( moment == 'end' ) {
-            ts = timestamp + 86399*1000;
-        }
-        return ts;
     }
 
 });
