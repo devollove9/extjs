@@ -31,6 +31,7 @@ Ext.define('Ext.ux.GMapPanel', {
 
     },
     createMap: function(center, marker) {
+        var me = this;
         var options = Ext.apply({}, this.mapOptions);
         //console.log(options)
 
@@ -40,6 +41,8 @@ Ext.define('Ext.ux.GMapPanel', {
             mapTypeId: google.maps.MapTypeId.HYBRID
         });
         this.gmap = new google.maps.Map(this.body.dom, options);
+        me.updateTrafficOnMap( this.gmap , null, 1);
+
         if (marker) {
             this.addMarker(Ext.applyIf(marker, {
                 position: center
@@ -48,6 +51,21 @@ Ext.define('Ext.ux.GMapPanel', {
 
         //Ext.each(this.markers, this.addMarker, this);
         this.fireEvent('mapready', this, this.gmap);
+    },
+    updateTrafficOnMap:function( map , trafficLayer , on ) {
+        var me = this;
+        var map = this.gmap;
+        if(on == 0) {
+            trafficLayer.setMap(null);
+            setTimeout(function() { me.updateTrafficOnMap(map, null, 1) }, 1);
+        }
+        if(on == 1) {
+            var trafficLayer2 = new google.maps.TrafficLayer();
+            trafficLayer2.setMap(map);
+            me.redraw();
+            // after 30s  update the traffic map
+            setTimeout(function() { me.updateTrafficOnMap(map, trafficLayer2, 0)}, 30000);
+        }
     },
     addMarker: function(marker, status, index, type) {
         marker = Ext.apply({

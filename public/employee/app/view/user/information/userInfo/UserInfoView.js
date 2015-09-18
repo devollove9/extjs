@@ -7,7 +7,9 @@ Ext.define( '517Employee.view.user.information.userInfo.UserInfoView' , {
     xtype: 'employee-user-information-userInfo',
     //controller:'employee-user-information-userInfo-controller',
     requires:[
-        '517Employee.view.user.information.userInfo.userPermission.UserPermission'
+        '517Employee.view.user.information.userInfo.userPermission.UserPermission',
+        '517Employee.view.user.information.userInfo.userAddress.UserAddress',
+        '517Employee.view.user.information.userInfo.userPayment.UserPayment'
     ],
     title: 'User Info',
     header:{ titleAlign: 'left' , height:30 , padding:'0 10 0 10', margin:'0 0 0 0' },
@@ -225,7 +227,16 @@ Ext.define( '517Employee.view.user.information.userInfo.UserInfoView' , {
         {
             xtype:'employee-user-information-userInfo-userPermission',
             id:'Employee-User-Information-UserInfo-UserPermission'
+        },
+        {
+            xtype:'employee-user-information-userInfo-userAddress',
+            id:'Employee-User-Information-UserInfo-UserAddress'
+        },
+        {
+            xtype:'employee-user-information-userInfo-userPayment',
+            id:'Employee-User-Information-UserInfo-userPayment'
         }
+
 
     ],
 

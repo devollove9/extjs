@@ -141,9 +141,13 @@ Ext.define('517Employee.view.main.Header', {
                     listeners:{
                         afterRender:function(  ){
                             var me = this;
+                            var url = '/region';
+                            if ( me.up().up().checkUserPermissions( 'admin' ) == false ) {
+                                url = '/public/region';
+                            }
                             Ext.Ajax.request({
                                 method:'get',
-                                url: me.up().up().getServerUrl() + '/region',
+                                url: me.up().up().getServerUrl() + url,
                                 headers:me.up().up().getHeaders( 'get' ),
                                 disableCaching:false,
                                 success:function( result ){
@@ -515,7 +519,7 @@ Ext.define('517Employee.view.main.Header', {
                 if ( Error == false ) {
                     //var elapsed = Ext.Date.getElapsed( new Date( response.data/1000 ) , new Date() );
                     var elapsed = ( new Date() ).getTime() - Math.round( response.data / 1000 );
-                    console.log( elapsed );
+                    //console.log( elapsed );
 
                     me.elapsedServerTime = elapsed;
                 }
